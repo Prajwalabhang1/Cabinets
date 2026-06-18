@@ -1,0 +1,40 @@
+# ── Python cache ──────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ── Virtual environments ───────────────────────────────────────────────────
+.venv/
+venv/
+env/
+
+# ── OS files ──────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Large binary / generated output files ─────────────────────────────────
+# Keep source PDFs (architectural drawings) but skip large generated outputs
+OUTPUT_ARCH_ANALYSIS.pdf
+EXTRACTION_OUTPUT/
+
+# ── Temporary Excel lock files ────────────────────────────────────────────
+~$*.xlsx
+~$*.xls
+
+# ── API keys / secrets ────────────────────────────────────────────────────
+.env
+*.env
+secrets.py
+config_local.py
+
+# ── IDE ───────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.code-workspace

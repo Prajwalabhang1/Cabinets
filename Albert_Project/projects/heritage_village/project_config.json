@@ -1,0 +1,102 @@
+{
+  "project_id": "23-045",
+  "project_name": "HERITAGE VILLAGE",
+  "date": "2024-11-05",
+  "revision": "3.0",
+  "drawn_by": "A.C",
+  "checker": "A.C",
+  "owner": "Atlantic Pacific Communities",
+  "architect": "Corwil Architects",
+  "address": "26905 SW 142nd Ave, Homestead, FL 33032",
+  "finish": "Standard 1",
+  "door_style": "Shaker",
+  "finish_tier": 1,
+  "building_type": "Residential — Type V-A",
+
+  "gp_target_pct": 0.35,
+  "commission_pct": 0.05,
+  "bond_pct": 0.015,
+  "price_list_tier": 1,
+  "eur_usd_rate": 1.09,
+
+  "price_list_path": "Heritage/02_Price_List/MS PRICE LIST LEVEL 1 -90CM.xlsx",
+
+  "unit_plan_pdfs": {
+    "A-1":      "Heritage/01_Architectural_Drawings/Unit_Plans/A-1_UNIT_A1.pdf",
+    "A-1a ACC": "Heritage/01_Architectural_Drawings/Unit_Plans/A-1a_UNIT_A1_ACC.pdf",
+    "B-1":      "Heritage/01_Architectural_Drawings/Unit_Plans/B-1_UNIT_B1.pdf",
+    "B-1a ACC": "Heritage/01_Architectural_Drawings/Unit_Plans/B-1a_UNIT_B1_ACC.pdf",
+    "C-1":      "Heritage/01_Architectural_Drawings/Unit_Plans/C-1_UNIT_C1.pdf",
+    "C-2":      "Heritage/01_Architectural_Drawings/Unit_Plans/C-2_UNIT_C2.pdf",
+    "C-2a ACC": "Heritage/01_Architectural_Drawings/Unit_Plans/C-2a_UNIT_C2_ACC.pdf",
+    "C-3":      "Heritage/01_Architectural_Drawings/Unit_Plans/C-3_UNIT_C3.pdf",
+    "D-1N":     "Heritage/01_Architectural_Drawings/Unit_Plans/D-1N_UNIT_D1N.pdf",
+    "D-1":      "Heritage/01_Architectural_Drawings/Unit_Plans/D-1_UNIT_D1.pdf",
+    "D-1a ACC": "Heritage/01_Architectural_Drawings/Unit_Plans/D-1a_UNIT_D1_ACC.pdf",
+    "D-1A ACC": "Heritage/01_Architectural_Drawings/Unit_Plans/D-1A_UNIT_D1A_ACC.pdf",
+    "ST-1a ACC":"Heritage/01_Architectural_Drawings/Unit_Plans/ST-1a_UNIT_ST1_ACC.pdf",
+    "ST-1":     "Heritage/01_Architectural_Drawings/Unit_Plans/ST-1_UNIT_ST1.pdf"
+  },
+
+  "floor_plan_pdfs": [
+    "Heritage/01_Architectural_Drawings/Floor_Plans/GROUND_FLOOR_PLAN.pdf",
+    "Heritage/01_Architectural_Drawings/Floor_Plans/2ND_FLOOR_PLAN.pdf",
+    "Heritage/01_Architectural_Drawings/Floor_Plans/3RD_FLOOR_PLAN.pdf"
+  ],
+
+  "unit_counts": {
+    "A-1":       15,
+    "A-1a ACC":   3,
+    "B-1":       12,
+    "B-1a ACC":   3,
+    "C-1":        8,
+    "C-2":        6,
+    "C-2a ACC":   2,
+    "C-3":        6,
+    "D-1N":       4,
+    "D-1":        1,
+    "D-1a ACC":   2,
+    "D-1A ACC":   2,
+    "ST-1a ACC":  4,
+    "ST-1":       6
+  },
+
+  "ada_units": ["A-1a ACC", "B-1a ACC", "C-2a ACC", "D-1a ACC", "D-1A ACC", "ST-1a ACC"],
+
+  "unit_descriptions": {
+    "A-1":       "1-Bedroom / 1-Bath — FHA Type B",
+    "A-1a ACC":  "1-Bedroom / 1-Bath — Fully Accessible ADA",
+    "B-1":       "2-Bedroom / 2-Bath — FHA Type B",
+    "B-1a ACC":  "2-Bedroom / 2-Bath — Fully Accessible ADA",
+    "C-1":       "3-Bedroom / 2-Bath — FHA Type B",
+    "C-2":       "3-Bedroom / 2-Bath — FHA Type B",
+    "C-2a ACC":  "3-Bedroom / 2-Bath — Fully Accessible ADA",
+    "C-3":       "3-Bedroom / 2-Bath — FHA Type B",
+    "D-1N":      "4-Bedroom / 2-Bath — FHA Type B",
+    "D-1":       "4-Bedroom / 2-Bath — FHA Type B",
+    "D-1a ACC":  "4-Bedroom / 2-Bath — Fully Accessible ADA",
+    "D-1A ACC":  "4-Bedroom / 2-Bath — Fully Accessible ADA",
+    "ST-1a ACC": "Studio Apartment — Fully Accessible ADA",
+    "ST-1":      "Studio Apartment — FHA Type B"
+  },
+
+  "general_notes": [
+    "ALL CABINETS ARE 90CM DEPTH STANDARD",
+    "FINISH: STANDARD 1",
+    "ALL HARDWARE CONCEALED / SOFT CLOSE",
+    "ADA UNITS: BASE CAB HEIGHT MAX 864MM / COUNTERTOP MAX 34\"",
+    "LINEN CABINETS: 18\"W × 84\"H × 18\"D",
+    "PANTRY CABINETS: 15\"W × 84\"H × 24\"D",
+    "COORDINATION WITH MEP BY OTHERS"
+  ],
+
+  "reference_excel": "Heritage/03_Shop_Drawings/05_Cabinet_Estimation_Shop_Drawings_Heritage_Village.xlsx",
+
+  "company": {
+    "name": "ITALIAN KITCHEN AND BATH",
+    "tagline": "kitchen | bath | tile | closet",
+    "address": "1777 NW 72TH AVE. MIAMI FL, 33126",
+    "phone": "T. 305.599.9000  F. 305.599.9870",
+    "website": "www.italiankitchenandbath.com"
+  }
+}

@@ -1,0 +1,78 @@
+{
+  "project_id": "23-033",
+  "project_name": "CASA FAMILIA",
+  "date": "11/05/2024",
+  "revision": "5.0",
+  "drawn_by": "A.C",
+  "checker": "A.C",
+  "owner": "Atlantic Pacific Communities",
+  "architect": "Corwil Architects",
+  "address": "10951 SW 84th St., Miami-Dade, Florida 33173",
+  "finish": "K019 SILVER LIBERTY ELM",
+  "door_style": "Shaker",
+  "finish_tier": 1,
+
+  "gp_target_pct": 0.35,
+  "commission_pct": 0.05,
+  "bond_pct": 0.015,
+  "price_list_tier": 1,
+  "eur_usd_rate": 1.09,
+
+  "price_list_path": "Casa familia/02_Price_List/MS PRICE LIST LEVEL 1 -90CM.xlsx",
+
+  "unit_plan_pdfs": {
+    "A1":     "Casa familia/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.00_UNIT_A1_FHA.pdf",
+    "A2-ADA": "Casa familia/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.01_UNIT_A2_ADA.pdf",
+    "A3":     "Casa familia/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.02_UNIT_A3.pdf",
+    "B1":     "Casa familia/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.03_UNIT_B1.pdf",
+    "B2-ADA": "Casa familia/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.04_UNIT_B2_ADA.pdf"
+  },
+
+  "floor_plan_pdfs": [
+    "Casa familia/01_Architectural_Drawings/Floor_Plans/A-2.00_GROUND_FLOOR_PLAN.pdf",
+    "Casa familia/01_Architectural_Drawings/Floor_Plans/A-2.01_2ND_FLOOR_PLAN.pdf",
+    "Casa familia/01_Architectural_Drawings/Floor_Plans/A-2.02_3RD_FLOOR_PLAN.pdf"
+  ],
+
+  "unit_counts": {
+    "A1":     14,
+    "A2-ADA":  3,
+    "A3":      2,
+    "B1":      3,
+    "B2-ADA":  3
+  },
+
+  "ada_units": ["A2-ADA", "B2-ADA"],
+
+  "appliances_regular": [
+    "28\" REFRIGERATOR GE MODEL GTE18GSNRSS",
+    "30\" GAS RANGE GE MODEL JGBS60SPSS",
+    "MICROWAVE GE MODEL JEM3072DHWW",
+    "24\" DISHWASHER GE MODEL GDF535PSRSS"
+  ],
+  "appliances_ada": [
+    "28\" REFRIGERATOR GE MODEL GTE18GSNRSS",
+    "30\" GAS RANGE GE MODEL JGBS60SPSS",
+    "MICROWAVE GE MODEL JEM3072DHWW",
+    "24\" DISHWASHER GE MODEL GDF535PSRSS"
+  ],
+
+  "general_notes": [
+    "ALL CABINETS ARE 90CM DEPTH",
+    "FINISH: K019 SILVER LIBERTY ELM",
+    "ALL HARDWARE CONCEALED",
+    "SOFT CLOSE DOORS AND DRAWERS STANDARD",
+    "ADA UNITS: BASE CABINET HEIGHT 864MM MAX / COUNTERTOP HEIGHT 34\" MAX",
+    "COORDINATION WITH MECHANICAL AND ELECTRICAL BY OTHERS"
+  ],
+
+  "reference_shop_drawing_pdf": "Casa familia/03_Shop_Drawings/ITALIANKB SHOP DRAWINGS - 23-033 CASA FAMILIA.pdf",
+
+  "company": {
+    "name": "ITALIAN KITCHEN AND BATH",
+    "tagline": "kitchen | bath | tile | closet",
+    "address": "1777 NW 72TH AVE. MIAMI FL, 33126",
+    "phone": "T. 305.599.9000  F. 305.599.9870",
+    "website": "www.italiankitchenandbath.com"
+  }
+}
