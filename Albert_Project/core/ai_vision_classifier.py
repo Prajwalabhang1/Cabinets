@@ -84,23 +84,25 @@ class CabinetItem:
 
     @property
     def code(self) -> str:
-        """Generate a cabinet code from type and dimensions."""
+        """Generate a standard cabinet code from type and dimensions."""
         w_in = round(self.width_mm / 25.4)
         h_in = round(self.height_mm / 25.4)
         type_prefix = {
-            "upper_wall":       f"W{w_in}{h_in}",
+            # Width-only codes
             "base":             f"B{w_in}",
             "sink_base":        f"SB{w_in}",
             "dw_adjacent":      f"DWA{w_in}",
-            "microwave_shelf":  f"MW{w_in}",
-            "pantry":           f"T{w_in}{h_in}",
-            "corner_upper":     f"WC{w_in}",
             "corner_base":      f"BC{w_in}",
             "vanity":           f"VAN{w_in}",
             "medicine_cabinet": f"MED{w_in}",
             "linen":            f"LIN{w_in}",
-            "appliance_space":  f"APPL",
-            "filler":           f"FIL",
+            "filler":           f"FIL{w_in}",
+            # Width+height codes
+            "upper_wall":       f"W{w_in}-{h_in}",
+            "microwave_shelf":  f"MW{w_in}-{h_in}",
+            "pantry":           f"T{w_in}-{h_in}",
+            "corner_upper":     f"WC{w_in}",
+            "appliance_space":  "APPL",
             "unknown":          f"UNK",
         }.get(self.cabinet_type, f"CAB{w_in}")
         if self.is_ada:

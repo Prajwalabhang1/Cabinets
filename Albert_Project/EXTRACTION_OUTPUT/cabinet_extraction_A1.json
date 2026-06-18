@@ -1,0 +1,8812 @@
+{
+  "project": "Casa Familia",
+  "unit_type": "A1 (1BR FHA)",
+  "pdf_source": "A-6.00-FHA-UNIT-A1-FLOOR-PLAN-&-DETAILS-Rev.10.pdf",
+  "extraction_summary": {
+    "total_text_spans": 636,
+    "label_spans": 93,
+    "dimension_spans": 214,
+    "cabinet_rects": 202,
+    "crop_images_saved": 22
+  },
+  "label_spans": [
+    {
+      "text": "DENOTES QUANTITY",
+      "bbox": [
+        2152.43896484375,
+        107.66222381591797,
+        2232.665771484375,
+        117.21769714355469
+      ],
+      "origin": [
+        2152.43896484375,
+        115.0806884765625
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "UNIT PLAN - WALL & SYMBOL LEGEND",
+      "bbox": [
+        1904.7591552734375,
+        38.85282897949219,
+        2285.87353515625,
+        63.774139404296875
+      ],
+      "origin": [
+        1904.7591552734375,
+        58.20068359375
+      ],
+      "size": 24.92,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "UNIT NOTES",
+      "bbox": [
+        2034.7191162109375,
+        303.5722351074219,
+        2158.751220703125,
+        328.4942626953125
+      ],
+      "origin": [
+        2034.7191162109375,
+        322.920654296875
+      ],
+      "size": 24.92,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "FACE OF CORE.  THICKNESS OF BATHROOM TILE FINISHES ARE NOT INCLUDED IN WALL ASSEMBLY AND",
+      "bbox": [
+        1906.5599365234375,
+        379.94232177734375,
+        2314.578857421875,
+        389.49755859375
+      ],
+      "origin": [
+        1906.5599365234375,
+        387.360595703125
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "REFER TO OVERALL FLOOR PLAN FOR OVERALL DIMENSION OF UNITS.  OVERALL DIMENSION OF UNITS",
+      "bbox": [
+        1906.56005859375,
+        413.06219482421875,
+        2311.33837890625,
+        422.617431640625
+      ],
+      "origin": [
+        1906.56005859375,
+        420.48046875
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "FOR WINDOW TYPE AND LOCATION PLEASE REFER TO OVERALL FLOOR PLANS.",
+      "bbox": [
+        1906.5589599609375,
+        490.46209716796875,
+        2216.778076171875,
+        500.017333984375
+      ],
+      "origin": [
+        1906.5589599609375,
+        497.88037109375
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "ALL DOORS INTO ROOMS AND CLOSETS SHALL HAVE A CLEAR PASSAGE WIDTH OF 32\" MIN.",
+      "bbox": [
+        1906.554443359375,
+        512.5420532226562,
+        2262.49755859375,
+        522.0972900390625
+      ],
+      "origin": [
+        1906.554443359375,
+        519.9603271484375
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "UNLESS NOTED",
+      "bbox": [
+        1906.5594482421875,
+        523.5820922851562,
+        1967.656005859375,
+        533.1373291015625
+      ],
+      "origin": [
+        1906.5594482421875,
+        531.0003662109375
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "INSTALLATION OF HIGH SPEED INTERNET SHALL BE PROVIDED.",
+      "bbox": [
+        1906.5594482421875,
+        545.6620483398438,
+        2153.41796875,
+        555.21728515625
+      ],
+      "origin": [
+        1906.5594482421875,
+        553.080322265625
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "NOTE: SEE SHEETS A-6.05A - A-6.06 FOR BATHROOM FIXTURE LEGEND",
+      "bbox": [
+        1906.5594482421875,
+        567.8619995117188,
+        2180.296142578125,
+        577.417236328125
+      ],
+      "origin": [
+        1906.5594482421875,
+        575.2802734375
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "10. FOR UNIT TYPE LIGHTING AND VENTILATION CALCULATIONS, SEE  SHEET 8.00B.",
+      "bbox": [
+        1888.5595703125,
+        589.9419555664062,
+        2217.1376953125,
+        599.4971923828125
+      ],
+      "origin": [
+        1888.5595703125,
+        597.3602294921875
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "CEILING  NOTES",
+      "bbox": [
+        2015.2791748046875,
+        745.1722412109375,
+        2179.02978515625,
+        770.093994140625
+      ],
+      "origin": [
+        2015.2791748046875,
+        764.5204467773438
+      ],
+      "size": 24.92,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "RATED JUNCTION BOX INSTALLED TO MAINTAIN 1 HOUR SLAB RATING. ALL DISCREPANCIES SHALL BE",
+      "bbox": [
+        1906.5587158203125,
+        800.9020385742188,
+        2305.09716796875,
+        810.457275390625
+      ],
+      "origin": [
+        1906.5587158203125,
+        808.3203125
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "ALL ELEVATIONS SHOWN ON PLAN TO BE ABOVE FINISH FLOOR SLAB (TYP. U.O.N.).",
+      "bbox": [
+        1906.554443359375,
+        822.9819946289062,
+        2230.097412109375,
+        832.5372314453125
+      ],
+      "origin": [
+        1906.554443359375,
+        830.4002685546875
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "ALL FIXTURES SHALL BE NEW & INSTALLED AS PER MANUFACTURER'S RECOMMENDATION.",
+      "bbox": [
+        1906.55615234375,
+        911.4218139648438,
+        2261.060791015625,
+        920.97705078125
+      ],
+      "origin": [
+        1906.55615234375,
+        918.840087890625
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "MINIMUM OF 7'-10\" SHALL BE THE TYP. CEILING HEIGHT-UNLESS OTHERWISE NOTED.",
+      "bbox": [
+        1906.5606689453125,
+        922.4617309570312,
+        2236.4599609375,
+        932.0169677734375
+      ],
+      "origin": [
+        1906.5606689453125,
+        929.8800048828125
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "NOTES:",
+      "bbox": [
+        2058.239013671875,
+        998.0113525390625,
+        2134.60107421875,
+        1022.93408203125
+      ],
+      "origin": [
+        2058.239013671875,
+        1017.3602905273438
+      ],
+      "size": 24.92,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "MATERIALS. OPERABLE PARTS SHALL COMPLY WITH ADA REQUIREMENTS AND BE INSTALLED AT 48” MAX. AFF.",
+      "bbox": [
+        1881.9591064453125,
+        1059.3759765625,
+        2316.019287109375,
+        1068.93896484375
+      ],
+      "origin": [
+        1881.9591064453125,
+        1066.80029296875
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "KITCHEN",
+      "bbox": [
+        255.7198944091797,
+        272.0311584472656,
+        291.8303527832031,
+        280.8564147949219
+      ],
+      "origin": [
+        255.7198944091797,
+        278.880615234375
+      ],
+      "size": 8.83,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "W.I.C.",
+      "bbox": [
+        458.63983154296875,
+        377.2707214355469,
+        480.820556640625,
+        386.0965270996094
+      ],
+      "origin": [
+        458.63983154296875,
+        384.12060546875
+      ],
+      "size": 8.83,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "BATHROOM",
+      "bbox": [
+        527.3997802734375,
+        212.5126953125,
+        575.329833984375,
+        221.33595275878906
+      ],
+      "origin": [
+        527.3997802734375,
+        219.360595703125
+      ],
+      "size": 8.82,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "DARK GREY DENOTES CEILING",
+      "bbox": [
+        1206.719482421875,
+        700.8252563476562,
+        1329.2587890625,
+        710.37646484375
+      ],
+      "origin": [
+        1206.719482421875,
+        708.2404174804688
+      ],
+      "size": 9.55,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "KITCHEN",
+      "bbox": [
+        896.399658203125,
+        292.08184814453125,
+        932.491943359375,
+        300.89337158203125
+      ],
+      "origin": [
+        896.399658203125,
+        298.920654296875
+      ],
+      "size": 8.81,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "BATHROOM",
+      "bbox": [
+        1162.7991943359375,
+        230.5218048095703,
+        1210.71142578125,
+        239.3333282470703
+      ],
+      "origin": [
+        1162.7991943359375,
+        237.360595703125
+      ],
+      "size": 8.81,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "W.I.C.",
+      "bbox": [
+        1071.5994873046875,
+        363.3655090332031,
+        1093.7698974609375,
+        372.1722106933594
+      ],
+      "origin": [
+        1071.5994873046875,
+        370.2005615234375
+      ],
+      "size": 8.81,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "SINK",
+      "bbox": [
+        884.9996337890625,
+        1338.033203125,
+        903.3018188476562,
+        1347.5738525390625
+      ],
+      "origin": [
+        884.9996337890625,
+        1345.440185546875
+      ],
+      "size": 9.54,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "RANGE",
+      "bbox": [
+        874.0796508789062,
+        1200.9940185546875,
+        901.980712890625,
+        1210.5338134765625
+      ],
+      "origin": [
+        874.0796508789062,
+        1208.4002685546875
+      ],
+      "size": 9.54,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "REF.",
+      "bbox": [
+        1033.799560546875,
+        1004.2012939453125,
+        1051.691162109375,
+        1013.731689453125
+      ],
+      "origin": [
+        1033.799560546875,
+        1011.6002807617188
+      ],
+      "size": 9.53,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "DW",
+      "bbox": [
+        887.6396484375,
+        1420.1195068359375,
+        900.6563720703125,
+        1429.6519775390625
+      ],
+      "origin": [
+        887.6396484375,
+        1427.5201416015625
+      ],
+      "size": 9.53,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "SINK",
+      "bbox": [
+        1361.9993896484375,
+        1033.23974609375,
+        1380.2926025390625,
+        1042.772216796875
+      ],
+      "origin": [
+        1361.9993896484375,
+        1040.640380859375
+      ],
+      "size": 9.53,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "MICROWAVE",
+      "bbox": [
+        1455.119384765625,
+        977.671875,
+        1504.3834228515625,
+        987.2144165039062
+      ],
+      "origin": [
+        1455.119384765625,
+        985.080322265625
+      ],
+      "size": 9.54,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "REFER TO UNIT RCP FOR CEILING HEIGHT (TYP.)",
+      "bbox": [
+        1280.51953125,
+        847.9500732421875,
+        1469.6099853515625,
+        857.4949951171875
+      ],
+      "origin": [
+        1280.51953125,
+        855.3603515625
+      ],
+      "size": 9.54,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "UPPER CABINETS",
+      "bbox": [
+        1306.0794677734375,
+        864.1506958007812,
+        1374.6656494140625,
+        873.69482421875
+      ],
+      "origin": [
+        1306.0794677734375,
+        871.5603637695312
+      ],
+      "size": 9.54,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "(TYP. ALL CABINETS)",
+      "bbox": [
+        1452.119384765625,
+        1034.90771484375,
+        1532.6070556640625,
+        1044.4556884765625
+      ],
+      "origin": [
+        1452.119384765625,
+        1042.3203125
+      ],
+      "size": 9.55,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "RANGE",
+      "bbox": [
+        1470.83935546875,
+        1101.3876953125,
+        1498.74462890625,
+        1110.9356689453125
+      ],
+      "origin": [
+        1470.83935546875,
+        1108.80029296875
+      ],
+      "size": 9.55,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "DW",
+      "bbox": [
+        1259.51953125,
+        1111.107666015625,
+        1272.552978515625,
+        1120.6556396484375
+      ],
+      "origin": [
+        1259.51953125,
+        1118.520263671875
+      ],
+      "size": 9.55,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "CABINET OVER REF. TO BE 24\" DEPTH",
+      "bbox": [
+        1510.679443359375,
+        1291.23095703125,
+        1658.1728515625,
+        1300.7744140625
+      ],
+      "origin": [
+        1510.679443359375,
+        1298.64013671875
+      ],
+      "size": 9.54,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "REF.",
+      "bbox": [
+        1521.599365234375,
+        1495.5909423828125,
+        1539.497314453125,
+        1505.1343994140625
+      ],
+      "origin": [
+        1521.599365234375,
+        1503.0001220703125
+      ],
+      "size": 9.54,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "KITCHEN",
+      "bbox": [
+        1413.359375,
+        277.6855773925781,
+        1449.4447021484375,
+        286.4922790527344
+      ],
+      "origin": [
+        1413.359375,
+        284.5206298828125
+      ],
+      "size": 8.81,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "BATHROOM",
+      "bbox": [
+        1719.119140625,
+        225.70558166503906,
+        1767.06298828125,
+        234.53794860839844
+      ],
+      "origin": [
+        1719.119140625,
+        232.560546875
+      ],
+      "size": 8.83,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "KITCHEN",
+      "bbox": [
+        240.7198944091797,
+        1064.145263671875,
+        276.83990478515625,
+        1072.9776611328125
+      ],
+      "origin": [
+        240.7198944091797,
+        1071.000244140625
+      ],
+      "size": 8.83,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "BATHROOM",
+      "bbox": [
+        516.60009765625,
+        995.1453247070312,
+        564.544189453125,
+        1003.9777221679688
+      ],
+      "origin": [
+        516.60009765625,
+        1002.0003051757812
+      ],
+      "size": 8.83,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "FHA UNIT A1 FLOOR PLAN &",
+      "bbox": [
+        2447.833740234375,
+        642.8023071289062,
+        2476.31494140625,
+        976.6802978515625
+      ],
+      "origin": [
+        2471.51904296875,
+        976.6802978515625
+      ],
+      "size": 28.48,
+      "font": "Calibri,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "SCALE:  1/4\" = 1'-0\"",
+      "bbox": [
+        158.6399383544922,
+        760.6502685546875,
+        276.7911682128906,
+        773.2130126953125
+      ],
+      "origin": [
+        158.6399383544922,
+        770.4004516601562
+      ],
+      "size": 12.56,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "UNIT A1 TYP. FLOOR PLAN",
+      "bbox": [
+        158.6399383544922,
+        729.2161254882812,
+        485.156494140625,
+        754.1405029296875
+      ],
+      "origin": [
+        158.6399383544922,
+        748.5604248046875
+      ],
+      "size": 24.92,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "SCALE:  1/4\" = 1'-0\"",
+      "bbox": [
+        767.5197143554688,
+        760.6502685546875,
+        885.6710205078125,
+        773.2130126953125
+      ],
+      "origin": [
+        767.5197143554688,
+        770.4004516601562
+      ],
+      "size": 12.56,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "UNIT A1 TYP. RCP",
+      "bbox": [
+        767.5197143554688,
+        729.2179565429688,
+        985.6212768554688,
+        754.1400146484375
+      ],
+      "origin": [
+        767.5197143554688,
+        748.5604248046875
+      ],
+      "size": 24.92,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "SCALE:  1/2\" = 1'-0\"",
+      "bbox": [
+        855.11962890625,
+        1554.4498291015625,
+        973.2708740234375,
+        1567.0125732421875
+      ],
+      "origin": [
+        855.11962890625,
+        1564.2000732421875
+      ],
+      "size": 12.56,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "UNIT A1 KITCHEN PLAN",
+      "bbox": [
+        855.9596557617188,
+        1523.0172119140625,
+        1143.8326416015625,
+        1547.9398193359375
+      ],
+      "origin": [
+        855.9596557617188,
+        1542.360107421875
+      ],
+      "size": 24.92,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "SCALE:  1/2\" = 1'-0\"",
+      "bbox": [
+        1337.2794189453125,
+        1227.2099609375,
+        1455.430419921875,
+        1239.772705078125
+      ],
+      "origin": [
+        1337.2794189453125,
+        1236.960205078125
+      ],
+      "size": 12.56,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "UNIT A1 KITCHEN EL.",
+      "bbox": [
+        1338.119384765625,
+        1195.7781982421875,
+        1597.6468505859375,
+        1220.69970703125
+      ],
+      "origin": [
+        1338.119384765625,
+        1215.1202392578125
+      ],
+      "size": 24.92,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "SCALE:  1/2\" = 1'-0\"",
+      "bbox": [
+        1337.2794189453125,
+        1659.329833984375,
+        1455.430419921875,
+        1671.892578125
+      ],
+      "origin": [
+        1337.2794189453125,
+        1669.080078125
+      ],
+      "size": 12.56,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "UNIT A1 KITCHEN EL.",
+      "bbox": [
+        1338.119384765625,
+        1627.89794921875,
+        1597.6468505859375,
+        1652.8194580078125
+      ],
+      "origin": [
+        1338.119384765625,
+        1647.239990234375
+      ],
+      "size": 24.92,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "UNIT KEYNOTE LEGEND",
+      "bbox": [
+        2047.0791015625,
+        1079.6827392578125,
+        2168.734619140625,
+        1092.6116943359375
+      ],
+      "origin": [
+        2047.0791015625,
+        1089.72021484375
+      ],
+      "size": 12.93,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "ENERGY STAR REFRIGERATOR (PROVIDE CONNECTION FOR ICE MAKER).",
+      "bbox": [
+        1918.19921875,
+        1102.6334228515625,
+        2199.158447265625,
+        1112.2769775390625
+      ],
+      "origin": [
+        1918.19921875,
+        1110.1202392578125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "SINK SELF RIM W/ GARBAGE DISPOSAL. 9\" DEEP MIN./6.5\" DEEP MAX @ FULLY ACCESSIBLE UNITS.",
+      "bbox": [
+        1918.1990966796875,
+        1115.71337890625,
+        2292.52001953125,
+        1125.35693359375
+      ],
+      "origin": [
+        1918.1990966796875,
+        1123.2001953125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "DISHWASHER (ENERGY STAR)",
+      "bbox": [
+        1918.1990966796875,
+        1128.79345703125,
+        2033.5115966796875,
+        1138.43701171875
+      ],
+      "origin": [
+        1918.1990966796875,
+        1136.2802734375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "FULL SIZE RANGE WITH OVEN AND MICROWAVE ABOVE/ FULLY ACCESSIBLE RANGE WITH HOOD FAN ABOVE",
+      "bbox": [
+        1918.1990966796875,
+        1141.87353515625,
+        2333.1572265625,
+        1151.51708984375
+      ],
+      "origin": [
+        1918.1990966796875,
+        1149.3603515625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "@ FULLY ACCESSIBLE UNITS",
+      "bbox": [
+        1918.198974609375,
+        1152.79345703125,
+        2028.593505859375,
+        1162.43701171875
+      ],
+      "origin": [
+        1918.198974609375,
+        1160.2802734375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "LINE OF CABINETS ABOVE.",
+      "bbox": [
+        1918.198974609375,
+        1166.113525390625,
+        2020.1170654296875,
+        1175.757080078125
+      ],
+      "origin": [
+        1918.198974609375,
+        1173.600341796875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "36\" HIGH COUNTER.",
+      "bbox": [
+        1918.198974609375,
+        1179.1934814453125,
+        1993.4776611328125,
+        1188.8370361328125
+      ],
+      "origin": [
+        1918.198974609375,
+        1186.6802978515625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": false,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "MIRROR MATCH WIDTH OF VANITY. REFER TO A-6.05a & A-6.06, ADA & FHA BATHROOM FIXTURE LEGEND, #7.",
+      "bbox": [
+        1918.198974609375,
+        1205.353515625,
+        2331.159423828125,
+        1214.9970703125
+      ],
+      "origin": [
+        1918.198974609375,
+        1212.84033203125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "12\" WIDTH X 24\" DEPTH PANTRY.",
+      "bbox": [
+        1918.1988525390625,
+        1218.4334716796875,
+        2041.95703125,
+        1228.0770263671875
+      ],
+      "origin": [
+        1918.1988525390625,
+        1225.9202880859375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "ROLL-IN SHOWER STALL SHALL HAVE AN IMPERVIOUS FINISH UP TO CEILING ABOVE DRAIN PER F.B.C.",
+      "bbox": [
+        1918.1988525390625,
+        1231.513427734375,
+        2308.720947265625,
+        1241.156982421875
+      ],
+      "origin": [
+        1918.1988525390625,
+        1239.000244140625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "REFER TO A-6.05a, ADA BATHROOM FIXTURE LEGEND, #14.",
+      "bbox": [
+        1918.19873046875,
+        1242.4334716796875,
+        2142.158203125,
+        1252.0770263671875
+      ],
+      "origin": [
+        1918.19873046875,
+        1249.9202880859375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "PROVIDE ADJUSTABLE SHELVING IN BEDROOM CLOSETS.",
+      "bbox": [
+        1918.19873046875,
+        1255.6334228515625,
+        2138.7978515625,
+        1265.2769775390625
+      ],
+      "origin": [
+        1918.19873046875,
+        1263.1202392578125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "VINYL COATED WIRE SHELF MOUNTED, AT LEAST ONE AT 54\" A.F.F. @ FULLY ACCESSIBLE UNITS LOWEST",
+      "bbox": [
+        1918.19873046875,
+        1268.71337890625,
+        2321.79248046875,
+        1278.35693359375
+      ],
+      "origin": [
+        1918.19873046875,
+        1276.2001953125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "SHELF @ 15\" A.F.F. AND @ LEAST ONE SHELF AT 48\" A.F.F. ALL PANTRY & LINEN HAVE (5) SHELVES.",
+      "bbox": [
+        1918.19873046875,
+        1279.6334228515625,
+        2296.479736328125,
+        1289.2769775390625
+      ],
+      "origin": [
+        1918.19873046875,
+        1287.1202392578125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "12\" WIDTH x 24\" DEPTH LINEN CABINET.",
+      "bbox": [
+        1918.19873046875,
+        1317.073486328125,
+        2067.637451171875,
+        1326.717041015625
+      ],
+      "origin": [
+        1918.19873046875,
+        1324.560302734375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "FINISHED DIM. AS PER TUB MANUFACTURER.REFER TO A-6.06, FHA BATHROOM FIXTURE LEGEND, #11.",
+      "bbox": [
+        1918.19873046875,
+        1330.1534423828125,
+        2309.79931640625,
+        1339.7969970703125
+      ],
+      "origin": [
+        1918.19873046875,
+        1337.6402587890625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "TOILET.REFER TO A-6.05a & A-6.06, ADA & FHA BATHROOM FIXTURE LEGEND, #1.",
+      "bbox": [
+        1918.1988525390625,
+        1343.2333984375,
+        2224.359130859375,
+        1352.876953125
+      ],
+      "origin": [
+        1918.1988525390625,
+        1350.72021484375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "HIDDEN LINE DENOTES FUTURE GRAB BAR INSTALLATION, REINFORCEMENT IS REQUIRED. REFER TO A-6.06,",
+      "bbox": [
+        1918.1988525390625,
+        1356.3134765625,
+        2334.641357421875,
+        1365.95703125
+      ],
+      "origin": [
+        1918.1988525390625,
+        1363.80029296875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "FHA BATHROOM FIXTURE LEGEND, #2, #3, #3A, #3B & 3C.",
+      "bbox": [
+        1918.1988525390625,
+        1367.2333984375,
+        2133.038330078125,
+        1376.876953125
+      ],
+      "origin": [
+        1918.1988525390625,
+        1374.72021484375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "GRAB BAR IN PLACE FOR ALL FULLY ACCESSIBLE UNITS, REINFORCEMENT IS REQUIRED. REFER TO A-6.05a,",
+      "bbox": [
+        1918.1988525390625,
+        1380.553466796875,
+        2331.52001953125,
+        1390.197021484375
+      ],
+      "origin": [
+        1918.1988525390625,
+        1388.040283203125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "FHA BATHROOM FIXTURE LEGEND, #2, #3, #12A, #12B & #12C.",
+      "bbox": [
+        1918.1988525390625,
+        1391.473388671875,
+        2150.197265625,
+        1401.116943359375
+      ],
+      "origin": [
+        1918.1988525390625,
+        1398.960205078125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "VANITY CABINET. REFER TO A-6.06, FHA BATHROOM FIXTURE LEGEND, #5.",
+      "bbox": [
+        1918.1988525390625,
+        1404.6734619140625,
+        2201.198486328125,
+        1414.3170166015625
+      ],
+      "origin": [
+        1918.1988525390625,
+        1412.1602783203125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "TOWEL BAR.REFER TO A-6.05a & A-6.06, ADA & FHA BATHROOM FIXTURE LEGEND, #9.",
+      "bbox": [
+        1918.1988525390625,
+        1417.75341796875,
+        2242.83837890625,
+        1427.39697265625
+      ],
+      "origin": [
+        1918.1988525390625,
+        1425.240234375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "TOILET PAPER HOLDER. REFER TO A-6.05a & A-6.06, ADA & FHA BATHROOM FIXTURE LEGEND, #8.",
+      "bbox": [
+        1918.1988525390625,
+        1430.8333740234375,
+        2289.279541015625,
+        1440.4769287109375
+      ],
+      "origin": [
+        1918.1988525390625,
+        1438.3201904296875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "CURTAIN ROD.REFER TO A-6.05a & A-6.06, ADA & FHA BATHROOM FIXTURE LEGEND, #13.",
+      "bbox": [
+        1918.1988525390625,
+        1443.913330078125,
+        2255.19873046875,
+        1453.556884765625
+      ],
+      "origin": [
+        1918.1988525390625,
+        1451.400146484375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "HIDDEN LINE DENOTES FUTURE RETRACTABLE GRAB BAR INSTALLATION, REINFORCEMENT IS REQUIRED.",
+      "bbox": [
+        1918.1986083984375,
+        1470.0733642578125,
+        2324.919921875,
+        1479.7169189453125
+      ],
+      "origin": [
+        1918.1986083984375,
+        1477.5601806640625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "REFER TO A-6.06, FHA BATHROOM FIXTURE LEGEND, #2A.",
+      "bbox": [
+        1918.198486328125,
+        1480.993408203125,
+        2138.318359375,
+        1490.636962890625
+      ],
+      "origin": [
+        1918.198486328125,
+        1488.480224609375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "CENTER VANITY LIGHT OVER VANITY",
+      "bbox": [
+        1918.198486328125,
+        1494.3133544921875,
+        2059.553955078125,
+        1503.9569091796875
+      ],
+      "origin": [
+        1918.198486328125,
+        1501.8001708984375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "WALL MOUNTED SHOWER HEAD. REFER TO A-6.06, FHA BATHROOM FIXTURE LEGEND, #15.",
+      "bbox": [
+        1918.198486328125,
+        1520.473388671875,
+        2264.79833984375,
+        1530.116943359375
+      ],
+      "origin": [
+        1918.198486328125,
+        1527.960205078125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "UNIT INTAKE, COORDINATE W/ MECHANICAL DRAWINGS.",
+      "bbox": [
+        1918.1983642578125,
+        1572.7933349609375,
+        2133.63818359375,
+        1582.4368896484375
+      ],
+      "origin": [
+        1918.1983642578125,
+        1580.2801513671875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "HANDHELD & WALL MOUNTED SHOWER HEAD. REFER TO A-6.05a, ADA BATHROOM FIXTURE LEGEND, #15.",
+      "bbox": [
+        1918.1983642578125,
+        1585.873291015625,
+        2321.557861328125,
+        1595.516845703125
+      ],
+      "origin": [
+        1918.1983642578125,
+        1593.360107421875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "34\" MAX. HIGH COUNTER.",
+      "bbox": [
+        1918.1982421875,
+        1599.0733642578125,
+        2014.5970458984375,
+        1608.7169189453125
+      ],
+      "origin": [
+        1918.1982421875,
+        1606.5601806640625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": false,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "HIDDEN LINE DENOTES FUTURE GRAB BAR INSTALLATION, REINFORCEMENT IS REQUIRED. REFER TO A-6.06,",
+      "bbox": [
+        1918.1982421875,
+        1625.2332763671875,
+        2334.640625,
+        1634.8768310546875
+      ],
+      "origin": [
+        1918.1982421875,
+        1632.7200927734375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": true,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "FHA BATHROOM FIXTURE LEGEND, #12A & #12B.",
+      "bbox": [
+        1918.1981201171875,
+        1636.1533203125,
+        2101.71630859375,
+        1645.796875
+      ],
+      "origin": [
+        1918.1981201171875,
+        1643.64013671875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "ROB/TOWEL HOOK. UNIT KEYNOTE",
+      "bbox": [
+        1918.197998046875,
+        1673.4732666015625,
+        2051.273193359375,
+        1683.1168212890625
+      ],
+      "origin": [
+        1918.197998046875,
+        1680.9600830078125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "SCALE:  1/4\" = 1'-0\"",
+      "bbox": [
+        1337.2794189453125,
+        760.6502685546875,
+        1455.430419921875,
+        773.2130126953125
+      ],
+      "origin": [
+        1337.2794189453125,
+        770.4004516601562
+      ],
+      "size": 12.56,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "UNIT A1 (CORNER CONDITION) RCP",
+      "bbox": [
+        1338.119384765625,
+        729.2174072265625,
+        1771.6219482421875,
+        754.14013671875
+      ],
+      "origin": [
+        1338.119384765625,
+        748.5604248046875
+      ],
+      "size": 24.92,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "SCALE:  1/4\" = 1'-0\"",
+      "bbox": [
+        158.6399383544922,
+        1554.4498291015625,
+        276.7911682128906,
+        1567.0125732421875
+      ],
+      "origin": [
+        158.6399383544922,
+        1564.2000732421875
+      ],
+      "size": 12.56,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": false,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "UNIT A1 (CORNER CONDITION) FLOOR",
+      "bbox": [
+        158.6399383544922,
+        1494.3328857421875,
+        626.6351928710938,
+        1519.260986328125
+      ],
+      "origin": [
+        158.6399383544922,
+        1513.6800537109375
+      ],
+      "size": 24.93,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": true,
+      "is_metric_dim": null,
+      "is_imperial_dim": false
+    }
+  ],
+  "dimension_spans": [
+    {
+      "text": "(2)",
+      "bbox": [
+        2114.87890625,
+        105.30015563964844,
+        2127.053955078125,
+        114.88095092773438
+      ],
+      "origin": [
+        2114.87890625,
+        112.80078125
+      ],
+      "size": 9.58,
+      "font": "CenturyGothic",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "1.",
+      "bbox": [
+        1888.559326171875,
+        335.66229248046875,
+        1897.3377685546875,
+        345.217529296875
+      ],
+      "origin": [
+        1888.559326171875,
+        343.08056640625
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "2.",
+      "bbox": [
+        1888.5596923828125,
+        368.78228759765625,
+        1897.338134765625,
+        378.3375244140625
+      ],
+      "origin": [
+        1888.5596923828125,
+        376.2005615234375
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "3.",
+      "bbox": [
+        1888.5601806640625,
+        413.06219482421875,
+        1897.338623046875,
+        422.617431640625
+      ],
+      "origin": [
+        1888.5601806640625,
+        420.48046875
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "4.",
+      "bbox": [
+        1888.55908203125,
+        446.18218994140625,
+        1897.3375244140625,
+        455.7374267578125
+      ],
+      "origin": [
+        1888.55908203125,
+        453.6004638671875
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "5.",
+      "bbox": [
+        1888.55908203125,
+        468.38214111328125,
+        1897.3375244140625,
+        477.9373779296875
+      ],
+      "origin": [
+        1888.55908203125,
+        475.8004150390625
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "6.",
+      "bbox": [
+        1888.55908203125,
+        490.46209716796875,
+        1897.3375244140625,
+        500.017333984375
+      ],
+      "origin": [
+        1888.55908203125,
+        497.88037109375
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "7.",
+      "bbox": [
+        1888.5592041015625,
+        512.5420532226562,
+        1897.337646484375,
+        522.0972900390625
+      ],
+      "origin": [
+        1888.5592041015625,
+        519.9603271484375
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "8.",
+      "bbox": [
+        1888.5595703125,
+        545.6620483398438,
+        1897.3380126953125,
+        555.21728515625
+      ],
+      "origin": [
+        1888.5595703125,
+        553.080322265625
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "9.",
+      "bbox": [
+        1888.5595703125,
+        567.8619995117188,
+        1895.0579833984375,
+        577.417236328125
+      ],
+      "origin": [
+        1888.5595703125,
+        575.2802734375
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "1.",
+      "bbox": [
+        1888.559326171875,
+        778.8220825195312,
+        1897.338134765625,
+        788.3773193359375
+      ],
+      "origin": [
+        1888.559326171875,
+        786.2403564453125
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "2.",
+      "bbox": [
+        1888.559326171875,
+        822.9819946289062,
+        1897.338134765625,
+        832.5372314453125
+      ],
+      "origin": [
+        1888.559326171875,
+        830.4002685546875
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "3.",
+      "bbox": [
+        1888.559326171875,
+        834.1419677734375,
+        1897.338134765625,
+        843.6972045898438
+      ],
+      "origin": [
+        1888.559326171875,
+        841.5602416992188
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "4.",
+      "bbox": [
+        1888.559814453125,
+        856.221923828125,
+        1897.338623046875,
+        865.7771606445312
+      ],
+      "origin": [
+        1888.559814453125,
+        863.6401977539062
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "5.",
+      "bbox": [
+        1888.560546875,
+        889.3418579101562,
+        1897.33935546875,
+        898.8970947265625
+      ],
+      "origin": [
+        1888.560546875,
+        896.7601318359375
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "6.",
+      "bbox": [
+        1888.56103515625,
+        911.4218139648438,
+        1897.33984375,
+        920.97705078125
+      ],
+      "origin": [
+        1888.56103515625,
+        918.840087890625
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "7.",
+      "bbox": [
+        1888.5609130859375,
+        922.4617309570312,
+        1897.3397216796875,
+        932.0169677734375
+      ],
+      "origin": [
+        1888.5609130859375,
+        929.8800048828125
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "8.",
+      "bbox": [
+        1888.560791015625,
+        933.6217041015625,
+        1897.339599609375,
+        943.1769409179688
+      ],
+      "origin": [
+        1888.560791015625,
+        941.0399780273438
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "9.",
+      "bbox": [
+        1888.56201171875,
+        966.7416381835938,
+        1897.3408203125,
+        976.296875
+      ],
+      "origin": [
+        1888.56201171875,
+        974.159912109375
+      ],
+      "size": 9.56,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "9",
+      "bbox": [
+        2215.55908203125,
+        711.1552734375,
+        2220.8349609375,
+        720.696533203125
+      ],
+      "origin": [
+        2215.55908203125,
+        718.5604248046875
+      ],
+      "size": 9.54,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "12' - 11\"",
+      "bbox": [
+        274.43988037109375,
+        232.99374389648438,
+        302.6861877441406,
+        242.63729858398438
+      ],
+      "origin": [
+        274.43988037109375,
+        240.4805908203125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        395.15985107421875,
+        245.59371948242188,
+        402.1661376953125,
+        255.23727416992188
+      ],
+      "origin": [
+        395.15985107421875,
+        253.08056640625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 0\"",
+      "bbox": [
+        428.87982177734375,
+        232.99374389648438,
+        448.6061096191406,
+        242.63729858398438
+      ],
+      "origin": [
+        428.87982177734375,
+        240.4805908203125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        475.6797790527344,
+        245.59371948242188,
+        482.6860656738281,
+        255.23727416992188
+      ],
+      "origin": [
+        475.6797790527344,
+        253.08056640625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "1' - 11\"",
+      "bbox": [
+        478.6797790527344,
+        232.99374389648438,
+        502.6060791015625,
+        242.63729858398438
+      ],
+      "origin": [
+        478.6797790527344,
+        240.4805908203125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        519.1197509765625,
+        232.99374389648438,
+        526.1260375976562,
+        242.63729858398438
+      ],
+      "origin": [
+        519.1197509765625,
+        240.4805908203125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "6' - 2\"",
+      "bbox": [
+        561.2398071289062,
+        232.99374389648438,
+        580.9661865234375,
+        242.63729858398438
+      ],
+      "origin": [
+        561.2398071289062,
+        240.4805908203125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "12' - 0\"",
+      "bbox": [
+        536.1128540039062,
+        528.794677734375,
+        545.7564086914062,
+        552.8404541015625
+      ],
+      "origin": [
+        543.5997314453125,
+        552.8404541015625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        536.1128540039062,
+        435.1947021484375,
+        545.7564086914062,
+        442.3209228515625
+      ],
+      "origin": [
+        543.5997314453125,
+        442.3209228515625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5' - 1\"",
+      "bbox": [
+        536.1128540039062,
+        369.915283203125,
+        545.7564086914062,
+        389.7611083984375
+      ],
+      "origin": [
+        543.5997314453125,
+        389.7611083984375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        536.1128540039062,
+        316.75537109375,
+        545.7564086914062,
+        323.881591796875
+      ],
+      "origin": [
+        543.5997314453125,
+        323.881591796875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 2\"",
+      "bbox": [
+        536.1128540039062,
+        288.0758056640625,
+        545.7564086914062,
+        307.921630859375
+      ],
+      "origin": [
+        543.5997314453125,
+        307.921630859375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        536.1128540039062,
+        251.8358154296875,
+        545.7564086914062,
+        258.9620361328125
+      ],
+      "origin": [
+        543.5997314453125,
+        258.9620361328125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "7' - 4\"",
+      "bbox": [
+        536.1128540039062,
+        186.076171875,
+        545.7564086914062,
+        205.9219970703125
+      ],
+      "origin": [
+        543.5997314453125,
+        205.9219970703125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "A-6.00",
+      "bbox": [
+        90.9599609375,
+        296.65350341796875,
+        118.94706726074219,
+        306.2229919433594
+      ],
+      "origin": [
+        90.9599609375,
+        304.08056640625
+      ],
+      "size": 9.57,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "A-6.00A",
+      "bbox": [
+        702.1196899414062,
+        223.81260681152344,
+        736.3234252929688,
+        233.38328552246094
+      ],
+      "origin": [
+        702.1196899414062,
+        231.2406005859375
+      ],
+      "size": 9.57,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "12' - 1\"",
+      "bbox": [
+        269.03985595703125,
+        42.67391586303711,
+        292.9661560058594,
+        52.317474365234375
+      ],
+      "origin": [
+        269.03985595703125,
+        50.1607666015625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "7\"",
+      "bbox": [
+        391.3198547363281,
+        42.67391586303711,
+        398.3261413574219,
+        52.317474365234375
+      ],
+      "origin": [
+        391.3198547363281,
+        50.1607666015625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "6' - 0\"",
+      "bbox": [
+        444.3598327636719,
+        42.67391586303711,
+        464.08612060546875,
+        52.317474365234375
+      ],
+      "origin": [
+        444.3598327636719,
+        50.1607666015625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        508.3198547363281,
+        42.67391586303711,
+        515.3261108398438,
+        52.317474365234375
+      ],
+      "origin": [
+        508.3198547363281,
+        50.1607666015625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5' - 0\"",
+      "bbox": [
+        550.6798095703125,
+        42.67391586303711,
+        570.4061889648438,
+        52.317474365234375
+      ],
+      "origin": [
+        550.6798095703125,
+        50.1607666015625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "4\"",
+      "bbox": [
+        597.599853515625,
+        42.67391586303711,
+        604.6061401367188,
+        52.317474365234375
+      ],
+      "origin": [
+        597.599853515625,
+        50.1607666015625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "10\"",
+      "bbox": [
+        613.6798706054688,
+        42.67391586303711,
+        625.0061645507812,
+        52.317474365234375
+      ],
+      "origin": [
+        613.6798706054688,
+        50.1607666015625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "25' - 3\"",
+      "bbox": [
+        387.7198486328125,
+        31.27389144897461,
+        411.6461181640625,
+        40.917449951171875
+      ],
+      "origin": [
+        387.7198486328125,
+        38.7607421875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "17' - 6\"",
+      "bbox": [
+        669.7928466796875,
+        479.354736328125,
+        679.4364013671875,
+        503.4005126953125
+      ],
+      "origin": [
+        677.2797241210938,
+        503.4005126953125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        669.7928466796875,
+        336.5552978515625,
+        679.4364013671875,
+        343.6815185546875
+      ],
+      "origin": [
+        677.2797241210938,
+        343.6815185546875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "8' - 1\"",
+      "bbox": [
+        669.7928466796875,
+        243.915771484375,
+        679.4364013671875,
+        263.7615966796875
+      ],
+      "origin": [
+        677.2797241210938,
+        263.7615966796875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "4\"",
+      "bbox": [
+        669.7928466796875,
+        182.3558349609375,
+        679.4364013671875,
+        189.4820556640625
+      ],
+      "origin": [
+        677.2797241210938,
+        189.4820556640625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "2' - 6\"",
+      "bbox": [
+        669.7928466796875,
+        142.3963623046875,
+        679.4364013671875,
+        162.2421875
+      ],
+      "origin": [
+        677.2797241210938,
+        162.2421875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "28' - 10\"",
+      "bbox": [
+        684.912841796875,
+        375.19482421875,
+        694.556396484375,
+        403.5606689453125
+      ],
+      "origin": [
+        692.3997192382812,
+        403.5606689453125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "12' - 11\"",
+      "bbox": [
+        274.43988037109375,
+        691.3936157226562,
+        302.6861877441406,
+        701.0371704101562
+      ],
+      "origin": [
+        274.43988037109375,
+        698.8804931640625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        393.4798889160156,
+        691.3936157226562,
+        400.4861755371094,
+        701.0371704101562
+      ],
+      "origin": [
+        393.4798889160156,
+        698.8804931640625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "11' - 11\"",
+      "bbox": [
+        505.0801696777344,
+        691.3936157226562,
+        533.326416015625,
+        701.0371704101562
+      ],
+      "origin": [
+        505.0801696777344,
+        698.8804931640625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "12' - 11\"",
+      "bbox": [
+        282.2398681640625,
+        444.4336853027344,
+        310.4861755371094,
+        454.0772399902344
+      ],
+      "origin": [
+        282.2398681640625,
+        451.9205322265625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        404.6398620605469,
+        444.4336853027344,
+        411.6461486816406,
+        454.0772399902344
+      ],
+      "origin": [
+        404.6398620605469,
+        451.9205322265625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5' - 11\"",
+      "bbox": [
+        453.35986328125,
+        444.4336853027344,
+        477.2861633300781,
+        454.0772399902344
+      ],
+      "origin": [
+        453.35986328125,
+        451.9205322265625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        518.9998168945312,
+        444.4336853027344,
+        526.006103515625,
+        454.0772399902344
+      ],
+      "origin": [
+        518.9998168945312,
+        451.9205322265625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5' - 7\"",
+      "bbox": [
+        566.5198364257812,
+        444.4336853027344,
+        586.2462158203125,
+        454.0772399902344
+      ],
+      "origin": [
+        566.5198364257812,
+        451.9205322265625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        371.3529968261719,
+        135.0743408203125,
+        380.9965515136719,
+        142.2005615234375
+      ],
+      "origin": [
+        378.83984375,
+        142.2005615234375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 2\"",
+      "bbox": [
+        374.3529968261719,
+        155.354736328125,
+        383.9965515136719,
+        175.2005615234375
+      ],
+      "origin": [
+        381.83984375,
+        175.2005615234375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        374.3529968261719,
+        193.8743896484375,
+        383.9965515136719,
+        201.0006103515625
+      ],
+      "origin": [
+        381.83984375,
+        201.0006103515625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 5\"",
+      "bbox": [
+        374.3529968261719,
+        221.5947265625,
+        383.9965515136719,
+        241.4405517578125
+      ],
+      "origin": [
+        381.83984375,
+        241.4405517578125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        374.3529968261719,
+        262.0343017578125,
+        383.9965515136719,
+        269.1605224609375
+      ],
+      "origin": [
+        381.83984375,
+        269.1605224609375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 0\"",
+      "bbox": [
+        374.3529968261719,
+        286.274658203125,
+        383.9965515136719,
+        306.1204833984375
+      ],
+      "origin": [
+        381.83984375,
+        306.1204833984375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "6\"",
+      "bbox": [
+        374.3529968261719,
+        324.314208984375,
+        383.9965515136719,
+        331.4404296875
+      ],
+      "origin": [
+        381.83984375,
+        331.4404296875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5' - 2\"",
+      "bbox": [
+        374.3529968261719,
+        369.0745849609375,
+        383.9965515136719,
+        388.92041015625
+      ],
+      "origin": [
+        381.83984375,
+        388.92041015625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        374.3529968261719,
+        425.5941162109375,
+        383.9965515136719,
+        432.7203369140625
+      ],
+      "origin": [
+        381.83984375,
+        432.7203369140625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "11' - 1\"",
+      "bbox": [
+        374.3529968261719,
+        520.154541015625,
+        383.9965515136719,
+        544.2003173828125
+      ],
+      "origin": [
+        381.83984375,
+        544.2003173828125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5",
+      "bbox": [
+        504.83978271484375,
+        440.76678466796875,
+        510.15631103515625,
+        450.3447570800781
+      ],
+      "origin": [
+        504.83978271484375,
+        448.200439453125
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "14' - 0\"",
+      "bbox": [
+        138.19308471679688,
+        243.914794921875,
+        147.83663940429688,
+        267.9605712890625
+      ],
+      "origin": [
+        145.679931640625,
+        267.9605712890625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "13' - 11\"",
+      "bbox": [
+        138.19308471679688,
+        492.4345703125,
+        147.83663940429688,
+        520.8004150390625
+      ],
+      "origin": [
+        145.679931640625,
+        520.8004150390625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "25' - 3\"",
+      "bbox": [
+        387.7198486328125,
+        709.3935546875,
+        411.6461181640625,
+        719.037109375
+      ],
+      "origin": [
+        387.7198486328125,
+        716.8804321289062
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "8",
+      "bbox": [
+        362.7598571777344,
+        153.3670196533203,
+        368.07635498046875,
+        162.94497680664062
+      ],
+      "origin": [
+        362.7598571777344,
+        160.8006591796875
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "8",
+      "bbox": [
+        362.6398620605469,
+        220.6869659423828,
+        367.95635986328125,
+        230.26492309570312
+      ],
+      "origin": [
+        362.6398620605469,
+        228.12060546875
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "27' - 11\"",
+      "bbox": [
+        120.31310272216797,
+        366.5548095703125,
+        129.95664978027344,
+        394.920654296875
+      ],
+      "origin": [
+        127.7999496459961,
+        394.920654296875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 1\"",
+      "bbox": [
+        1270.8726806640625,
+        289.15478515625,
+        1280.5162353515625,
+        309.0006103515625
+      ],
+      "origin": [
+        1278.3594970703125,
+        309.0006103515625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5' - 0\"",
+      "bbox": [
+        1270.8726806640625,
+        216.1951904296875,
+        1280.5162353515625,
+        236.041015625
+      ],
+      "origin": [
+        1278.3594970703125,
+        236.041015625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "1' - 4\"",
+      "bbox": [
+        1223.03955078125,
+        521.5935668945312,
+        1242.765380859375,
+        531.2371215820312
+      ],
+      "origin": [
+        1223.03955078125,
+        529.0804443359375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "6' - 5\"",
+      "bbox": [
+        874.6327514648438,
+        198.7947998046875,
+        884.2763061523438,
+        218.640625
+      ],
+      "origin": [
+        882.11962890625,
+        218.640625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 0\"",
+      "bbox": [
+        807.9596557617188,
+        302.9537048339844,
+        827.68603515625,
+        312.5972595214844
+      ],
+      "origin": [
+        807.9596557617188,
+        310.4405517578125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "1' - 0\"",
+      "bbox": [
+        1029.1195068359375,
+        521.5935668945312,
+        1048.8453369140625,
+        531.2371215820312
+      ],
+      "origin": [
+        1029.1195068359375,
+        529.0804443359375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "7",
+      "bbox": [
+        1350.7193603515625,
+        689.6467895507812,
+        1356.035888671875,
+        699.2247924804688
+      ],
+      "origin": [
+        1350.7193603515625,
+        697.0804443359375
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "9",
+      "bbox": [
+        1207.439453125,
+        367.08697509765625,
+        1212.7559814453125,
+        376.6649475097656
+      ],
+      "origin": [
+        1207.439453125,
+        374.5206298828125
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "9",
+      "bbox": [
+        938.5196533203125,
+        316.92694091796875,
+        943.836181640625,
+        326.5049133300781
+      ],
+      "origin": [
+        938.5196533203125,
+        324.360595703125
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "A-6.00",
+      "bbox": [
+        1052.759521484375,
+        1223.28662109375,
+        1080.7557373046875,
+        1232.864501953125
+      ],
+      "origin": [
+        1052.759521484375,
+        1230.72021484375
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "1",
+      "bbox": [
+        1032.239501953125,
+        1222.806640625,
+        1037.5560302734375,
+        1232.384521484375
+      ],
+      "origin": [
+        1032.239501953125,
+        1230.240234375
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "2",
+      "bbox": [
+        1062.719482421875,
+        1191.9666748046875,
+        1068.0360107421875,
+        1201.5445556640625
+      ],
+      "origin": [
+        1062.719482421875,
+        1199.4002685546875
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "3' - 0\" (MIN.)",
+      "bbox": [
+        803.352783203125,
+        999.9676513671875,
+        812.996337890625,
+        1043.400390625
+      ],
+      "origin": [
+        810.8396606445312,
+        1043.400390625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 5\"",
+      "bbox": [
+        780.912841796875,
+        1388.7138671875,
+        790.556396484375,
+        1408.56005859375
+      ],
+      "origin": [
+        788.3997192382812,
+        1408.56005859375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 8\"",
+      "bbox": [
+        780.912841796875,
+        1261.2734375,
+        790.556396484375,
+        1281.1197509765625
+      ],
+      "origin": [
+        788.3997192382812,
+        1281.1197509765625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "6' - 11\"",
+      "bbox": [
+        780.912841796875,
+        1068.7938232421875,
+        790.556396484375,
+        1092.840087890625
+      ],
+      "origin": [
+        788.3997192382812,
+        1092.840087890625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "14' - 0\"",
+      "bbox": [
+        737.5928344726562,
+        1196.2340087890625,
+        747.2363891601562,
+        1220.2802734375
+      ],
+      "origin": [
+        745.0797119140625,
+        1220.2802734375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 0\"",
+      "bbox": [
+        892.5596313476562,
+        995.4734497070312,
+        912.2860107421875,
+        1005.1170043945312
+      ],
+      "origin": [
+        892.5596313476562,
+        1002.9603271484375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "12\" (MIN.)",
+      "bbox": [
+        957.5996704101562,
+        995.4734497070312,
+        992.5122680664062,
+        1005.1170043945312
+      ],
+      "origin": [
+        957.5996704101562,
+        1002.9603271484375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 11\"",
+      "bbox": [
+        907.4396362304688,
+        881.9534912109375,
+        931.365966796875,
+        891.5970458984375
+      ],
+      "origin": [
+        907.4396362304688,
+        889.4403686523438
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "2' - 11\"",
+      "bbox": [
+        1030.919189453125,
+        881.9534912109375,
+        1054.844970703125,
+        891.5970458984375
+      ],
+      "origin": [
+        1030.919189453125,
+        889.4403686523438
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "1' - 0\"",
+      "bbox": [
+        1103.5186767578125,
+        881.9534912109375,
+        1123.2445068359375,
+        891.5970458984375
+      ],
+      "origin": [
+        1103.5186767578125,
+        889.4403686523438
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "7' - 10\"",
+      "bbox": [
+        977.8795776367188,
+        863.9534912109375,
+        1001.8057250976562,
+        873.5970458984375
+      ],
+      "origin": [
+        977.8795776367188,
+        871.4403686523438
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "24\" (MAX.)",
+      "bbox": [
+        865.6796264648438,
+        1467.313232421875,
+        903.1123657226562,
+        1476.956787109375
+      ],
+      "origin": [
+        865.6796264648438,
+        1474.800048828125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 0\"",
+      "bbox": [
+        1195.8726806640625,
+        1103.114013671875,
+        1205.5162353515625,
+        1122.960205078125
+      ],
+      "origin": [
+        1203.3594970703125,
+        1122.960205078125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "4\"",
+      "bbox": [
+        1195.8726806640625,
+        1049.5941162109375,
+        1205.5162353515625,
+        1056.7203369140625
+      ],
+      "origin": [
+        1203.3594970703125,
+        1056.7203369140625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "1' - 2\"",
+      "bbox": [
+        1195.8726806640625,
+        1016.2340698242188,
+        1205.5162353515625,
+        1036.080322265625
+      ],
+      "origin": [
+        1203.3594970703125,
+        1036.080322265625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 0\"",
+      "bbox": [
+        1195.8726806640625,
+        941.2340698242188,
+        1205.5162353515625,
+        961.080322265625
+      ],
+      "origin": [
+        1203.3594970703125,
+        961.080322265625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "7' - 6\"",
+      "bbox": [
+        1177.8726806640625,
+        1022.2340087890625,
+        1187.5162353515625,
+        1042.080322265625
+      ],
+      "origin": [
+        1185.3594970703125,
+        1042.080322265625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 0\" (MIN.)",
+      "bbox": [
+        1646.1593017578125,
+        1013.1134033203125,
+        1689.4713134765625,
+        1022.7569580078125
+      ],
+      "origin": [
+        1646.1593017578125,
+        1020.6002807617188
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 8\" (MAX.)",
+      "bbox": [
+        1674.552490234375,
+        1078.0875244140625,
+        1684.196044921875,
+        1124.040283203125
+      ],
+      "origin": [
+        1682.039306640625,
+        1124.040283203125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "7' - 6\"",
+      "bbox": [
+        1646.472412109375,
+        1454.2337646484375,
+        1656.115966796875,
+        1474.080078125
+      ],
+      "origin": [
+        1653.959228515625,
+        1474.080078125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 8\" (MAX.)",
+      "bbox": [
+        1382.83251953125,
+        1510.2073974609375,
+        1392.47607421875,
+        1556.1600341796875
+      ],
+      "origin": [
+        1390.3193359375,
+        1556.1600341796875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "12\" (MIN.)",
+      "bbox": [
+        1445.3994140625,
+        1439.353271484375,
+        1480.311767578125,
+        1448.996826171875
+      ],
+      "origin": [
+        1445.3994140625,
+        1446.840087890625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 0\"",
+      "bbox": [
+        1380.359375,
+        1439.353271484375,
+        1400.085205078125,
+        1448.996826171875
+      ],
+      "origin": [
+        1380.359375,
+        1446.840087890625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "1' - 11\"",
+      "bbox": [
+        1628.472412109375,
+        1351.7537841796875,
+        1638.115966796875,
+        1375.8001708984375
+      ],
+      "origin": [
+        1635.959228515625,
+        1375.8001708984375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5' - 7\"",
+      "bbox": [
+        1628.472412109375,
+        1488.7938232421875,
+        1638.115966796875,
+        1508.64013671875
+      ],
+      "origin": [
+        1635.959228515625,
+        1508.64013671875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 0\"",
+      "bbox": [
+        1305.1927490234375,
+        1373.3538818359375,
+        1314.8363037109375,
+        1393.2001953125
+      ],
+      "origin": [
+        1312.6795654296875,
+        1393.2001953125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "1' - 6\"",
+      "bbox": [
+        1305.1927490234375,
+        1454.23388671875,
+        1314.8363037109375,
+        1474.080078125
+      ],
+      "origin": [
+        1312.6795654296875,
+        1474.080078125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 0\"",
+      "bbox": [
+        1305.1927490234375,
+        1535.2337646484375,
+        1314.8363037109375,
+        1555.080078125
+      ],
+      "origin": [
+        1312.6795654296875,
+        1555.080078125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 0\"",
+      "bbox": [
+        1363.5594482421875,
+        307.6337585449219,
+        1383.2852783203125,
+        317.2773132324219
+      ],
+      "origin": [
+        1363.5594482421875,
+        315.12060546875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5' - 0\"",
+      "bbox": [
+        1820.472412109375,
+        209.4747314453125,
+        1830.115966796875,
+        229.320556640625
+      ],
+      "origin": [
+        1827.959228515625,
+        229.320556640625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 0\"",
+      "bbox": [
+        1820.472412109375,
+        288.314697265625,
+        1830.115966796875,
+        308.1605224609375
+      ],
+      "origin": [
+        1827.959228515625,
+        308.1605224609375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "6' - 5\"",
+      "bbox": [
+        1438.152587890625,
+        198.7947998046875,
+        1447.796142578125,
+        218.640625
+      ],
+      "origin": [
+        1445.639404296875,
+        218.640625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "1' - 0\"",
+      "bbox": [
+        1784.3992919921875,
+        544.5136108398438,
+        1804.1251220703125,
+        554.1571655273438
+      ],
+      "origin": [
+        1784.3992919921875,
+        552.00048828125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "7",
+      "bbox": [
+        1662.3592529296875,
+        461.76678466796875,
+        1667.67578125,
+        471.3447570800781
+      ],
+      "origin": [
+        1662.3592529296875,
+        469.200439453125
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "9",
+      "bbox": [
+        1733.039306640625,
+        366.36700439453125,
+        1738.3558349609375,
+        375.9449768066406
+      ],
+      "origin": [
+        1733.039306640625,
+        373.8006591796875
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "6' - 8\"",
+      "bbox": [
+        1417.1993408203125,
+        393.0738220214844,
+        1436.9251708984375,
+        402.7173767089844
+      ],
+      "origin": [
+        1417.1993408203125,
+        400.5606689453125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5' - 3\"",
+      "bbox": [
+        1523.9989013671875,
+        393.0738220214844,
+        1543.7247314453125,
+        402.7173767089844
+      ],
+      "origin": [
+        1523.9989013671875,
+        400.5606689453125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "2' - 9\"",
+      "bbox": [
+        1438.152587890625,
+        347.2347412109375,
+        1447.796142578125,
+        367.08056640625
+      ],
+      "origin": [
+        1445.639404296875,
+        367.08056640625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "2' - 3\"",
+      "bbox": [
+        1438.152587890625,
+        302.4752197265625,
+        1447.796142578125,
+        322.321044921875
+      ],
+      "origin": [
+        1445.639404296875,
+        322.321044921875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "9",
+      "bbox": [
+        1508.7593994140625,
+        318.84698486328125,
+        1514.075927734375,
+        328.4249572753906
+      ],
+      "origin": [
+        1508.7593994140625,
+        326.2806396484375
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "12' - 2\"",
+      "bbox": [
+        253.19989013671875,
+        834.553466796875,
+        277.1261901855469,
+        844.197021484375
+      ],
+      "origin": [
+        253.19989013671875,
+        842.0403442382812
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "7\"",
+      "bbox": [
+        376.44036865234375,
+        834.553466796875,
+        383.4466552734375,
+        844.197021484375
+      ],
+      "origin": [
+        376.44036865234375,
+        842.0403442382812
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "6' - 0\"",
+      "bbox": [
+        429.4803466796875,
+        834.553466796875,
+        449.2066345214844,
+        844.197021484375
+      ],
+      "origin": [
+        429.4803466796875,
+        842.0403442382812
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        493.44036865234375,
+        834.553466796875,
+        500.4466552734375,
+        844.197021484375
+      ],
+      "origin": [
+        493.44036865234375,
+        842.0403442382812
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5' - 0\"",
+      "bbox": [
+        535.80029296875,
+        834.553466796875,
+        555.5266723632812,
+        844.197021484375
+      ],
+      "origin": [
+        535.80029296875,
+        842.0403442382812
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "4\"6\"",
+      "bbox": [
+        590.2803955078125,
+        834.553466796875,
+        604.9666748046875,
+        844.197021484375
+      ],
+      "origin": [
+        590.2803955078125,
+        842.0403442382812
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "25' - 0\"",
+      "bbox": [
+        368.9998474121094,
+        816.553466796875,
+        392.9261474609375,
+        826.197021484375
+      ],
+      "origin": [
+        368.9998474121094,
+        824.0403442382812
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "17' - 7\"",
+      "bbox": [
+        648.3128662109375,
+        1254.19384765625,
+        657.9564208984375,
+        1278.240234375
+      ],
+      "origin": [
+        655.7997436523438,
+        1278.240234375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        648.3128662109375,
+        1100.9542236328125,
+        657.9564208984375,
+        1108.08056640625
+      ],
+      "origin": [
+        655.7997436523438,
+        1108.08056640625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "8' - 0\"",
+      "bbox": [
+        648.3128662109375,
+        1018.7543334960938,
+        657.9564208984375,
+        1038.6005859375
+      ],
+      "origin": [
+        655.7997436523438,
+        1038.6005859375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "4\"",
+      "bbox": [
+        648.3128662109375,
+        949.8743286132812,
+        657.9564208984375,
+        957.0006103515625
+      ],
+      "origin": [
+        655.7997436523438,
+        957.0006103515625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "2' - 6\"",
+      "bbox": [
+        648.3128662109375,
+        917.9544067382812,
+        657.9564208984375,
+        937.8005981445312
+      ],
+      "origin": [
+        655.7997436523438,
+        937.8005981445312
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "28' - 10\"",
+      "bbox": [
+        666.3128051757812,
+        1150.7540283203125,
+        675.9563598632812,
+        1179.1202392578125
+      ],
+      "origin": [
+        673.7996826171875,
+        1179.1202392578125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "13' - 0\"",
+      "bbox": [
+        260.7598876953125,
+        1455.313232421875,
+        284.6861877441406,
+        1464.956787109375
+      ],
+      "origin": [
+        260.7598876953125,
+        1462.800048828125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        389.7594909667969,
+        1455.313232421875,
+        396.7657775878906,
+        1464.956787109375
+      ],
+      "origin": [
+        389.7594909667969,
+        1462.800048828125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "12' - 0\"",
+      "bbox": [
+        492.8393859863281,
+        1455.313232421875,
+        516.7656860351562,
+        1464.956787109375
+      ],
+      "origin": [
+        492.8393859863281,
+        1462.800048828125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "25' - 5\"",
+      "bbox": [
+        372.3598327636719,
+        1473.313232421875,
+        396.2861328125,
+        1482.956787109375
+      ],
+      "origin": [
+        372.3598327636719,
+        1480.800048828125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "14' - 0\"",
+      "bbox": [
+        120.43309783935547,
+        1019.5940551757812,
+        130.07664489746094,
+        1043.640380859375
+      ],
+      "origin": [
+        127.9199447631836,
+        1043.640380859375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "13' - 11\"",
+      "bbox": [
+        120.43309783935547,
+        1268.1138916015625,
+        130.07664489746094,
+        1296.480224609375
+      ],
+      "origin": [
+        127.9199447631836,
+        1296.480224609375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "27' - 11\"",
+      "bbox": [
+        102.43310546875,
+        1142.1138916015625,
+        112.07666015625,
+        1170.480224609375
+      ],
+      "origin": [
+        109.91995239257812,
+        1170.480224609375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "11' - 1\"",
+      "bbox": [
+        347.7130126953125,
+        1295.7138671875,
+        357.3565673828125,
+        1319.76025390625
+      ],
+      "origin": [
+        355.1998596191406,
+        1319.76025390625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        347.7130126953125,
+        1201.1539306640625,
+        357.3565673828125,
+        1208.2802734375
+      ],
+      "origin": [
+        355.1998596191406,
+        1208.2802734375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5' - 2\"",
+      "bbox": [
+        347.7130126953125,
+        1144.7540283203125,
+        357.3565673828125,
+        1164.6002197265625
+      ],
+      "origin": [
+        355.1998596191406,
+        1164.6002197265625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "7\"",
+      "bbox": [
+        347.7130126953125,
+        1099.1539306640625,
+        357.3565673828125,
+        1106.2802734375
+      ],
+      "origin": [
+        355.1998596191406,
+        1106.2802734375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 0\"",
+      "bbox": [
+        347.7130126953125,
+        1060.39404296875,
+        357.3565673828125,
+        1080.240234375
+      ],
+      "origin": [
+        355.1998596191406,
+        1080.240234375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        347.7130126953125,
+        1036.1539306640625,
+        357.3565673828125,
+        1043.2802734375
+      ],
+      "origin": [
+        355.1998596191406,
+        1043.2802734375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 4\"",
+      "bbox": [
+        347.7130126953125,
+        996.4340209960938,
+        357.3565673828125,
+        1016.2802734375
+      ],
+      "origin": [
+        355.1998596191406,
+        1016.2802734375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        347.7130126953125,
+        969.4340209960938,
+        357.3565673828125,
+        976.560302734375
+      ],
+      "origin": [
+        355.1998596191406,
+        976.560302734375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 2\"",
+      "bbox": [
+        347.7130126953125,
+        930.9140625,
+        357.3565673828125,
+        950.7603149414062
+      ],
+      "origin": [
+        355.1998596191406,
+        950.7603149414062
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        341.8330078125,
+        912.3140869140625,
+        351.4765625,
+        919.4403686523438
+      ],
+      "origin": [
+        349.3198547363281,
+        919.4403686523438
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "7' - 3\"",
+      "bbox": [
+        517.2728881835938,
+        960.9140625,
+        526.9164428710938,
+        980.7603149414062
+      ],
+      "origin": [
+        524.759765625,
+        980.7603149414062
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        517.2728881835938,
+        1036.154052734375,
+        526.9164428710938,
+        1043.2802734375
+      ],
+      "origin": [
+        524.759765625,
+        1043.2802734375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 2\"",
+      "bbox": [
+        517.2728881835938,
+        1062.194091796875,
+        526.9164428710938,
+        1082.040283203125
+      ],
+      "origin": [
+        524.759765625,
+        1082.040283203125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        517.2728881835938,
+        1100.9539794921875,
+        526.9164428710938,
+        1108.080322265625
+      ],
+      "origin": [
+        524.759765625,
+        1108.080322265625
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5' - 2\"",
+      "bbox": [
+        517.2728881835938,
+        1144.7540283203125,
+        526.9164428710938,
+        1164.600341796875
+      ],
+      "origin": [
+        524.759765625,
+        1164.600341796875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        517.2728881835938,
+        1201.1539306640625,
+        526.9164428710938,
+        1208.2802734375
+      ],
+      "origin": [
+        524.759765625,
+        1208.2802734375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "12' - 0\"",
+      "bbox": [
+        517.2728881835938,
+        1304.3538818359375,
+        526.9164428710938,
+        1328.400146484375
+      ],
+      "origin": [
+        524.759765625,
+        1328.400146484375
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "13' - 0\"",
+      "bbox": [
+        260.7598876953125,
+        1008.3134155273438,
+        284.6861877441406,
+        1017.9569702148438
+      ],
+      "origin": [
+        260.7598876953125,
+        1015.80029296875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        389.7594909667969,
+        1008.3134155273438,
+        396.7657775878906,
+        1017.9569702148438
+      ],
+      "origin": [
+        389.7594909667969,
+        1015.80029296875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "3' - 0\"",
+      "bbox": [
+        413.99945068359375,
+        1008.3134155273438,
+        433.7257385253906,
+        1017.9569702148438
+      ],
+      "origin": [
+        413.99945068359375,
+        1015.80029296875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        451.07940673828125,
+        1008.3134155273438,
+        458.085693359375,
+        1017.9569702148438
+      ],
+      "origin": [
+        451.07940673828125,
+        1015.80029296875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "2' - 4\"",
+      "bbox": [
+        469.5594177246094,
+        1008.3134155273438,
+        489.2856750488281,
+        1017.9569702148438
+      ],
+      "origin": [
+        469.5594177246094,
+        1015.80029296875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5' - 10\"",
+      "bbox": [
+        541.3193969726562,
+        1008.3134155273438,
+        565.2457275390625,
+        1017.9569702148438
+      ],
+      "origin": [
+        541.3193969726562,
+        1015.80029296875
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5' - 9\"",
+      "bbox": [
+        438.7198181152344,
+        1217.71337890625,
+        458.44610595703125,
+        1227.35693359375
+      ],
+      "origin": [
+        438.7198181152344,
+        1225.2001953125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5\"",
+      "bbox": [
+        500.27984619140625,
+        1217.71337890625,
+        507.2861328125,
+        1227.35693359375
+      ],
+      "origin": [
+        500.27984619140625,
+        1225.2001953125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "5' - 10\"",
+      "bbox": [
+        548.1598510742188,
+        1217.71337890625,
+        572.086181640625,
+        1227.35693359375
+      ],
+      "origin": [
+        548.1598510742188,
+        1225.2001953125
+      ],
+      "size": 9.64,
+      "font": "ArialNarrow",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": true
+    },
+    {
+      "text": "8",
+      "bbox": [
+        334.1998596191406,
+        921.0066528320312,
+        339.516357421875,
+        930.5846557617188
+      ],
+      "origin": [
+        334.1998596191406,
+        928.4403076171875
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "8",
+      "bbox": [
+        334.6798400878906,
+        985.806640625,
+        339.996337890625,
+        995.3846435546875
+      ],
+      "origin": [
+        334.6798400878906,
+        993.2402954101562
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "A-6.00",
+      "bbox": [
+        2362.55908203125,
+        1640.565185546875,
+        2516.2392578125,
+        1697.5084228515625
+      ],
+      "origin": [
+        2362.55908203125,
+        1687.9200439453125
+      ],
+      "size": 56.94,
+      "font": "Calibri,Bold",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "5-18-2020",
+      "bbox": [
+        2486.279052734375,
+        1541.99560546875,
+        2546.38916015625,
+        1556.4307861328125
+      ],
+      "origin": [
+        2486.279052734375,
+        1554.0001220703125
+      ],
+      "size": 14.44,
+      "font": "Calibri,Bold",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "2019-20",
+      "bbox": [
+        2498.158935546875,
+        1559.029296875,
+        2546.51708984375,
+        1573.471923828125
+      ],
+      "origin": [
+        2498.158935546875,
+        1571.0400390625
+      ],
+      "size": 14.44,
+      "font": "Calibri,Bold",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "11/25/2024",
+      "bbox": [
+        2475.59912109375,
+        1608.114013671875,
+        2546.39208984375,
+        1622.551025390625
+      ],
+      "origin": [
+        2475.59912109375,
+        1620.1199951171875
+      ],
+      "size": 14.44,
+      "font": "Calibri,Bold",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "1",
+      "bbox": [
+        1302.95947265625,
+        1209.46826171875,
+        1316.7999267578125,
+        1234.376708984375
+      ],
+      "origin": [
+        1302.95947265625,
+        1228.8001708984375
+      ],
+      "size": 24.91,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "2",
+      "bbox": [
+        1302.95947265625,
+        1641.5780029296875,
+        1316.8145751953125,
+        1666.49951171875
+      ],
+      "origin": [
+        1302.95947265625,
+        1660.9200439453125
+      ],
+      "size": 24.92,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "5",
+      "bbox": [
+        1302.95947265625,
+        742.8983154296875,
+        1316.8145751953125,
+        767.8198852539062
+      ],
+      "origin": [
+        1302.95947265625,
+        762.2404174804688
+      ],
+      "size": 24.92,
+      "font": "Arial,Bold",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "2",
+      "bbox": [
+        2179.55908203125,
+        1083.006591796875,
+        2184.87548828125,
+        1092.58447265625
+      ],
+      "origin": [
+        2179.55908203125,
+        1090.440185546875
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "3",
+      "bbox": [
+        2488.55908203125,
+        1062.486572265625,
+        2493.87548828125,
+        1072.064453125
+      ],
+      "origin": [
+        2488.55908203125,
+        1069.920166015625
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "3",
+      "bbox": [
+        1369.679443359375,
+        1502.2864990234375,
+        1374.9959716796875,
+        1511.8643798828125
+      ],
+      "origin": [
+        1369.679443359375,
+        1509.7200927734375
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "3",
+      "bbox": [
+        1356.4793701171875,
+        1430.16650390625,
+        1361.7958984375,
+        1439.744384765625
+      ],
+      "origin": [
+        1356.4793701171875,
+        1437.60009765625
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "3",
+      "bbox": [
+        871.4396362304688,
+        984.7266235351562,
+        876.7561645507812,
+        994.3046264648438
+      ],
+      "origin": [
+        871.4396362304688,
+        992.1602783203125
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "3",
+      "bbox": [
+        972.7195434570312,
+        955.32666015625,
+        978.0360717773438,
+        964.9046630859375
+      ],
+      "origin": [
+        972.7195434570312,
+        962.7603149414062
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "3",
+      "bbox": [
+        907.3196411132812,
+        1463.0465087890625,
+        912.6361694335938,
+        1472.6243896484375
+      ],
+      "origin": [
+        907.3196411132812,
+        1470.4801025390625
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "3",
+      "bbox": [
+        812.5196533203125,
+        1097.7666015625,
+        817.836181640625,
+        1107.344482421875
+      ],
+      "origin": [
+        812.5196533203125,
+        1105.2001953125
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "3",
+      "bbox": [
+        1698.2392578125,
+        1007.28662109375,
+        1703.5557861328125,
+        1016.8646240234375
+      ],
+      "origin": [
+        1698.2392578125,
+        1014.7202758789062
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "3",
+      "bbox": [
+        1692.1192626953125,
+        1066.32666015625,
+        1697.435791015625,
+        1075.904541015625
+      ],
+      "origin": [
+        1692.1192626953125,
+        1073.76025390625
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "3",
+      "bbox": [
+        1582.5594482421875,
+        1021.4467163085938,
+        1587.8759765625,
+        1031.024658203125
+      ],
+      "origin": [
+        1582.5594482421875,
+        1028.88037109375
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "3",
+      "bbox": [
+        865.5596313476562,
+        1098.9666748046875,
+        870.8761596679688,
+        1108.5445556640625
+      ],
+      "origin": [
+        865.5596313476562,
+        1106.4002685546875
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "2",
+      "bbox": [
+        2370.2392578125,
+        1103.4033203125,
+        2377.286376953125,
+        1116.0777587890625
+      ],
+      "origin": [
+        2370.2392578125,
+        1113.240234375
+      ],
+      "size": 12.67,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "11/20/20",
+      "bbox": [
+        2524.197021484375,
+        1103.4033203125,
+        2573.004638671875,
+        1116.0777587890625
+      ],
+      "origin": [
+        2524.197021484375,
+        1113.240234375
+      ],
+      "size": 12.67,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "3",
+      "bbox": [
+        2370.2392578125,
+        1120.5633544921875,
+        2377.286376953125,
+        1133.23779296875
+      ],
+      "origin": [
+        2370.2392578125,
+        1130.4002685546875
+      ],
+      "size": 12.67,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "01/08/21",
+      "bbox": [
+        2524.197021484375,
+        1120.5633544921875,
+        2573.004638671875,
+        1133.23779296875
+      ],
+      "origin": [
+        2524.197021484375,
+        1130.4002685546875
+      ],
+      "size": 12.67,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "5",
+      "bbox": [
+        2370.2392578125,
+        1137.8433837890625,
+        2377.286376953125,
+        1150.517822265625
+      ],
+      "origin": [
+        2370.2392578125,
+        1147.6802978515625
+      ],
+      "size": 12.67,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "04/03/23",
+      "bbox": [
+        2524.199462890625,
+        1137.8433837890625,
+        2573.007080078125,
+        1150.517822265625
+      ],
+      "origin": [
+        2524.199462890625,
+        1147.6802978515625
+      ],
+      "size": 12.67,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "7",
+      "bbox": [
+        2370.239501953125,
+        1169.643310546875,
+        2377.28662109375,
+        1182.3177490234375
+      ],
+      "origin": [
+        2370.239501953125,
+        1179.480224609375
+      ],
+      "size": 12.67,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "05/03/24",
+      "bbox": [
+        2524.197265625,
+        1169.643310546875,
+        2573.0048828125,
+        1182.3177490234375
+      ],
+      "origin": [
+        2524.197265625,
+        1179.480224609375
+      ],
+      "size": 12.67,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "8",
+      "bbox": [
+        2370.239501953125,
+        1186.92333984375,
+        2377.28662109375,
+        1199.5977783203125
+      ],
+      "origin": [
+        2370.239501953125,
+        1196.76025390625
+      ],
+      "size": 12.67,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "Bulletin #4",
+      "bbox": [
+        2398.077392578125,
+        1186.92333984375,
+        2456.604736328125,
+        1199.5977783203125
+      ],
+      "origin": [
+        2398.077392578125,
+        1196.76025390625
+      ],
+      "size": 12.67,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "05/29/24",
+      "bbox": [
+        2524.19775390625,
+        1186.92333984375,
+        2573.00537109375,
+        1199.5977783203125
+      ],
+      "origin": [
+        2524.19775390625,
+        1196.76025390625
+      ],
+      "size": 12.67,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "9",
+      "bbox": [
+        2370.239501953125,
+        1204.0833740234375,
+        2377.28662109375,
+        1216.7578125
+      ],
+      "origin": [
+        2370.239501953125,
+        1213.9202880859375
+      ],
+      "size": 12.67,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "07/19/24",
+      "bbox": [
+        2524.197998046875,
+        1204.0833740234375,
+        2573.005615234375,
+        1216.7578125
+      ],
+      "origin": [
+        2524.197998046875,
+        1213.9202880859375
+      ],
+      "size": 12.67,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "10",
+      "bbox": [
+        2366.759521484375,
+        1221.36328125,
+        2380.766845703125,
+        1234.0377197265625
+      ],
+      "origin": [
+        2366.759521484375,
+        1231.2001953125
+      ],
+      "size": 12.67,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "09/20/24",
+      "bbox": [
+        2524.200439453125,
+        1221.36328125,
+        2573.008056640625,
+        1234.0377197265625
+      ],
+      "origin": [
+        2524.200439453125,
+        1231.2001953125
+      ],
+      "size": 12.67,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "7",
+      "bbox": [
+        2359.319091796875,
+        300.12701416015625,
+        2364.635498046875,
+        309.7049865722656
+      ],
+      "origin": [
+        2359.319091796875,
+        307.5606689453125
+      ],
+      "size": 9.58,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "10",
+      "bbox": [
+        1868.039306640625,
+        1677.3717041015625,
+        1878.6282958984375,
+        1686.94287109375
+      ],
+      "origin": [
+        1868.039306640625,
+        1684.800048828125
+      ],
+      "size": 9.57,
+      "font": "Arial",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "November 19",
+      "bbox": [
+        1712.7122802734375,
+        1378.523681640625,
+        1791.408203125,
+        1395.047607421875
+      ],
+      "origin": [
+        1712.7122802734375,
+        1391.3636474609375
+      ],
+      "size": 12.0,
+      "font": "Helvetica-Bold",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": ", 2024",
+      "bbox": [
+        1797.072265625,
+        1378.523681640625,
+        1830.4322509765625,
+        1395.047607421875
+      ],
+      "origin": [
+        1797.072265625,
+        1391.3636474609375
+      ],
+      "size": 12.0,
+      "font": "Helvetica-Bold",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    },
+    {
+      "text": "Bulletin #6",
+      "bbox": [
+        1736.89501953125,
+        1338.593017578125,
+        1807.693115234375,
+        1357.8709716796875
+      ],
+      "origin": [
+        1736.89501953125,
+        1353.572998046875
+      ],
+      "size": 14.0,
+      "font": "Helvetica-Bold",
+      "is_cabinet_kw": false,
+      "is_label": false,
+      "is_metric_dim": true,
+      "is_imperial_dim": false
+    }
+  ],
+  "cabinet_rects": [
+    {
+      "x0": 1896.6,
+      "y0": 639.0,
+      "x1": 1933.92,
+      "y1": 653.52,
+      "w": 37.32,
+      "h": 14.52,
+      "fill": [
+        0.7539060115814209,
+        0.7539060115814209,
+        0.7539060115814209
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 579.48,
+      "y0": 193.08,
+      "x1": 626.76,
+      "y1": 222.96,
+      "w": 47.28,
+      "h": 29.88,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 472.2,
+      "y0": 220.32,
+      "x1": 509.64,
+      "y1": 257.76,
+      "w": 37.44,
+      "h": 37.44,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 456.48,
+      "y0": 142.44,
+      "x1": 496.92,
+      "y1": 187.08,
+      "w": 40.44,
+      "h": 44.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 411.48,
+      "y0": 142.44,
+      "x1": 452.04,
+      "y1": 187.08,
+      "w": 40.56,
+      "h": 44.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 595.2,
+      "y0": 259.32,
+      "x1": 618.72,
+      "y1": 286.32,
+      "w": 23.52,
+      "h": 27.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 590.76,
+      "y0": 236.88,
+      "x1": 625.32,
+      "y1": 308.88,
+      "w": 34.56,
+      "h": 72.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 596.76,
+      "y0": 334.08,
+      "x1": 626.76,
+      "y1": 432.84,
+      "w": 30.0,
+      "h": 98.76,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 590.76,
+      "y0": 308.88,
+      "x1": 626.76,
+      "y1": 326.88,
+      "w": 36.0,
+      "h": 18.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 158.52,
+      "y0": 56.28,
+      "x1": 639.96,
+      "y1": 674.76,
+      "w": 481.44,
+      "h": 618.48,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 164.52,
+      "y0": 634.68,
+      "x1": 397.2,
+      "y1": 646.08,
+      "w": 232.68,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 216.24,
+      "y0": 631.44,
+      "x1": 360.12,
+      "y1": 647.04,
+      "w": 143.88,
+      "h": 15.6,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 397.2,
+      "y0": 651.96,
+      "x1": 639.96,
+      "y1": 663.36,
+      "w": 242.76,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 481.92,
+      "y0": 648.72,
+      "x1": 561.36,
+      "y1": 664.32,
+      "w": 79.44,
+      "h": 15.6,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 372.6,
+      "y0": 663.36,
+      "x1": 397.2,
+      "y1": 674.76,
+      "w": 24.6,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 158.52,
+      "y0": 663.36,
+      "x1": 203.88,
+      "y1": 674.76,
+      "w": 45.36,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 411.84,
+      "y0": 408.12,
+      "x1": 518.88,
+      "y1": 425.52,
+      "w": 107.04,
+      "h": 17.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 313.2,
+      "y0": 115.44,
+      "x1": 399.36,
+      "y1": 126.84,
+      "w": 86.16,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 158.52,
+      "y0": 115.44,
+      "x1": 313.2,
+      "y1": 126.84,
+      "w": 154.68,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 509.16,
+      "y0": 115.44,
+      "x1": 639.96,
+      "y1": 126.84,
+      "w": 130.8,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 399.36,
+      "y0": 115.44,
+      "x1": 509.16,
+      "y1": 126.84,
+      "w": 109.8,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 173.4,
+      "y0": 130.8,
+      "x1": 243.72,
+      "y1": 231.96,
+      "w": 70.32,
+      "h": 101.16,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 245.4,
+      "y0": 131.52,
+      "x1": 294.48,
+      "y1": 177.48,
+      "w": 49.08,
+      "h": 45.96,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 183.12,
+      "y0": 298.68,
+      "x1": 205.56,
+      "y1": 342.24,
+      "w": 22.44,
+      "h": 43.56,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 182.4,
+      "y0": 297.96,
+      "x1": 206.52,
+      "y1": 342.84,
+      "w": 24.12,
+      "h": 44.88,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 173.88,
+      "y0": 276.96,
+      "x1": 208.68,
+      "y1": 381.96,
+      "w": 34.8,
+      "h": 105.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 173.4,
+      "y0": 231.96,
+      "x1": 211.68,
+      "y1": 276.96,
+      "w": 38.28,
+      "h": 45.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 782.64,
+      "y0": 634.68,
+      "x1": 1015.32,
+      "y1": 646.08,
+      "w": 232.68,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 834.48,
+      "y0": 631.44,
+      "x1": 978.36,
+      "y1": 647.04,
+      "w": 143.88,
+      "h": 15.6,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1015.32,
+      "y0": 651.96,
+      "x1": 1258.44,
+      "y1": 663.36,
+      "w": 243.12,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1100.04,
+      "y0": 648.72,
+      "x1": 1179.48,
+      "y1": 664.32,
+      "w": 79.44,
+      "h": 15.6,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 990.72,
+      "y0": 663.36,
+      "x1": 1015.32,
+      "y1": 674.76,
+      "w": 24.6,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 775.92,
+      "y0": 663.36,
+      "x1": 822.12,
+      "y1": 674.76,
+      "w": 46.2,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 775.92,
+      "y0": 664.32,
+      "x1": 1029.24,
+      "y1": 677.16,
+      "w": 253.32,
+      "h": 12.84,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 775.92,
+      "y0": 64.68,
+      "x1": 1258.44,
+      "y1": 674.76,
+      "w": 482.52,
+      "h": 610.08,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1133.64,
+      "y0": 130.08,
+      "x1": 1244.88,
+      "y1": 326.88,
+      "w": 111.24,
+      "h": 196.8,
+      "fill": [
+        0.7539060115814209,
+        0.7539060115814209,
+        0.7539060115814209
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1018.44,
+      "y0": 136.8,
+      "x1": 1126.44,
+      "y1": 193.8,
+      "w": 108.0,
+      "h": 57.0,
+      "fill": [
+        0.7539060115814209,
+        0.7539060115814209,
+        0.7539060115814209
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1091.28,
+      "y0": 269.28,
+      "x1": 1126.44,
+      "y1": 326.88,
+      "w": 35.16,
+      "h": 57.6,
+      "fill": [
+        0.7539060115814209,
+        0.7539060115814209,
+        0.7539060115814209
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1029.96,
+      "y0": 269.28,
+      "x1": 1083.96,
+      "y1": 323.28,
+      "w": 54.0,
+      "h": 54.0,
+      "fill": [
+        0.7539060115814209,
+        0.7539060115814209,
+        0.7539060115814209
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1029.96,
+      "y0": 334.08,
+      "x1": 1137.0,
+      "y1": 425.52,
+      "w": 107.04,
+      "h": 91.44,
+      "fill": [
+        0.7539060115814209,
+        0.7539060115814209,
+        0.7539060115814209
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1022.64,
+      "y0": 201.12,
+      "x1": 1126.44,
+      "y1": 261.96,
+      "w": 103.8,
+      "h": 60.84,
+      "fill": [
+        0.7539060115814209,
+        0.7539060115814209,
+        0.7539060115814209
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1144.32,
+      "y0": 334.08,
+      "x1": 1244.88,
+      "y1": 648.72,
+      "w": 100.56,
+      "h": 314.64,
+      "fill": [
+        0.7539060115814209,
+        0.7539060115814209,
+        0.7539060115814209
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 790.92,
+      "y0": 130.08,
+      "x1": 932.4,
+      "y1": 381.96,
+      "w": 141.48,
+      "h": 251.88,
+      "fill": [
+        0.7539060115814209,
+        0.7539060115814209,
+        0.7539060115814209
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 931.44,
+      "y0": 115.44,
+      "x1": 1017.48,
+      "y1": 126.84,
+      "w": 86.04,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 941.64,
+      "y0": 114.48,
+      "x1": 1001.64,
+      "y1": 130.08,
+      "w": 60.0,
+      "h": 15.6,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 775.92,
+      "y0": 115.44,
+      "x1": 931.44,
+      "y1": 126.84,
+      "w": 155.52,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 932.4,
+      "y0": 130.08,
+      "x1": 1007.64,
+      "y1": 178.08,
+      "w": 75.24,
+      "h": 48.0,
+      "fill": [
+        0.7539060115814209,
+        0.7539060115814209,
+        0.7539060115814209
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1127.28,
+      "y0": 115.44,
+      "x1": 1258.44,
+      "y1": 126.84,
+      "w": 131.16,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1017.48,
+      "y0": 115.44,
+      "x1": 1127.28,
+      "y1": 126.84,
+      "w": 109.8,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 790.92,
+      "y0": 151.08,
+      "x1": 1220.88,
+      "y1": 648.72,
+      "w": 429.96,
+      "h": 497.64,
+      "fill": [
+        0.49804699420928955,
+        0.49804699420928955,
+        0.49804699420928955
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 820.44,
+      "y0": 914.04,
+      "x1": 1134.84,
+      "y1": 1498.8,
+      "w": 314.4,
+      "h": 584.76,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 820.44,
+      "y0": 927.24,
+      "x1": 1129.44,
+      "y1": 950.04,
+      "w": 309.0,
+      "h": 22.8,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 848.4,
+      "y0": 956.4,
+      "x1": 990.48,
+      "y1": 1160.28,
+      "w": 142.08,
+      "h": 203.88,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 993.84,
+      "y0": 959.4,
+      "x1": 1092.0,
+      "y1": 1051.32,
+      "w": 98.16,
+      "h": 91.92,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1095.36,
+      "y0": 956.4,
+      "x1": 1131.36,
+      "y1": 1028.4,
+      "w": 36.0,
+      "h": 72.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 869.16,
+      "y0": 1293.72,
+      "x1": 914.16,
+      "y1": 1380.72,
+      "w": 45.0,
+      "h": 87.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 867.72,
+      "y0": 1289.28,
+      "x1": 916.56,
+      "y1": 1382.16,
+      "w": 48.84,
+      "h": 92.88,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 848.4,
+      "y0": 1388.16,
+      "x1": 920.4,
+      "y1": 1460.16,
+      "w": 72.0,
+      "h": 72.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 850.68,
+      "y0": 1250.28,
+      "x1": 920.4,
+      "y1": 1388.16,
+      "w": 69.72,
+      "h": 137.88,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 848.4,
+      "y0": 1160.28,
+      "x1": 926.4,
+      "y1": 1250.28,
+      "w": 78.0,
+      "h": 90.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1229.4,
+      "y0": 897.0,
+      "x1": 1670.88,
+      "y1": 1167.12,
+      "w": 441.48,
+      "h": 270.12,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1452.0,
+      "y0": 970.68,
+      "x1": 1506.0,
+      "y1": 992.4,
+      "w": 54.0,
+      "h": 21.72,
+      "fill": [
+        0.890625,
+        0.890625,
+        0.890625
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1440.0,
+      "y0": 961.68,
+      "x1": 1529.88,
+      "y1": 1001.4,
+      "w": 89.88,
+      "h": 39.72,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1440.0,
+      "y0": 960.24,
+      "x1": 1529.88,
+      "y1": 1001.4,
+      "w": 89.88,
+      "h": 41.16,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1230.12,
+      "y0": 987.24,
+      "x1": 1732.32,
+      "y1": 1047.12,
+      "w": 502.2,
+      "h": 59.88,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1661.88,
+      "y0": 1047.12,
+      "x1": 1733.76,
+      "y1": 1063.68,
+      "w": 71.88,
+      "h": 16.56,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1529.88,
+      "y0": 1047.12,
+      "x1": 1731.48,
+      "y1": 1059.12,
+      "w": 201.6,
+      "h": 12.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1619.88,
+      "y0": 1063.68,
+      "x1": 1658.88,
+      "y1": 1156.56,
+      "w": 39.0,
+      "h": 92.88,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1619.88,
+      "y0": 1156.56,
+      "x1": 1658.88,
+      "y1": 1167.12,
+      "w": 39.0,
+      "h": 10.56,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1625.16,
+      "y0": 1068.84,
+      "x1": 1645.32,
+      "y1": 1096.68,
+      "w": 20.16,
+      "h": 27.84,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1622.16,
+      "y0": 1065.84,
+      "x1": 1656.6,
+      "y1": 1154.28,
+      "w": 34.44,
+      "h": 88.44,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1661.88,
+      "y0": 1063.68,
+      "x1": 1733.76,
+      "y1": 1167.12,
+      "w": 71.88,
+      "h": 103.44,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1664.04,
+      "y0": 1063.68,
+      "x1": 1731.48,
+      "y1": 1154.28,
+      "w": 67.44,
+      "h": 90.6,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1232.4,
+      "y0": 899.52,
+      "x1": 1299.84,
+      "y1": 1002.96,
+      "w": 67.44,
+      "h": 103.44,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1230.12,
+      "y0": 897.24,
+      "x1": 1302.12,
+      "y1": 1005.24,
+      "w": 72.0,
+      "h": 108.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1304.28,
+      "y0": 899.52,
+      "x1": 1401.72,
+      "y1": 984.96,
+      "w": 97.44,
+      "h": 85.44,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1302.12,
+      "y0": 897.24,
+      "x1": 1404.0,
+      "y1": 987.24,
+      "w": 101.88,
+      "h": 90.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1442.28,
+      "y0": 899.52,
+      "x1": 1527.72,
+      "y1": 948.96,
+      "w": 85.44,
+      "h": 49.44,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1440.0,
+      "y0": 897.24,
+      "x1": 1529.88,
+      "y1": 951.24,
+      "w": 89.88,
+      "h": 54.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1230.12,
+      "y0": 1081.68,
+      "x1": 1302.12,
+      "y1": 1155.12,
+      "w": 72.0,
+      "h": 73.44,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1230.12,
+      "y0": 1063.68,
+      "x1": 1302.12,
+      "y1": 1081.68,
+      "w": 72.0,
+      "h": 18.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1230.12,
+      "y0": 1155.12,
+      "x1": 1302.12,
+      "y1": 1167.12,
+      "w": 72.0,
+      "h": 12.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1235.4,
+      "y0": 1067.52,
+      "x1": 1289.76,
+      "y1": 1077.84,
+      "w": 54.36,
+      "h": 10.32,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1230.12,
+      "y0": 1047.12,
+      "x1": 1440.0,
+      "y1": 1059.12,
+      "w": 209.88,
+      "h": 12.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1440.0,
+      "y0": 1067.4,
+      "x1": 1529.88,
+      "y1": 1167.12,
+      "w": 89.88,
+      "h": 99.72,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1440.0,
+      "y0": 1044.12,
+      "x1": 1529.88,
+      "y1": 1059.12,
+      "w": 89.88,
+      "h": 15.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1449.0,
+      "y0": 1080.12,
+      "x1": 1520.88,
+      "y1": 1128.12,
+      "w": 71.88,
+      "h": 48.0,
+      "fill": [
+        0.890625,
+        0.890625,
+        0.890625
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1446.0,
+      "y0": 1077.12,
+      "x1": 1523.88,
+      "y1": 1131.12,
+      "w": 77.88,
+      "h": 54.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1440.0,
+      "y0": 1068.12,
+      "x1": 1529.88,
+      "y1": 1165.56,
+      "w": 89.88,
+      "h": 97.44,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1302.12,
+      "y0": 1063.68,
+      "x1": 1404.0,
+      "y1": 1156.56,
+      "w": 101.88,
+      "h": 92.88,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1302.12,
+      "y0": 1156.56,
+      "x1": 1404.0,
+      "y1": 1167.12,
+      "w": 101.88,
+      "h": 10.56,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1404.0,
+      "y0": 1063.68,
+      "x1": 1440.0,
+      "y1": 1156.56,
+      "w": 36.0,
+      "h": 92.88,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1404.0,
+      "y0": 1156.56,
+      "x1": 1440.0,
+      "y1": 1167.12,
+      "w": 36.0,
+      "h": 10.56,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1406.28,
+      "y0": 1065.84,
+      "x1": 1437.72,
+      "y1": 1154.28,
+      "w": 31.44,
+      "h": 88.44,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1404.0,
+      "y0": 897.24,
+      "x1": 1440.0,
+      "y1": 1005.24,
+      "w": 36.0,
+      "h": 108.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1406.28,
+      "y0": 899.52,
+      "x1": 1437.72,
+      "y1": 1002.96,
+      "w": 31.44,
+      "h": 103.44,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1529.88,
+      "y0": 1063.68,
+      "x1": 1619.88,
+      "y1": 1156.56,
+      "w": 90.0,
+      "h": 92.88,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1529.88,
+      "y0": 1156.56,
+      "x1": 1619.88,
+      "y1": 1167.12,
+      "w": 90.0,
+      "h": 10.56,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1547.52,
+      "y0": 1068.84,
+      "x1": 1602.24,
+      "y1": 1096.68,
+      "w": 54.72,
+      "h": 27.84,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1529.88,
+      "y0": 897.24,
+      "x1": 1619.88,
+      "y1": 1005.24,
+      "w": 90.0,
+      "h": 108.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1532.16,
+      "y0": 899.52,
+      "x1": 1617.6,
+      "y1": 1002.96,
+      "w": 85.44,
+      "h": 103.44,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1619.88,
+      "y0": 897.24,
+      "x1": 1697.76,
+      "y1": 1005.24,
+      "w": 77.88,
+      "h": 108.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1622.16,
+      "y0": 899.52,
+      "x1": 1695.6,
+      "y1": 1002.96,
+      "w": 73.44,
+      "h": 103.44,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1697.76,
+      "y0": 897.24,
+      "x1": 1733.76,
+      "y1": 1005.24,
+      "w": 36.0,
+      "h": 108.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1700.04,
+      "y0": 899.52,
+      "x1": 1731.48,
+      "y1": 1002.96,
+      "w": 31.44,
+      "h": 103.44,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1408.92,
+      "y0": 1398.36,
+      "x1": 1583.28,
+      "y1": 1599.24,
+      "w": 174.36,
+      "h": 200.88,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1339.08,
+      "y0": 1383.36,
+      "x1": 1381.08,
+      "y1": 1433.52,
+      "w": 42.0,
+      "h": 50.16,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1336.32,
+      "y0": 1437.24,
+      "x1": 1478.28,
+      "y1": 1479.24,
+      "w": 141.96,
+      "h": 42.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1342.32,
+      "y0": 1479.24,
+      "x1": 1478.28,
+      "y1": 1491.24,
+      "w": 135.96,
+      "h": 12.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1411.2,
+      "y0": 1495.8,
+      "x1": 1478.28,
+      "y1": 1588.68,
+      "w": 67.08,
+      "h": 92.88,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1411.2,
+      "y0": 1588.68,
+      "x1": 1478.28,
+      "y1": 1599.24,
+      "w": 67.08,
+      "h": 10.56,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1423.08,
+      "y0": 1500.96,
+      "x1": 1466.4,
+      "y1": 1528.68,
+      "w": 43.32,
+      "h": 27.72,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1481.64,
+      "y0": 1460.76,
+      "x1": 1579.8,
+      "y1": 1590.24,
+      "w": 98.16,
+      "h": 129.48,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1481.64,
+      "y0": 1400.52,
+      "x1": 1579.8,
+      "y1": 1460.28,
+      "w": 98.16,
+      "h": 59.76,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1481.64,
+      "y0": 1460.28,
+      "x1": 1579.8,
+      "y1": 1599.24,
+      "w": 98.16,
+      "h": 138.96,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1480.56,
+      "y0": 1331.64,
+      "x1": 1581.0,
+      "y1": 1396.08,
+      "w": 100.44,
+      "h": 64.44,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1478.28,
+      "y0": 1329.36,
+      "x1": 1583.28,
+      "y1": 1398.36,
+      "w": 105.0,
+      "h": 69.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1583.28,
+      "y0": 1588.56,
+      "x1": 1619.16,
+      "y1": 1599.24,
+      "w": 35.88,
+      "h": 10.68,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1590.72,
+      "y0": 1336.8,
+      "x1": 1611.72,
+      "y1": 1581.0,
+      "w": 21.0,
+      "h": 244.2,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1583.28,
+      "y0": 1329.36,
+      "x1": 1619.16,
+      "y1": 1588.56,
+      "w": 35.88,
+      "h": 259.2,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1336.32,
+      "y0": 1329.36,
+      "x1": 1372.2,
+      "y1": 1383.36,
+      "w": 35.88,
+      "h": 54.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1338.48,
+      "y0": 1331.64,
+      "x1": 1370.04,
+      "y1": 1381.08,
+      "w": 31.56,
+      "h": 49.44,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1336.32,
+      "y0": 1476.24,
+      "x1": 1408.92,
+      "y1": 1599.24,
+      "w": 72.6,
+      "h": 123.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1372.2,
+      "y0": 1329.36,
+      "x1": 1478.28,
+      "y1": 1437.24,
+      "w": 106.08,
+      "h": 107.88,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1374.48,
+      "y0": 1331.64,
+      "x1": 1476.0,
+      "y1": 1435.08,
+      "w": 101.52,
+      "h": 103.44,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1683.84,
+      "y0": 115.44,
+      "x1": 1806.48,
+      "y1": 126.84,
+      "w": 122.64,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1341.96,
+      "y0": 634.68,
+      "x1": 1572.72,
+      "y1": 646.08,
+      "w": 230.76,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1391.88,
+      "y0": 631.44,
+      "x1": 1535.76,
+      "y1": 647.04,
+      "w": 143.88,
+      "h": 15.6,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1584.24,
+      "y0": 651.96,
+      "x1": 1806.48,
+      "y1": 663.36,
+      "w": 222.24,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1661.28,
+      "y0": 648.72,
+      "x1": 1740.72,
+      "y1": 664.32,
+      "w": 79.44,
+      "h": 15.6,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1548.12,
+      "y0": 663.36,
+      "x1": 1584.24,
+      "y1": 674.76,
+      "w": 36.12,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1536.72,
+      "y0": 663.36,
+      "x1": 1585.08,
+      "y1": 675.72,
+      "w": 48.36,
+      "h": 12.36,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1332.48,
+      "y0": 663.36,
+      "x1": 1379.52,
+      "y1": 674.76,
+      "w": 47.04,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1332.48,
+      "y0": 664.32,
+      "x1": 1586.64,
+      "y1": 677.16,
+      "w": 254.16,
+      "h": 12.84,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1332.48,
+      "y0": 113.16,
+      "x1": 1817.88,
+      "y1": 674.76,
+      "w": 485.4,
+      "h": 561.6,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1332.48,
+      "y0": 115.44,
+      "x1": 1487.4,
+      "y1": 126.84,
+      "w": 154.92,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1487.88,
+      "y0": 130.08,
+      "x1": 1796.52,
+      "y1": 425.52,
+      "w": 308.64,
+      "h": 295.44,
+      "fill": [
+        0.7539060115814209,
+        0.7539060115814209,
+        0.7539060115814209
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1346.4,
+      "y0": 130.08,
+      "x1": 1487.88,
+      "y1": 381.96,
+      "w": 141.48,
+      "h": 251.88,
+      "fill": [
+        0.7539060115814209,
+        0.7539060115814209,
+        0.7539060115814209
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1487.4,
+      "y0": 115.44,
+      "x1": 1575.84,
+      "y1": 126.84,
+      "w": 88.44,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1497.6,
+      "y0": 114.48,
+      "x1": 1557.6,
+      "y1": 130.08,
+      "w": 60.0,
+      "h": 15.6,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1575.84,
+      "y0": 115.44,
+      "x1": 1683.84,
+      "y1": 126.84,
+      "w": 108.0,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1697.88,
+      "y0": 332.64,
+      "x1": 1803.24,
+      "y1": 648.72,
+      "w": 105.36,
+      "h": 316.08,
+      "fill": [
+        0.7539060115814209,
+        0.7539060115814209,
+        0.7539060115814209
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1346.4,
+      "y0": 151.08,
+      "x1": 1785.24,
+      "y1": 648.72,
+      "w": 438.84,
+      "h": 497.64,
+      "fill": [
+        0.49804699420928955,
+        0.49804699420928955,
+        0.49804699420928955
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 493.32,
+      "y0": 891.12,
+      "x1": 615.96,
+      "y1": 902.52,
+      "w": 122.64,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 139.2,
+      "y0": 881.4,
+      "x1": 645.0,
+      "y1": 1450.44,
+      "w": 505.8,
+      "h": 569.04,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 151.44,
+      "y0": 1410.24,
+      "x1": 382.32,
+      "y1": 1421.76,
+      "w": 230.88,
+      "h": 11.52,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 201.36,
+      "y0": 1407.12,
+      "x1": 345.36,
+      "y1": 1422.6,
+      "w": 144.0,
+      "h": 15.48,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 393.72,
+      "y0": 1427.52,
+      "x1": 615.96,
+      "y1": 1438.92,
+      "w": 222.24,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 470.88,
+      "y0": 1424.28,
+      "x1": 550.32,
+      "y1": 1439.88,
+      "w": 79.44,
+      "h": 15.6,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 357.72,
+      "y0": 1438.92,
+      "x1": 393.72,
+      "y1": 1450.44,
+      "w": 36.0,
+      "h": 11.52,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 346.2,
+      "y0": 1438.92,
+      "x1": 394.68,
+      "y1": 1451.28,
+      "w": 48.48,
+      "h": 12.36,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 139.2,
+      "y0": 1438.92,
+      "x1": 189.0,
+      "y1": 1450.44,
+      "w": 49.8,
+      "h": 11.52,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 139.2,
+      "y0": 891.12,
+      "x1": 297.0,
+      "y1": 902.52,
+      "w": 157.8,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 396.96,
+      "y0": 1183.2,
+      "x1": 500.16,
+      "y1": 1201.2,
+      "w": 103.2,
+      "h": 18.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 558.84,
+      "y0": 968.64,
+      "x1": 606.0,
+      "y1": 998.64,
+      "w": 47.16,
+      "h": 30.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 441.6,
+      "y0": 918.0,
+      "x1": 482.04,
+      "y1": 962.64,
+      "w": 40.44,
+      "h": 44.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 396.6,
+      "y0": 918.0,
+      "x1": 437.16,
+      "y1": 962.64,
+      "w": 40.56,
+      "h": 44.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 574.44,
+      "y0": 1032.0,
+      "x1": 600.0,
+      "y1": 1061.88,
+      "w": 25.56,
+      "h": 29.88,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 570.12,
+      "y0": 1011.0,
+      "x1": 604.92,
+      "y1": 1082.88,
+      "w": 34.8,
+      "h": 71.88,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 582.84,
+      "y0": 1108.2,
+      "x1": 612.84,
+      "y1": 1208.52,
+      "w": 30.0,
+      "h": 100.32,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 156.0,
+      "y0": 905.64,
+      "x1": 226.92,
+      "y1": 1007.64,
+      "w": 70.92,
+      "h": 102.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 228.6,
+      "y0": 907.2,
+      "x1": 277.8,
+      "y1": 953.04,
+      "w": 49.2,
+      "h": 45.84,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 166.32,
+      "y0": 1074.36,
+      "x1": 188.88,
+      "y1": 1117.8,
+      "w": 22.56,
+      "h": 43.44,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 159.6,
+      "y0": 1072.08,
+      "x1": 191.04,
+      "y1": 1120.08,
+      "w": 31.44,
+      "h": 48.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 157.08,
+      "y0": 1052.64,
+      "x1": 191.88,
+      "y1": 1157.52,
+      "w": 34.8,
+      "h": 104.88,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 156.0,
+      "y0": 1007.64,
+      "x1": 194.88,
+      "y1": 1052.64,
+      "w": 38.88,
+      "h": 45.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 568.56,
+      "y0": 1082.88,
+      "x1": 606.0,
+      "y1": 1100.88,
+      "w": 37.44,
+      "h": 18.0,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 297.0,
+      "y0": 891.12,
+      "x1": 385.44,
+      "y1": 902.52,
+      "w": 88.44,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 385.44,
+      "y0": 891.12,
+      "x1": 493.32,
+      "y1": 902.52,
+      "w": 107.88,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2109.84,
+      "y0": 72.48,
+      "x1": 2132.28,
+      "y1": 83.64,
+      "w": 22.44,
+      "h": 11.16,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2108.76,
+      "y0": 172.44,
+      "x1": 2133.6,
+      "y1": 183.84,
+      "w": 24.84,
+      "h": 11.4,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 1053.0,
+      "y0": 1201.44,
+      "x1": 1077.84,
+      "y1": 1214.04,
+      "w": 24.84,
+      "h": 12.6,
+      "fill": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2378.28,
+      "y0": 532.8,
+      "x1": 2420.76,
+      "y1": 550.44,
+      "w": 42.48,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2372.76,
+      "y0": 1300.32,
+      "x1": 2404.8,
+      "y1": 1317.96,
+      "w": 32.04,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2372.76,
+      "y0": 1606.32,
+      "x1": 2427.96,
+      "y1": 1623.96,
+      "w": 55.2,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2369.88,
+      "y0": 1450.68,
+      "x1": 2559.72,
+      "y1": 1463.4,
+      "w": 189.84,
+      "h": 12.72,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2381.76,
+      "y0": 1463.4,
+      "x1": 2547.72,
+      "y1": 1476.12,
+      "w": 165.96,
+      "h": 12.72,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2381.28,
+      "y0": 1476.12,
+      "x1": 2548.32,
+      "y1": 1488.96,
+      "w": 167.04,
+      "h": 12.84,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2387.52,
+      "y0": 1488.96,
+      "x1": 2543.64,
+      "y1": 1501.68,
+      "w": 156.12,
+      "h": 12.72,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2383.08,
+      "y0": 1501.68,
+      "x1": 2546.52,
+      "y1": 1514.4,
+      "w": 163.44,
+      "h": 12.72,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2372.76,
+      "y0": 1540.92,
+      "x1": 2408.16,
+      "y1": 1558.56,
+      "w": 35.4,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2372.76,
+      "y0": 1557.24,
+      "x1": 2422.56,
+      "y1": 1574.88,
+      "w": 49.8,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2372.76,
+      "y0": 1573.56,
+      "x1": 2442.24,
+      "y1": 1591.2,
+      "w": 69.48,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2372.76,
+      "y0": 1590.0,
+      "x1": 2426.16,
+      "y1": 1607.64,
+      "w": 53.4,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2370.84,
+      "y0": 237.0,
+      "x1": 2426.28,
+      "y1": 254.64,
+      "w": 55.44,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2380.68,
+      "y0": 357.12,
+      "x1": 2431.44,
+      "y1": 374.76,
+      "w": 50.76,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2389.92,
+      "y0": 472.08,
+      "x1": 2543.52,
+      "y1": 489.72,
+      "w": 153.6,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2401.92,
+      "y0": 489.72,
+      "x1": 2528.4,
+      "y1": 507.36,
+      "w": 126.48,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2417.28,
+      "y0": 553.8,
+      "x1": 2523.0,
+      "y1": 580.08,
+      "w": 105.72,
+      "h": 26.28,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2362.56,
+      "y0": 1633.68,
+      "x1": 2397.0,
+      "y1": 1703.16,
+      "w": 34.44,
+      "h": 69.48,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2414.52,
+      "y0": 1633.68,
+      "x1": 2516.16,
+      "y1": 1703.16,
+      "w": 101.64,
+      "h": 69.48,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2444.28,
+      "y0": 642.72,
+      "x1": 2479.08,
+      "y1": 976.68,
+      "w": 34.8,
+      "h": 333.96,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2479.08,
+      "y0": 761.52,
+      "x1": 2513.88,
+      "y1": 857.88,
+      "w": 34.8,
+      "h": 96.36,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2517.24,
+      "y0": 1540.2,
+      "x1": 2546.4,
+      "y1": 1557.84,
+      "w": 29.16,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2498.16,
+      "y0": 1557.24,
+      "x1": 2527.44,
+      "y1": 1574.88,
+      "w": 29.28,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2409.72,
+      "y0": 311.4,
+      "x1": 2520.72,
+      "y1": 329.04,
+      "w": 111.0,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2375.28,
+      "y0": 329.04,
+      "x1": 2417.04,
+      "y1": 346.68,
+      "w": 41.76,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2421.6,
+      "y0": 329.04,
+      "x1": 2554.92,
+      "y1": 346.68,
+      "w": 133.32,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2439.12,
+      "y0": 1573.56,
+      "x1": 2546.52,
+      "y1": 1591.2,
+      "w": 107.4,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    },
+    {
+      "x0": 2517.36,
+      "y0": 1590.0,
+      "x1": 2546.4,
+      "y1": 1607.64,
+      "w": 29.04,
+      "h": 17.64,
+      "fill": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "stroke": []
+    }
+  ],
+  "crop_images": [
+    {
+      "label": "BATHROOM",
+      "type": "BATH",
+      "filename": "CROP_BATH_BATHROOM.png",
+      "size_px": "3890x2945"
+    },
+    {
+      "label": "KITCHEN",
+      "type": "KITCHEN",
+      "filename": "CROP_KITCHEN_KITCHEN.png",
+      "size_px": "3890x2946"
+    },
+    {
+      "label": "FACE OF CORE.  THICKNESS OF BATHROOM TILE FINISHES ARE NOT INCLUDED IN WALL ASSEMBLY AND",
+      "type": "BATH",
+      "filename": "CROP_BATH_FACE_OF_CORE___THICKNESS_OF_BATHROOM_TIL.png",
+      "size_px": "3890x2946"
+    },
+    {
+      "label": "NOTE: SEE SHEETS A-6.05A - A-6.06 FOR BATHROOM FIXTURE LEGEND",
+      "type": "BATH",
+      "filename": "CROP_BATH_NOTE__SEE_SHEETS_A_6_05A___A_6_06_FOR_BA.png",
+      "size_px": "3890x2946"
+    },
+    {
+      "label": "MIRROR MATCH WIDTH OF VANITY. REFER TO A-6.05a & A-6.06, ADA & FHA BATHROOM FIXTURE LEGEND, #7.",
+      "type": "BATH",
+      "filename": "CROP_BATH_MIRROR_MATCH_WIDTH_OF_VANITY__REFER_TO_A.png",
+      "size_px": "3890x2946"
+    },
+    {
+      "label": "UNIT A1 KITCHEN EL.",
+      "type": "KITCHEN",
+      "filename": "CROP_KITCHEN_UNIT_A1_KITCHEN_EL_.png",
+      "size_px": "3890x2945"
+    },
+    {
+      "label": "REFER TO A-6.05a, ADA BATHROOM FIXTURE LEGEND, #14.",
+      "type": "BATH",
+      "filename": "CROP_BATH_REFER_TO_A_6_05a__ADA_BATHROOM_FIXTURE_L.png",
+      "size_px": "3890x2945"
+    },
+    {
+      "label": "FINISHED DIM. AS PER TUB MANUFACTURER.REFER TO A-6.06, FHA BATHROOM FIXTURE LEGEND, #11.",
+      "type": "BATH",
+      "filename": "CROP_BATH_FINISHED_DIM__AS_PER_TUB_MANUFACTURER_RE.png",
+      "size_px": "3890x2614"
+    },
+    {
+      "label": "TOILET.REFER TO A-6.05a & A-6.06, ADA & FHA BATHROOM FIXTURE LEGEND, #1.",
+      "type": "BATH",
+      "filename": "CROP_BATH_TOILET_REFER_TO_A_6_05a___A_6_06__ADA___.png",
+      "size_px": "3890x2541"
+    },
+    {
+      "label": "FHA BATHROOM FIXTURE LEGEND, #2, #3, #3A, #3B & 3C.",
+      "type": "BATH",
+      "filename": "CROP_BATH_FHA_BATHROOM_FIXTURE_LEGEND___2___3___3A.png",
+      "size_px": "3890x2408"
+    },
+    {
+      "label": "VANITY CABINET. REFER TO A-6.06, FHA BATHROOM FIXTURE LEGEND, #5.",
+      "type": "BATH",
+      "filename": "CROP_BATH_VANITY_CABINET__REFER_TO_A_6_06__FHA_BAT.png",
+      "size_px": "3890x2200"
+    },
+    {
+      "label": "TOWEL BAR.REFER TO A-6.05a & A-6.06, ADA & FHA BATHROOM FIXTURE LEGEND, #9.",
+      "type": "BATH",
+      "filename": "CROP_BATH_TOWEL_BAR_REFER_TO_A_6_05a___A_6_06__ADA.png",
+      "size_px": "3890x2127"
+    },
+    {
+      "label": "TOILET PAPER HOLDER. REFER TO A-6.05a & A-6.06, ADA & FHA BATHROOM FIXTURE LEGEND, #8.",
+      "type": "BATH",
+      "filename": "CROP_BATH_TOILET_PAPER_HOLDER__REFER_TO_A_6_05a___.png",
+      "size_px": "3890x2054"
+    },
+    {
+      "label": "CURTAIN ROD.REFER TO A-6.05a & A-6.06, ADA & FHA BATHROOM FIXTURE LEGEND, #13.",
+      "type": "BATH",
+      "filename": "CROP_BATH_CURTAIN_ROD_REFER_TO_A_6_05a___A_6_06__A.png",
+      "size_px": "3890x1982"
+    },
+    {
+      "label": "CENTER VANITY LIGHT OVER VANITY",
+      "type": "BATH",
+      "filename": "CROP_BATH_CENTER_VANITY_LIGHT_OVER_VANITY.png",
+      "size_px": "3890x1702"
+    },
+    {
+      "label": "WALL MOUNTED SHOWER HEAD. REFER TO A-6.06, FHA BATHROOM FIXTURE LEGEND, #15.",
+      "type": "BATH",
+      "filename": "CROP_BATH_WALL_MOUNTED_SHOWER_HEAD__REFER_TO_A_6_0.png",
+      "size_px": "3890x1556"
+    },
+    {
+      "label": "HANDHELD & WALL MOUNTED SHOWER HEAD. REFER TO A-6.05a, ADA BATHROOM FIXTURE LEGEND, #15.",
+      "type": "BATH",
+      "filename": "CROP_BATH_HANDHELD___WALL_MOUNTED_SHOWER_HEAD__REF.png",
+      "size_px": "3890x1193"
+    },
+    {
+      "label": "TOP_LEFT",
+      "type": "QUADRANT",
+      "filename": "CROP_QUADRANT_TOP_LEFT.png",
+      "size_px": "7200x4800"
+    },
+    {
+      "label": "TOP_RIGHT",
+      "type": "QUADRANT",
+      "filename": "CROP_QUADRANT_TOP_RIGHT.png",
+      "size_px": "7200x4800"
+    },
+    {
+      "label": "BOTTOM_LEFT",
+      "type": "QUADRANT",
+      "filename": "CROP_QUADRANT_BOTTOM_LEFT.png",
+      "size_px": "7200x4800"
+    },
+    {
+      "label": "BOTTOM_RIGHT",
+      "type": "QUADRANT",
+      "filename": "CROP_QUADRANT_BOTTOM_RIGHT.png",
+      "size_px": "7200x4800"
+    },
+    {
+      "label": "FULL_PAGE",
+      "type": "FULL",
+      "filename": "CROP_FULL_FULL_PAGE.png",
+      "size_px": "14400x9600"
+    }
+  ],
+  "next_step": {
+    "action": "Send crop images + dimension_spans + cabinet_rects to Claude Vision",
+    "prompt": "You are an expert cabinet estimator. I am showing you a section of an architectural elevation drawing. The pre-extracted text dimensions are provided. Identify every cabinet in this elevation: type (upper_wall/base/sink_base/dw_adjacent/pantry/vanity), width_mm, height_mm, depth_mm, location note, confidence score. Return a JSON array of cabinets.",
+    "images_to_send": [
+      "CROP_BATH_BATHROOM.png",
+      "CROP_KITCHEN_KITCHEN.png",
+      "CROP_BATH_FACE_OF_CORE___THICKNESS_OF_BATHROOM_TIL.png",
+      "CROP_BATH_NOTE__SEE_SHEETS_A_6_05A___A_6_06_FOR_BA.png",
+      "CROP_BATH_MIRROR_MATCH_WIDTH_OF_VANITY__REFER_TO_A.png",
+      "CROP_KITCHEN_UNIT_A1_KITCHEN_EL_.png",
+      "CROP_BATH_REFER_TO_A_6_05a__ADA_BATHROOM_FIXTURE_L.png",
+      "CROP_BATH_FINISHED_DIM__AS_PER_TUB_MANUFACTURER_RE.png",
+      "CROP_BATH_TOILET_REFER_TO_A_6_05a___A_6_06__ADA___.png",
+      "CROP_BATH_FHA_BATHROOM_FIXTURE_LEGEND___2___3___3A.png",
+      "CROP_BATH_VANITY_CABINET__REFER_TO_A_6_06__FHA_BAT.png",
+      "CROP_BATH_TOWEL_BAR_REFER_TO_A_6_05a___A_6_06__ADA.png",
+      "CROP_BATH_TOILET_PAPER_HOLDER__REFER_TO_A_6_05a___.png",
+      "CROP_BATH_CURTAIN_ROD_REFER_TO_A_6_05a___A_6_06__A.png",
+      "CROP_BATH_CENTER_VANITY_LIGHT_OVER_VANITY.png",
+      "CROP_BATH_WALL_MOUNTED_SHOWER_HEAD__REFER_TO_A_6_0.png",
+      "CROP_BATH_HANDHELD___WALL_MOUNTED_SHOWER_HEAD__REF.png",
+      "CROP_QUADRANT_TOP_LEFT.png",
+      "CROP_QUADRANT_TOP_RIGHT.png",
+      "CROP_QUADRANT_BOTTOM_LEFT.png",
+      "CROP_QUADRANT_BOTTOM_RIGHT.png"
+    ]
+  }
+}

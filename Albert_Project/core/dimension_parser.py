@@ -154,8 +154,8 @@ def parse_imperial_mm(text: str) -> Optional[float]:
     text = text.strip()
     total_inches = 0.0
 
-    # Try bracket form first: [2'-6"] or [14']
-    bracket_m = re.search(r'\[(\d+)[\'′]\s*[-]?\s*(\d+)?(?:\s+(\d+)/(\d+))?["″]?\]', text)
+    # Try bracket form first: [2'-6"] or [14'] or [2'-6]
+    bracket_m = re.search(r'\[(\d+)[\'′]\s*(?:[-]?\s*(\d+)(?:\s+(\d+)/(\d+))?)?["″]?\]', text)
     if bracket_m:
         feet = int(bracket_m.group(1))
         inches = int(bracket_m.group(2) or 0)
@@ -164,7 +164,7 @@ def parse_imperial_mm(text: str) -> Optional[float]:
         frac = frac_num / frac_den if frac_den else 0
         total_inches = feet * 12 + inches + frac
         mm = total_inches * 25.4
-        if _MIN_CAB_MM <= mm <= _MAX_CAB_MM * 2:
+        if _MIN_CAB_MM <= mm <= _MAX_CAB_MM * 3:
             return mm
         return None
 
