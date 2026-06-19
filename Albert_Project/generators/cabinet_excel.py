@@ -516,7 +516,7 @@ def generate_excel(
         _build_shop_drawing_sheet(ws_sd, unit_type, config, schedule, st)
 
     wb.save(str(output_path))
-    print(f"  ✅ Excel saved: {output_path}")
+    print(f"  [SUCCESS] Excel saved: {output_path}")
     return output_path
 
 

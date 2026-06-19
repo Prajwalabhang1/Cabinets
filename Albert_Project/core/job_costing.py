@@ -111,12 +111,12 @@ class JobCostingResult:
     def print_report(self):
         """Print a formatted job costing report."""
         inp = self.inputs
-        SEP = "─" * 65
-        print(f"\n{'═' * 65}")
+        SEP = "-" * 65
+        print(f"\n{'=' * 65}")
         print(f"  JOB COSTING REPORT")
         print(f"  Total Cabinets: {inp.total_cabinet_count:,} | "
               f"Containers: {self.containers_needed}")
-        print(f"{'═' * 65}")
+        print(f"{'=' * 65}")
 
         print(f"\n  A. QUANTITIES")
         print(f"  {'Total Cabinets':45s}  {inp.total_cabinet_count:>10,}")
@@ -162,7 +162,7 @@ class JobCostingResult:
         print(f"  {'Total Cost':45s}  ${self.total_cost:>12,.2f}")
         print(f"  {'Cost per Cabinet':45s}  ${self.cost_per_cabinet:>12,.2f}")
         print(f"  {'Sell per Cabinet':45s}  ${self.sell_per_cabinet:>12,.2f}")
-        print(f"{'═' * 65}\n")
+        print(f"{'=' * 65}\n")
 
 
 # ══════════════════════════════════════════════════════════════════════════

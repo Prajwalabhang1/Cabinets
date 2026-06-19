@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="ItalianKB AI-powered cabinet shop drawing generation and estimation system."/>
+  <title>ItalianKB — Cabinet Estimator & Shop Drawing Automation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <div class="glow glow-1" aria-hidden="true"></div>
+  <div class="glow glow-2" aria-hidden="true"></div>
+  <div class="glow glow-3" aria-hidden="true"></div>
+
+  <!-- ═══════════════════ APP SHELL ═══════════════════ -->
+  <div class="app-shell">
+
+    <!-- ══════ SIDEBAR ══════ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-logo">📐</div>
+        <div>
+          <div class="brand-name">ItalianKB</div>
+          <div class="brand-sub">Cabinet Automation System</div>
+        </div>
+      </div>
+
+      <div class="sb-section">
+        <div class="sb-label">Active Project</div>
+        <select id="project-select" class="ctrl-input" aria-label="Select project">
+          <option value="" disabled selected>Loading projects…</option>
+        </select>
+      </div>
+
+      <div class="sb-section" id="project-info-card" style="display:none">
+        <div class="info-card glass-dim">
+          <div class="info-row"><span class="info-k">Client</span><span class="info-v" id="inf-client">—</span></div>
+          <div class="info-row"><span class="info-k">Address</span><span class="info-v" id="inf-address">—</span></div>
+          <div class="info-row"><span class="info-k">Finish</span><span class="info-v" id="inf-finish">—</span></div>
+          <div class="info-row"><span class="info-k">Door Style</span><span class="info-v" id="inf-door">—</span></div>
+          <div class="info-row"><span class="info-k">Units</span><span class="info-v" id="inf-units">—</span></div>
+        </div>
+      </div>
+
+      <div class="sb-section sb-grow">
+        <div class="sb-label">Financial Parameters</div>
+        <div id="config-form" class="config-fields">
+          <p class="hint-text">Select a project to configure.</p>
+        </div>
+      </div>
+
+      <div class="sb-actions">
+        <button id="new-project-btn" class="btn btn-new-proj">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 11H13V5a1 1 0 00-2 0v6H5a1 1 0 000 2h6v6a1 1 0 002 0v-6h6a1 1 0 000-2z"/></svg>
+          New Project
+        </button>
+        <button id="delete-project-btn" class="btn btn-danger-sm" style="display:none" title="Delete this project">
+          🗑 Delete Project
+        </button>
+      </div>
+
+      <div class="sb-footer">
+        <div class="model-badge">
+          <span class="model-dot"></span>
+          Gemini 2.5 Flash · OpenRouter
+        </div>
+        <div class="version-tag">v2.0.0 Production</div>
+      </div>
+    </aside>
+
+    <!-- ══════ MAIN ══════ -->
+    <main class="main" id="main-content">
+
+      <!-- Top Header -->
+      <header class="top-bar">
+        <div class="top-bar-left">
+          <h2 class="proj-title" id="display-project-name">Select a Project</h2>
+          <p class="proj-meta" id="display-project-meta">No project loaded — or create a new one</p>
+        </div>
+        <div class="top-bar-right">
+          <div id="pipeline-status-chip" class="status-chip" style="display:none">
+            <span class="status-dot" id="status-dot"></span>
+            <span id="status-text">Ready</span>
+          </div>
+          <label class="toggle-row" for="demo-mode-toggle" title="Low-token mode: 150 DPI image + compact prompt. Saves ~85% Vision API cost. Use for demo/testing.">
+            <span class="toggle-lbl" style="color:hsl(38,92%,55%)">⚡ Demo Mode</span>
+            <span class="pill-switch">
+              <input type="checkbox" id="demo-mode-toggle" role="switch" checked/>
+              <span class="pill-track"><span class="pill-thumb"></span></span>
+            </span>
+          </label>
+          <label class="toggle-row" for="skip-ai-toggle" title="Skip Vision AI entirely — use cached results from previous run">
+            <span class="toggle-lbl">Skip Vision AI</span>
+            <span class="pill-switch">
+              <input type="checkbox" id="skip-ai-toggle" role="switch"/>
+              <span class="pill-track"><span class="pill-thumb"></span></span>
+            </span>
+          </label>
+          <button id="run-btn" class="btn btn-run" disabled>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Run Pipeline
+          </button>
+        </div>
+      </header>
+
+      <div id="readiness-banner" class="readiness-banner glass" style="display:none"></div>
+
+      <!-- KPI Cards -->
+      <section class="kpi-grid" aria-label="Key metrics">
+        <div class="kpi-card glass">
+          <div class="kpi-label">Total Selling Price</div>
+          <div class="kpi-val" id="stat-selling">—</div>
+          <div class="kpi-sub" id="stat-gp">GP Target: —</div>
+        </div>
+        <div class="kpi-card glass">
+          <div class="kpi-label">Material Cost (USD)</div>
+          <div class="kpi-val" id="stat-material">—</div>
+          <div class="kpi-sub" id="stat-rate">EUR/USD: —</div>
+        </div>
+        <div class="kpi-card glass">
+          <div class="kpi-label">Total Cabinets</div>
+          <div class="kpi-val" id="stat-cabs">—</div>
+          <div class="kpi-sub" id="stat-ctrs">Containers: —</div>
+        </div>
+        <div class="kpi-card glass">
+          <div class="kpi-label">Vision AI Cost</div>
+          <div class="kpi-val" id="stat-aicost">—</div>
+          <div class="kpi-sub" id="stat-aicalls">API Calls: —</div>
+        </div>
+      </section>
+
+      <!-- Tabs -->
+      <nav class="tab-nav" role="tablist">
+        <button class="tab-btn active" data-tab="tab-schedules" role="tab" aria-selected="true">📋 Cabinet Schedules</button>
+        <button class="tab-btn" data-tab="tab-costing" role="tab" aria-selected="false">💰 Job Costing</button>
+        <button class="tab-btn" data-tab="tab-dev" role="tab" aria-selected="false">🔧 Developer View</button>
+      </nav>
+
+      <!-- Tab Body -->
+      <div class="tab-body">
+
+        <!-- ─── TAB 1: Schedules ─── -->
+        <section id="tab-schedules" class="tab-pane active" role="tabpanel">
+          <div class="pane-header">
+            <div>
+              <h3>Cabinet Schedules by Unit Type</h3>
+              <p class="hint-text">Expand a unit to view the full cabinet list. Hover 🖼️ to preview elevation crops.</p>
+            </div>
+            <div class="pane-actions" id="sched-filter-bar" style="display:none">
+              <input type="search" id="sched-search" class="ctrl-input-sm" placeholder="Filter by cabinet type…" aria-label="Filter cabinets"/>
+            </div>
+          </div>
+          <div id="accordion-container">
+            <div class="empty-card">
+              <div class="empty-icon">🗂️</div>
+              <div class="empty-msg">Select an existing project or create a new one with <strong>+ New Project</strong> to get started.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ─── TAB 2: Costing ─── -->
+        <section id="tab-costing" class="tab-pane" role="tabpanel">
+          <div class="costing-grid">
+            <div class="costing-sheet glass">
+              <div class="sheet-hdr">
+                <h3>Job Costing Breakdown</h3>
+                <div class="dl-btns">
+                  <a id="dl-pdf"  href="#" class="btn btn-dl disabled" target="_blank">📄 Shop Drawings PDF</a>
+                  <a id="dl-xlsx" href="#" class="btn btn-dl disabled" target="_blank">📊 Costing Excel</a>
+                </div>
+              </div>
+              <div class="sheet-scroll">
+                <table class="cost-table" aria-label="Job costing table">
+                  <thead><tr><th>Line Item</th><th>Rate / Basis</th><th class="num">Amount (USD)</th></tr></thead>
+                  <tbody id="cost-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="costing-right">
+              <div class="chart-card glass">
+                <h3>Cost Allocation</h3>
+                <div class="donut-wrap"><canvas id="donut-chart"></canvas></div>
+              </div>
+              <div class="pcab-card glass">
+                <h3>Per-Cabinet Summary</h3>
+                <div class="pcab-rows">
+                  <div class="pcab-row"><span>Cost / Cabinet</span><strong id="pc-cost">—</strong></div>
+                  <div class="pcab-row"><span>Sell / Cabinet</span><strong id="pc-sell">—</strong></div>
+                  <div class="pcab-row"><span>Containers Needed</span><strong id="pc-ctrs">—</strong></div>
+                  <div class="pcab-row"><span>Achieved GP %</span><strong id="pc-gp">—</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ─── TAB 3: Developer ─── -->
+        <section id="tab-dev" class="tab-pane" role="tabpanel">
+          <div class="dev-grid">
+            <div class="dev-card glass dev-flow">
+              <h3>System Pipeline Architecture</h3>
+              <div class="flow-svg-wrap">
+                <svg viewBox="0 0 820 180" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                      <path d="M0 1 L10 5 L0 9z" fill="rgba(255,255,255,.22)"/>
+                    </marker>
+                  </defs>
+                  <rect x="4" y="65" width="115" height="50" rx="9" class="fn-node fn-in"/>
+                  <text x="61" y="87" class="fn-label">Upload PDF</text>
+                  <text x="61" y="103" class="fn-sub">PyMuPDF Extract</text>
+                  <line x1="119" y1="90" x2="156" y2="90" class="fn-arr" marker-end="url(#arr)"/>
+                  <rect x="156" y="30" width="115" height="50" rx="9" class="fn-node"/>
+                  <text x="213" y="52" class="fn-label">Region Detect</text>
+                  <text x="213" y="68" class="fn-sub">Elevation Zones</text>
+                  <rect x="156" y="100" width="115" height="50" rx="9" class="fn-node"/>
+                  <text x="213" y="122" class="fn-label">Dim Parser</text>
+                  <text x="213" y="138" class="fn-sub">mm / Inch Dims</text>
+                  <line x1="271" y1="55" x2="308" y2="80" class="fn-arr" marker-end="url(#arr)"/>
+                  <line x1="271" y1="125" x2="308" y2="100" class="fn-arr" marker-end="url(#arr)"/>
+                  <rect x="308" y="60" width="130" height="60" rx="9" class="fn-node fn-ai"/>
+                  <text x="373" y="84" class="fn-label fn-wh">Gemini 2.5 Flash</text>
+                  <text x="373" y="100" class="fn-sub fn-wh">Vision Classifier</text>
+                  <text x="373" y="115" class="fn-sub fn-wh">+Pro fallback</text>
+                  <line x1="438" y1="90" x2="475" y2="90" class="fn-arr" marker-end="url(#arr)"/>
+                  <rect x="475" y="60" width="120" height="60" rx="9" class="fn-node"/>
+                  <text x="535" y="84" class="fn-label">Price Match</text>
+                  <text x="535" y="100" class="fn-sub">Excel→USD</text>
+                  <text x="535" y="116" class="fn-sub">±25mm fuzzy</text>
+                  <line x1="595" y1="90" x2="632" y2="90" class="fn-arr" marker-end="url(#arr)"/>
+                  <rect x="632" y="60" width="120" height="60" rx="9" class="fn-node"/>
+                  <text x="692" y="84" class="fn-label">Job Costing</text>
+                  <text x="692" y="100" class="fn-sub">Selling Price</text>
+                  <text x="692" y="116" class="fn-sub">Algebraic Formula</text>
+                  <line x1="752" y1="90" x2="789" y2="90" class="fn-arr" marker-end="url(#arr)"/>
+                  <rect x="789" y="60" width="25" height="60" rx="6" class="fn-node fn-out"/>
+                  <text x="801" y="91" class="fn-sub fn-wh" style="writing-mode:tb">PDF+XL</text>
+                </svg>
+              </div>
+              <div class="metrics-row">
+                <div class="met-chip"><span class="met-k">Primary LLM</span><span class="met-v" id="dev-model-prim">—</span></div>
+                <div class="met-chip"><span class="met-k">Fallback LLM</span><span class="met-v" id="dev-model-fall">—</span></div>
+                <div class="met-chip"><span class="met-k">Auto-Approve</span><span class="met-v">≥ 90% confidence</span></div>
+                <div class="met-chip"><span class="met-k">Input tokens</span><span class="met-v" id="dev-tok-in">—</span></div>
+                <div class="met-chip"><span class="met-k">Output tokens</span><span class="met-v" id="dev-tok-out">—</span></div>
+                <div class="met-chip"><span class="met-k">API calls</span><span class="met-v" id="dev-api-calls">—</span></div>
+              </div>
+            </div>
+
+            <div class="dev-card glass dev-overlay">
+              <div class="dev-card-hdr">
+                <h3>Region Detector Overlay</h3>
+                <select id="dev-unit-sel" class="ctrl-input-sm" aria-label="Select unit for overlay">
+                  <option value="" disabled selected>Choose unit…</option>
+                </select>
+              </div>
+              <div id="overlay-container" class="overlay-container">
+                <p class="hint-text" style="padding:16px">Select a unit to render the PDF with detected zone boundaries.</p>
+              </div>
+            </div>
+
+            <div class="dev-card glass dev-json">
+              <div class="dev-card-hdr">
+                <h3>Raw JSON Output (Cabinet Schedule)</h3>
+                <div class="json-ctrls">
+                  <button id="json-copy-btn" class="btn btn-xs">📋 Copy</button>
+                  <button id="json-top-btn" class="btn btn-xs">⬆ Top</button>
+                </div>
+              </div>
+              <pre class="json-pre" id="json-viewer"><code>// Run the pipeline to see JSON output here.</code></pre>
+            </div>
+          </div>
+        </section>
+
+      </div><!-- /tab-body -->
+    </main>
+  </div><!-- /app-shell -->
+
+  <!-- ═══════════ CONSOLE ═══════════ -->
+  <div class="console" id="console-panel">
+    <div class="console-bar" id="console-bar" role="button" tabindex="0" aria-expanded="false">
+      <div class="cbar-left">
+        <span class="dot-ind" id="dot-ind"></span>
+        <span class="cbar-title">System Execution Logs</span>
+      </div>
+      <div class="cbar-right">
+        <button class="cnsl-btn" id="cnsl-toggle">▲ Expand</button>
+        <button class="cnsl-btn" id="cnsl-clear">Clear</button>
+      </div>
+    </div>
+    <div class="console-body" id="console-body" aria-live="polite">
+      <div class="log-line log-sys">[SYSTEM] Ready — select a project or create a new one.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ CROP TOOLTIP ═══════════ -->
+  <div class="crop-tip" id="crop-tip" aria-hidden="true" role="tooltip">
+    <div class="crop-tip-title">Elevation Crop Preview</div>
+    <img id="crop-tip-img" src="" alt="Elevation crop"/>
+  </div>
+
+  <!-- ═══════════ TOAST ═══════════ -->
+  <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NEW PROJECT WIZARD MODAL
+       5 Steps: Info → Upload PDFs → Unit Counts → Price List → Financial
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="modal-overlay" id="wizard-overlay" aria-modal="true" role="dialog" aria-labelledby="wizard-title" style="display:none">
+    <div class="modal-box">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <div>
+          <h2 id="wizard-title">Create New Project</h2>
+          <p class="hint-text" id="wizard-subtitle">Step 1 of 5 — Project Information</p>
+        </div>
+        <button class="modal-close" id="wizard-close" aria-label="Close wizard">✕</button>
+      </div>
+
+      <!-- Step progress bar -->
+      <div class="step-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5">
+        <div class="step-pip active" data-step="1"><span>1</span><label>Info</label></div>
+        <div class="step-line"></div>
+        <div class="step-pip" data-step="2"><span>2</span><label>PDFs</label></div>
+        <div class="step-line"></div>
+        <div class="step-pip" data-step="3"><span>3</span><label>Counts</label></div>
+        <div class="step-line"></div>
+        <div class="step-pip" data-step="4"><span>4</span><label>Price List</label></div>
+        <div class="step-line"></div>
+        <div class="step-pip" data-step="5"><span>5</span><label>Financials</label></div>
+      </div>
+
+      <!-- ── STEP 1: Project Info ── -->
+      <div class="step-content" id="step-1">
+        <div class="form-grid">
+          <div class="fg-group fg-half">
+            <label for="w-proj-name">Project Name <span class="req">*</span></label>
+            <input id="w-proj-name" class="ctrl-input" type="text" placeholder="e.g. Casa Familia" maxlength="80"/>
+          </div>
+          <div class="fg-group fg-half">
+            <label for="w-proj-id">Project ID <span class="req">*</span></label>
+            <input id="w-proj-id" class="ctrl-input" type="text" placeholder="e.g. 24-001" maxlength="20"/>
+          </div>
+          <div class="fg-group fg-half">
+            <label for="w-client">Client / Owner</label>
+            <input id="w-client" class="ctrl-input" type="text" placeholder="e.g. Atlantic Pacific Communities"/>
+          </div>
+          <div class="fg-group fg-half">
+            <label for="w-architect">Architect</label>
+            <input id="w-architect" class="ctrl-input" type="text" placeholder="e.g. Corwil Architects"/>
+          </div>
+          <div class="fg-group fg-full">
+            <label for="w-address">Project Address</label>
+            <input id="w-address" class="ctrl-input" type="text" placeholder="e.g. 10951 SW 84th St., Miami, FL 33173"/>
+          </div>
+          <div class="fg-group fg-half">
+            <label for="w-finish">Cabinet Finish</label>
+            <input id="w-finish" class="ctrl-input" type="text" placeholder="e.g. K019 SILVER LIBERTY ELM"/>
+          </div>
+          <div class="fg-group fg-half">
+            <label for="w-door">Door Style</label>
+            <input id="w-door" class="ctrl-input" type="text" placeholder="e.g. Shaker"/>
+          </div>
+          <div class="fg-group fg-half">
+            <label for="w-drawn">Drawn By</label>
+            <input id="w-drawn" class="ctrl-input" type="text" placeholder="e.g. A.C" value="A.C"/>
+          </div>
+          <div class="fg-group fg-half">
+            <label for="w-rev">Revision</label>
+            <input id="w-rev" class="ctrl-input" type="text" placeholder="e.g. 1.0" value="1.0"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── STEP 2: Upload PDFs ── -->
+      <div class="step-content" id="step-2" style="display:none">
+        <p class="hint-text" style="margin-bottom:14px">
+          Upload one architectural PDF per unit type (e.g. A1, A2-ADA, B1). Each file should be the floor plan + elevations page for that unit.
+        </p>
+
+        <!-- Drop zone -->
+        <div class="dropzone" id="pdf-dropzone" role="button" tabindex="0" aria-label="Drag and drop PDF files here">
+          <div class="dz-icon">📂</div>
+          <div class="dz-text">Drag &amp; Drop PDF files here</div>
+          <div class="dz-sub">or click to browse</div>
+          <input type="file" id="pdf-file-input" multiple accept=".pdf" style="display:none"/>
+        </div>
+
+        <!-- List of uploaded files + unit name input -->
+        <div id="pdf-file-list" class="file-list"></div>
+
+        <p class="hint-text" style="margin-top:10px">
+          After dropping files, set the <strong>Unit Type Name</strong> for each (e.g. "A1", "A2-ADA") and check ADA if applicable.
+        </p>
+      </div>
+
+      <!-- ── STEP 3: Unit Counts ── -->
+      <div class="step-content" id="step-3" style="display:none">
+        <p class="hint-text" style="margin-bottom:14px">
+          Enter how many of each unit type exist in the building. These counts are used to calculate total cabinet quantities.
+        </p>
+        <div id="unit-counts-form" class="unit-counts-grid"></div>
+      </div>
+
+      <!-- ── STEP 4: Price List (optional) ── -->
+      <div class="step-content" id="step-4" style="display:none">
+        <p class="hint-text" style="margin-bottom:14px">
+          Upload an ItalianKB price list Excel file. If skipped, the system uses the default Level 1 price catalog.
+        </p>
+
+        <div class="dropzone dropzone-sm" id="xl-dropzone" role="button" tabindex="0" aria-label="Drag and drop price list Excel here">
+          <div class="dz-icon">📊</div>
+          <div class="dz-text">Drag &amp; Drop Excel Price List (.xlsx)</div>
+          <div class="dz-sub">or click to browse — optional</div>
+          <input type="file" id="xl-file-input" accept=".xlsx,.xls" style="display:none"/>
+        </div>
+        <div id="xl-file-info" class="file-badge-row" style="display:none">
+          <span class="file-badge">📊 <span id="xl-file-name">—</span></span>
+          <button class="btn btn-xs" id="xl-file-remove">✕ Remove</button>
+        </div>
+
+        <div class="skip-note glass-dim" style="margin-top:16px">
+          <span class="badge badge-ok">✓ Default</span>
+          The <strong>ItalianKB Level 1 – 90cm price list</strong> will be used automatically if no file is uploaded.
+        </div>
+      </div>
+
+      <!-- ── STEP 5: Financial Parameters ── -->
+      <div class="step-content" id="step-5" style="display:none">
+        <p class="hint-text" style="margin-bottom:14px">
+          Set the financial rates for this project. These drive the job costing and selling price formula.
+        </p>
+        <div class="form-grid">
+          <div class="fg-group fg-half">
+            <label for="w-gp">Target Gross Profit %</label>
+            <input id="w-gp" class="ctrl-input" type="number" step="0.01" min="0.01" max="0.9" value="0.35"/>
+            <small class="fg-hint">Typically 35% for multifamily projects</small>
+          </div>
+          <div class="fg-group fg-half">
+            <label for="w-comm">Commission %</label>
+            <input id="w-comm" class="ctrl-input" type="number" step="0.005" min="0" max="0.5" value="0.05"/>
+          </div>
+          <div class="fg-group fg-half">
+            <label for="w-bond">Performance Bond %</label>
+            <input id="w-bond" class="ctrl-input" type="number" step="0.005" min="0" max="0.1" value="0.015"/>
+          </div>
+          <div class="fg-group fg-half">
+            <label for="w-rate">EUR / USD Exchange Rate</label>
+            <input id="w-rate" class="ctrl-input" type="number" step="0.01" min="0.5" max="3.0" value="1.09"/>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="review-box glass-dim" id="wizard-review" style="margin-top:20px"></div>
+      </div>
+
+      <!-- Footer buttons -->
+      <div class="modal-footer">
+        <button class="btn btn-ghost" id="wizard-back" style="display:none">← Back</button>
+        <button class="btn btn-run" id="wizard-next">Next →</button>
+        <button class="btn btn-run" id="wizard-create" style="display:none">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          Create &amp; Run Pipeline
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

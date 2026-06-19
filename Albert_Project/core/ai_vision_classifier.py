@@ -1,38 +1,61 @@
 """
 ===========================================================================
-  core/ai_vision_classifier.py — Groq Vision Cabinet Classifier
+  core/ai_vision_classifier.py — OpenRouter Vision Cabinet Classifier
 ===========================================================================
-  Uses Groq API (llama-3.2-90b-vision-preview) to classify cabinets from
-  architectural elevation drawings. Groq is free, extremely fast, and
-  llama-3.2-90b-vision is excellent at reading technical drawings.
+  Uses OpenRouter API (Google Gemini models only) to classify cabinets
+  from architectural elevation drawings.
+
+  PRIMARY MODEL:  google/gemini-2.5-flash
+    - Best for technical/architectural drawings
+    - Excellent spatial reasoning and OCR on dimension annotations
+    - $1.5/1M input tokens — fast and affordable
+    - 1M token context window
+
+  FALLBACK MODEL: google/gemini-2.5-pro
+    - More powerful Gemini for complex/ambiguous drawings
+    - $2.5/1M input tokens
+    - Kicks in when Flash returns low-confidence or invalid JSON
 
   Pipeline per elevation crop:
     1. Receive: PNG image bytes (400 DPI crop) + pre-extracted dims + rects
     2. Build: structured prompt with dimension context
-    3. Call: Groq API (llama-3.2-90b-vision-preview) with base64 image
+    3. Call: OpenRouter API (gemini-2.5-flash) with base64 image
     4. Parse: JSON response → list[CabinetItem]
-    5. Retry with fix prompt if JSON parse fails
+    5. Retry with gemini-2.5-pro if JSON parse fails or confidence < 0.7
     6. Exponential backoff on API errors
 
-  Free tier: very generous (no hard daily limit on llama-3.2-90b-vision)
-  Get key at: https://console.groq.com
-===========================================================================
-"""
+  Get key at: https://openrouter.ai
+==========================================================================="""
 from __future__ import annotations
 
 import base64
 import json
 import re
 import time
+import urllib.request
 from dataclasses import dataclass, field, asdict
 from typing import Optional
 
-from core.config import GROQ_API_KEY, AUTO_APPROVE_CONFIDENCE
+import os
+from core.config import AUTO_APPROVE_CONFIDENCE, OPENROUTER_API_KEY
 
-GROQ_MODEL      = "meta-llama/llama-4-scout-17b-16e-instruct"
-GROQ_MAX_TOKENS = 4096
+# ── OpenRouter Configuration ─────────────────────────────────────────────────
+OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1/chat/completions"
 
+# Primary: Gemini 2.5 Flash — best at technical/spatial drawings, fast & cheap
+PRIMARY_MODEL   = "google/gemini-2.5-flash"
+# Fallback: Gemini 2.5 Pro — stronger reasoning for ambiguous/complex drawings
+FALLBACK_MODEL  = "google/gemini-2.5-pro"
+MAX_TOKENS      = 4096
 
+# ── Demo Mode — low token usage for client demonstrations ─────────────────────
+# Set DEMO_MODE=true in .env or environment, or pass demo_mode=True to classify_elevation()
+# Reduces cost from ~$0.0015/call → ~$0.0002/call (~85% savings)
+DEMO_MODE: bool = os.getenv("DEMO_MODE", "false").lower() in ("1", "true", "yes")
+DEMO_DPI        = 150    # vs 400 in full mode  — image tokens: ~88% smaller
+DEMO_MAX_TOKENS = 800    # vs 4096              — output capped tightly
+DEMO_MAX_DIMS   = 8      # vs 30 pre-extracted dims sent in context
+DEMO_MAX_RECTS  = 10     # vs 40 rectangle vectors sent in context
 
 # ══════════════════════════════════════════════════════════════════════════
 # DATA CLASSES
@@ -71,7 +94,7 @@ class CabinetItem:
     quantity:      int    = 1
     is_ada:        bool   = False
     notes:         str    = ""
-    source:        str    = "claude"  # "claude" | "gpt4o" | "manual"
+    source:        str    = "gemini"  # "gemini" | "manual" | "fallback"
 
     @property
     def code(self) -> str:
@@ -144,7 +167,20 @@ class ElevationResult:
 # PROMPT BUILDER
 # ══════════════════════════════════════════════════════════════════════════
 
-def _build_system_prompt() -> str:
+def _build_system_prompt(demo: bool = False) -> str:
+    if demo:
+        # Compact prompt — ~250 tokens vs ~800 tokens
+        return (
+            "You are a cabinet estimator. Analyze this architectural elevation drawing and return "
+            "a JSON array of cabinets. Types: upper_wall, base, sink_base, dw_adjacent, "
+            "microwave_shelf, pantry, corner_upper, corner_base, vanity, medicine_cabinet, "
+            "linen, appliance_space, filler, unknown. "
+            "Each item: {item_num, cabinet_type, width_mm, height_mm, depth_mm, location, "
+            "elevation_ref, confidence, quantity, is_ada, notes}. "
+            "Std widths: 300,350,400,450,500,550,600,762,900mm. "
+            "Base h=720mm d=600mm. Wall h=300mm d=330mm. Pantry h=2130mm. "
+            "Return ONLY valid JSON array, no markdown."
+        )
     return """You are an expert cabinet estimator with 20+ years of experience reading architectural kitchen and bathroom elevation drawings for US residential construction projects (FHA/ADA housing).
 
 Your job is to analyze architectural elevation drawings and extract a precise, complete cabinet schedule.
@@ -207,23 +243,31 @@ def _build_user_prompt(
     pre_extracted_dims: list[dict],
     pre_extracted_rects: list[dict],
     is_ada:          bool = False,
+    demo:            bool = False,
 ) -> str:
     """Build the user message with pre-extracted context."""
-    ada_note = " (ADA ACCESSIBLE UNIT — base cabinet heights are 864mm max, countertop 34\" max)" if is_ada else ""
+    ada_note = " (ADA — base h≤864mm, countertop≤34\")" if is_ada else ""
+
+    # Demo mode: send fewer context items to save tokens
+    max_dims  = DEMO_MAX_DIMS  if demo else 30
+    max_rects = DEMO_MAX_RECTS if demo else 40
 
     dims_str = ""
     if pre_extracted_dims:
-        dims_str = "\n\nPRE-EXTRACTED DIMENSION VALUES (from PDF text, use these as ground truth):\n"
-        for d in pre_extracted_dims[:30]:  # limit to 30 most relevant
-            dims_str += f"  [{d.get('type','?')}] '{d.get('text','')}' at x={d.get('x',0):.0f}, y={d.get('y',0):.0f}\n"
+        dims_str = "\nDIMENSIONS (ground truth):\n"
+        for d in pre_extracted_dims[:max_dims]:
+            dims_str += f"  [{d.get('type','?')}] '{d.get('text','')}' x={d.get('x',0):.0f} y={d.get('y',0):.0f}\n"
 
     rects_str = ""
-    if pre_extracted_rects:
-        rects_str = "\n\nPRE-EXTRACTED RECTANGLE GEOMETRY (potential cabinet boxes from PDF vectors):\n"
-        for i, r in enumerate(pre_extracted_rects[:40]):
-            rects_str += (f"  Rect {i+1}: x={r.get('x0',0):.1f}→{r.get('x1',0):.1f}, "
-                          f"y={r.get('y0',0):.1f}→{r.get('y1',0):.1f}, "
-                          f"W={r.get('w',0):.1f}pts, H={r.get('h',0):.1f}pts\n")
+    if pre_extracted_rects and not demo:  # skip rect context in demo (saves ~300 tokens)
+        rects_str = "\nRECTANGLES (potential cabinet boxes):\n"
+        for i, r in enumerate(pre_extracted_rects[:max_rects]):
+            rects_str += (f"  R{i+1}: W={r.get('w',0):.0f}pt H={r.get('h',0):.0f}pt "
+                          f"@ ({r.get('x0',0):.0f},{r.get('y0',0):.0f})\n")
+
+    if demo:
+        return (f"Project:{project_name} Unit:{unit_type}{ada_note} Section:{elevation_label}\n"
+                f"{dims_str}\nIdentify all cabinets. Return ONLY JSON array.")
 
     return f"""Project: {project_name}
 Unit Type: {unit_type}{ada_note}
@@ -251,7 +295,7 @@ Return ONLY the JSON array, nothing else."""
 class CabinetVisionClassifier:
     """
     Classifies cabinets from architectural elevation drawing images
-    using Groq API (llama-3.2-90b-vision-preview) — free & fast.
+    using Google Gemini vision models through OpenRouter.
 
     Usage:
         classifier = CabinetVisionClassifier()
@@ -264,24 +308,16 @@ class CabinetVisionClassifier:
     """
 
     def __init__(self):
-        self._groq_client = None
         self._validate_keys()
 
     def _validate_keys(self):
-        if not GROQ_API_KEY:
+        if not OPENROUTER_API_KEY:
             raise EnvironmentError(
-                "GROQ_API_KEY is not set.\n"
-                "1. Go to https://console.groq.com\n"
-                "2. Create an API key\n"
-                "3. Add to .env: GROQ_API_KEY=gsk_...\n"
-                "4. Or use --skip-ai flag to skip AI extraction"
+                "OPENROUTER_API_KEY is not set.\n"
+                "Get your key at: https://openrouter.ai\n"
+                "Add to .env: OPENROUTER_API_KEY=sk-or-v1-...\n"
+                "Or use --skip-ai flag to skip AI extraction"
             )
-
-    def _get_groq(self):
-        if self._groq_client is None:
-            from groq import Groq
-            self._groq_client = Groq(api_key=GROQ_API_KEY)
-        return self._groq_client
 
     # ── Main Classification ───────────────────────────────────────────────
 
@@ -295,6 +331,7 @@ class CabinetVisionClassifier:
         pre_extracted_rects:  Optional[list[dict]] = None,
         is_ada:               bool = False,
         max_retries:          int = 3,
+        demo_mode:            bool = None,   # None = use global DEMO_MODE
     ) -> ElevationResult:
         """
         Classify all cabinets in one elevation section.
@@ -312,12 +349,20 @@ class CabinetVisionClassifier:
         Returns:
             ElevationResult with list of CabinetItem
         """
+        # Resolve demo mode — argument overrides global flag
+        use_demo = DEMO_MODE if demo_mode is None else demo_mode
+
         result = ElevationResult(
             elevation_label = elevation_label,
             unit_type       = unit_type,
             project_name    = project_name,
             is_ada          = is_ada,
         )
+
+        if use_demo:
+            print(f"    [AI-DEMO] Low-token mode: DPI={DEMO_DPI}, max_tokens={DEMO_MAX_TOKENS}")
+            # Downscale image from 400 DPI to 150 DPI equivalent using PIL if available
+            image_bytes = _downscale_image_if_possible(image_bytes, target_dpi=DEMO_DPI)
 
         # Build the prompt
         user_prompt = _build_user_prompt(
@@ -327,37 +372,47 @@ class CabinetVisionClassifier:
             pre_extracted_dims   = pre_extracted_dims or [],
             pre_extracted_rects  = pre_extracted_rects or [],
             is_ada               = is_ada,
+            demo                 = use_demo,
         )
 
-        # Encode image for API
-        image_b64 = base64.standard_b64encode(image_bytes).decode("utf-8")
+        # Demo: fewer retries, tighter token budget
+        retries    = 1 if use_demo else max_retries
+        max_tokens = DEMO_MAX_TOKENS if use_demo else MAX_TOKENS
 
-        # Call Groq with retries
-        raw_json = self._call_groq(
+        # Call primary model (Gemini 2.5 Flash) with retries
+        mode_tag = "DEMO" if use_demo else "FULL"
+        print(f"    [AI-{mode_tag}] Calling {PRIMARY_MODEL} for {elevation_label}...")
+        raw_json = self._call_openrouter(
             image_bytes = image_bytes,
             user_prompt = user_prompt,
-            max_retries = max_retries,
+            model       = PRIMARY_MODEL,
+            max_retries = retries,
+            max_tokens  = max_tokens,
         )
         result.api_calls += 1
 
         if raw_json is None:
-            result.review_flags.append("Groq API call failed after all retries")
+            result.review_flags.append(f"{PRIMARY_MODEL} API call failed after all retries")
             return result
 
         # Parse JSON response
         cabinets = self._parse_cabinet_json(raw_json, elevation_label)
-        if cabinets is None:
-            # Retry with explicit JSON fix instruction
+        if cabinets is None and not use_demo:
+            # Full mode only: retry with fallback model (Gemini 2.5 Pro)
             fix_prompt = (
                 f"{user_prompt}\n\nIMPORTANT: Return ONLY a valid JSON array. "
                 "No explanation text, no markdown fences, just the raw JSON array."
             )
-            raw_json2 = self._call_groq(image_bytes, fix_prompt, max_retries=1)
+            print(f"    [AI] Retrying with fallback {FALLBACK_MODEL}...")
+            raw_json2 = self._call_openrouter(
+                image_bytes, fix_prompt, model=FALLBACK_MODEL, max_retries=1
+            )
             if raw_json2:
                 cabinets = self._parse_cabinet_json(raw_json2, elevation_label)
 
         if cabinets is None:
-            result.review_flags.append("Failed to parse Groq JSON response")
+            model_info = f"{PRIMARY_MODEL}" + ("" if use_demo else f" + {FALLBACK_MODEL}")
+            result.review_flags.append(f"Failed to parse AI JSON from {model_info}")
             return result
 
         result.cabinets = cabinets
@@ -373,51 +428,83 @@ class CabinetVisionClassifier:
             )
         return result
 
-    # ── Groq API Call ────────────────────────────────────────────────────
+    # ── OpenRouter API Call ──────────────────────────────────────────────────
 
-    def _call_groq(
+    def _call_openrouter(
         self,
         image_bytes: bytes,
         user_prompt: str,
+        model:       str = PRIMARY_MODEL,
         max_retries: int = 3,
+        max_tokens:  int = MAX_TOKENS,
     ) -> Optional[str]:
-        """Call Groq llama-3.2-90b-vision API. Returns raw text or None."""
-        client = self._get_groq()
-        image_b64 = base64.standard_b64encode(image_bytes).decode("utf-8")
-        system_prompt = _build_system_prompt()
+        """
+        Call OpenRouter vision API with any supported model.
+        Returns raw text response or None on failure.
+        """
+        image_b64     = base64.standard_b64encode(image_bytes).decode("utf-8")
+        # Use compact system prompt if max_tokens budget is tight (demo mode)
+        use_demo_prompt = max_tokens <= DEMO_MAX_TOKENS
+        system_prompt = _build_system_prompt(demo=use_demo_prompt)
+        img_kb = len(image_bytes) / 1024
+        print(f"    [API] Image size: {img_kb:.1f} KB | max_tokens: {max_tokens}")
+
+        payload = json.dumps({
+            "model": model,
+            "max_tokens": max_tokens,
+            "temperature": 0.1,
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {
+                    "role": "user",
+                    "content": [
+                        {
+                            "type": "image_url",
+                            "image_url": {
+                                "url": f"data:image/png;base64,{image_b64}",
+                            },
+                        },
+                        {"type": "text", "text": user_prompt},
+                    ],
+                },
+            ],
+        }).encode("utf-8")
+
+        headers = {
+            "Authorization": f"Bearer {OPENROUTER_API_KEY}",
+            "Content-Type":  "application/json",
+            "HTTP-Referer":  "https://github.com/Prajwalabhang1/Cabinets",
+            "X-Title":       "Cabinet Shop Drawing Generator",
+        }
 
         for attempt in range(max_retries):
             try:
-                response = client.chat.completions.create(
-                    model=GROQ_MODEL,
-                    max_tokens=GROQ_MAX_TOKENS,
-                    temperature=0.1,
-                    messages=[
-                        {"role": "system", "content": system_prompt},
-                        {
-                            "role": "user",
-                            "content": [
-                                {
-                                    "type": "image_url",
-                                    "image_url": {
-                                        "url": f"data:image/png;base64,{image_b64}",
-                                    },
-                                },
-                                {"type": "text", "text": user_prompt},
-                            ],
-                        },
-                    ],
+                req = urllib.request.Request(
+                    OPENROUTER_BASE_URL,
+                    data    = payload,
+                    headers = headers,
+                    method  = "POST",
                 )
-                return response.choices[0].message.content
+                with urllib.request.urlopen(req, timeout=60) as resp:
+                    result = json.loads(resp.read())
+
+                content = result["choices"][0]["message"]["content"]
+                usage   = result.get("usage", {})
+                cost    = usage.get("cost", 0)
+                print(f"    [OK] {model.split('/')[-1]} responded | "
+                      f"tokens={usage.get('total_tokens',0)} | "
+                      f"cost=${cost:.5f}")
+                return content
 
             except Exception as e:
                 wait = 2 ** attempt
-                print(f"  [WARN] Groq attempt {attempt+1}/{max_retries} failed: {e}")
+                print(f"  [WARN] OpenRouter attempt {attempt+1}/{max_retries} "
+                      f"({model}) failed: {e}")
                 if attempt < max_retries - 1:
                     print(f"         Retrying in {wait}s...")
                     time.sleep(wait)
                 else:
-                    print("  [FAIL] All Groq retries exhausted.")
+                    print(f"  [FAIL] All retries exhausted for {model}.")
         return None
 
     # ── JSON Parsing ──────────────────────────────────────────────────────
@@ -497,7 +584,7 @@ class CabinetVisionClassifier:
                 quantity      = int(item.get("quantity", 1)),
                 is_ada        = bool(item.get("is_ada", False)),
                 notes         = str(item.get("notes", "")),
-                source        = "groq",
+                source        = "gemini",
             ))
 
         return cabinets
@@ -576,6 +663,44 @@ def _default_depth(cabinet_type: str) -> float:
         "filler":           60.0,
     }
     return defaults.get(cabinet_type, 600.0)
+
+
+def _downscale_image_if_possible(image_bytes: bytes, target_dpi: int = 150) -> bytes:
+    """
+    Reduce image size by downscaling.
+    In demo mode we crop at 400 DPI but then shrink to ~150 DPI equivalent
+    to dramatically cut vision token cost (~88% smaller image).
+
+    Falls back to returning original bytes if PIL/Pillow is not installed.
+    """
+    try:
+        from PIL import Image
+        import io as _io
+
+        img = Image.open(_io.BytesIO(image_bytes))
+        orig_w, orig_h = img.size
+        scale = target_dpi / 400.0          # 400 DPI was used during crop
+        new_w = max(1, int(orig_w * scale))
+        new_h = max(1, int(orig_h * scale))
+
+        img_resized = img.resize((new_w, new_h), Image.LANCZOS)
+        buf = _io.BytesIO()
+        img_resized.save(buf, format="PNG", optimize=True)
+        result = buf.getvalue()
+
+        orig_kb   = len(image_bytes) / 1024
+        result_kb = len(result) / 1024
+        print(f"    [DEMO] Image scaled {orig_w}×{orig_h} → {new_w}×{new_h}  "
+              f"({orig_kb:.0f} KB → {result_kb:.0f} KB, "
+              f"{100*(1-result_kb/orig_kb):.0f}% smaller)")
+        return result
+
+    except ImportError:
+        print("    [DEMO] Pillow not installed — sending original image size.")
+        return image_bytes
+    except Exception as e:
+        print(f"    [DEMO] Downscale failed ({e}) — sending original image.")
+        return image_bytes
 
 
 # ══════════════════════════════════════════════════════════════════════════

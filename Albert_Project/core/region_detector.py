@@ -98,7 +98,7 @@ class RegionDetector:
     # ── Public API ────────────────────────────────────────────────────────
 
     def detect(self) -> list[DetectedRegion]:
-        """Main entry point. Returns all detected regions."""
+        """Main entry point. Returns all detected regions, deduplicated."""
         title_x = self.title_block_x
 
         # 1. Find all keyword label hits
@@ -110,7 +110,13 @@ class RegionDetector:
         # 3. Build crop zones with smart boundaries
         regions = self._build_crop_zones(deduped, title_x)
 
-        # 4. Sort top-to-bottom, left-to-right
+        # 4. Remove overlapping regions (keep highest confidence)
+        regions = self._remove_overlapping_regions(regions)
+
+        # 5. Cap per-type to prevent explosion (max 2 KITCHEN, 2 BATH, 2 VANITY)
+        regions = self._cap_regions_per_type(regions)
+
+        # 6. Sort top-to-bottom, left-to-right
         regions.sort(key=lambda r: (r.origin[1], r.origin[0]))
 
         return regions
@@ -217,7 +223,7 @@ class RegionDetector:
 
     def _deduplicate_hits(self, hits: list[dict]) -> list[dict]:
         """
-        Remove duplicate hits that are within 80 pts of each other
+        Remove duplicate hits that are within 200 pts of each other
         (same label detected multiple times in different sub-spans).
         Keep the hit with the largest font size (most prominent).
         """
@@ -226,7 +232,7 @@ class RegionDetector:
 
         # Group by (region_type, x-cluster, y-cluster)
         groups: list[list[dict]] = []
-        CLUSTER_DIST = 80.0  # pts
+        CLUSTER_DIST = 200.0  # pts — increased from 80 to collapse nearby duplicates
 
         for hit in hits:
             placed = False
@@ -234,7 +240,13 @@ class RegionDetector:
                 rep = group[0]
                 dx = abs(hit["origin"][0] - rep["origin"][0])
                 dy = abs(hit["origin"][1] - rep["origin"][1])
-                if hit["region_type"] == rep["region_type"] and dx < CLUSTER_DIST and dy < CLUSTER_DIST:
+                same_type = (
+                    hit["region_type"] == rep["region_type"] or
+                    # Also merge BATH/VANITY/MASTER_BATH into same cluster
+                    (hit["region_type"] in ("BATH","VANITY","MASTER_BATH") and
+                     rep["region_type"] in ("BATH","VANITY","MASTER_BATH"))
+                )
+                if same_type and dx < CLUSTER_DIST and dy < CLUSTER_DIST:
                     group.append(hit)
                     placed = True
                     break
@@ -350,10 +362,84 @@ class RegionDetector:
 
         return columns
 
+    def _remove_overlapping_regions(
+        self,
+        regions: list[DetectedRegion],
+    ) -> list[DetectedRegion]:
+        """
+        Remove crop regions that heavily overlap each other.
+        If two regions of the SAME type share > 60% of the smaller one's area,
+        keep only the one with higher confidence (larger font = more prominent label).
+        """
+        if len(regions) <= 1:
+            return regions
 
-# ══════════════════════════════════════════════════════════════════════════
-# CONVENIENCE FUNCTIONS
-# ══════════════════════════════════════════════════════════════════════════
+        def overlap_ratio(a: DetectedRegion, b: DetectedRegion) -> float:
+            ix0 = max(a.x0, b.x0)
+            iy0 = max(a.y0, b.y0)
+            ix1 = min(a.x1, b.x1)
+            iy1 = min(a.y1, b.y1)
+            if ix1 <= ix0 or iy1 <= iy0:
+                return 0.0
+            inter = (ix1 - ix0) * (iy1 - iy0)
+            area_a = a.width * a.height
+            area_b = b.width * b.height
+            smaller = min(area_a, area_b)
+            return inter / smaller if smaller > 0 else 0.0
+
+        # Sort by confidence desc so we keep the best ones
+        sorted_r = sorted(regions, key=lambda r: -r.confidence)
+        kept: list[DetectedRegion] = []
+
+        for candidate in sorted_r:
+            dominated = False
+            for keeper in kept:
+                same_family = (
+                    candidate.region_type == keeper.region_type or
+                    (candidate.region_type in ("BATH","VANITY","MASTER_BATH") and
+                     keeper.region_type    in ("BATH","VANITY","MASTER_BATH"))
+                )
+                if same_family and overlap_ratio(candidate, keeper) > 0.60:
+                    dominated = True
+                    break
+            if not dominated:
+                kept.append(candidate)
+
+        return kept
+
+    def _cap_regions_per_type(
+        self,
+        regions: list[DetectedRegion],
+    ) -> list[DetectedRegion]:
+        """
+        Hard cap on how many regions of each type are sent to AI.
+        A unit plan has at most 2 kitchen elevations, 2 bath elevations,
+        1-2 vanity views. More than that = detector false positives.
+        """
+        CAPS = {
+            "KITCHEN":     2,
+            "BATH":        2,
+            "VANITY":      2,
+            "MASTER_BATH": 1,
+            "ELEVATION_A": 1,
+            "ELEVATION_B": 1,
+            "ELEVATION_C": 1,
+            "ELEVATION_D": 1,
+            "FLOOR_PLAN":  1,
+        }
+        from collections import Counter
+        type_count: Counter = Counter()
+        capped: list[DetectedRegion] = []
+
+        # Sort by confidence desc so we keep the best detections
+        for r in sorted(regions, key=lambda r: -r.confidence):
+            cap = CAPS.get(r.region_type, 2)
+            if type_count[r.region_type] < cap:
+                capped.append(r)
+                type_count[r.region_type] += 1
+
+        return capped
+
 
 def detect_regions(
     spans:  list[TextSpan],

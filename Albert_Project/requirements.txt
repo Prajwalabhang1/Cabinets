@@ -1,6 +1,9 @@
 pymupdf>=1.24.0
 reportlab>=4.2.0
 openpyxl>=3.1.0
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.9
 anthropic>=0.25.0
 openai>=1.30.0
 shapely>=2.0.0

@@ -131,6 +131,19 @@ class CabinetValidator:
         for cab in cabinets:
             if cab.cabinet_type == "appliance_space":
                 continue  # appliances are fine with non-standard widths
+
+            # Auto-fix: width=0 means Gemini couldn't read it → snap to 762mm default
+            if cab.width_mm <= 0:
+                old_w = cab.width_mm
+                cab.width_mm = 762.0   # 30" — most common standard cabinet width
+                corrections.append(
+                    f"Item {cab.item_num} ({cab.cabinet_type}) had width={old_w:.0f}mm "
+                    f"→ defaulted to 762mm (30\"). Verify against drawing."
+                )
+                warnings.append(
+                    f"Item {cab.item_num} width was 0/null — used 762mm default"
+                )
+
             nearest, delta = _nearest_standard_width(cab.width_mm)
             if delta > CABINET_WIDTH_TOLERANCE_MM:
                 flags.append(

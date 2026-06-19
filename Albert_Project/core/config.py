@@ -24,11 +24,13 @@ ANTHROPIC_API_KEY: str = os.getenv("ANTHROPIC_API_KEY", "")
 OPENAI_API_KEY:    str = os.getenv("OPENAI_API_KEY", "")
 GEMINI_API_KEY:    str = os.getenv("GEMINI_API_KEY", "")
 GROQ_API_KEY:      str = os.getenv("GROQ_API_KEY", "")
+OPENROUTER_API_KEY: str = os.getenv("OPENROUTER_API_KEY", "")
 
-# ── Claude model config ─────────────────────────────────────────────────────
+# Legacy provider constants retained for older experiments; production vision
+# extraction uses OpenRouter Gemini from core.ai_vision_classifier.
 CLAUDE_MODEL        = "claude-3-5-sonnet-20241022"
 CLAUDE_MAX_TOKENS   = 4096
-CLAUDE_TEMPERATURE  = 0.1    # Low temp for structured/deterministic output
+CLAUDE_TEMPERATURE  = 0.1
 GPT4O_MODEL         = "gpt-4o"
 
 # ── Currency & Unit Conversion ──────────────────────────────────────────────
@@ -126,14 +128,10 @@ CABINET_LIBRARY_PATH = PROJECT_ROOT / "data" / "cabinet_library.json"
 def validate_config() -> list[str]:
     """Return a list of warnings about missing/invalid configuration."""
     warnings = []
-    if not ANTHROPIC_API_KEY:
+    if not OPENROUTER_API_KEY:
         warnings.append(
-            "ANTHROPIC_API_KEY not set — Claude Vision integration will not work. "
-            "Set it in .env or use --skip-ai flag."
-        )
-    if not OPENAI_API_KEY:
-        warnings.append(
-            "OPENAI_API_KEY not set — GPT-4o backup validation disabled."
+            "OPENROUTER_API_KEY not set - Gemini Vision extraction will be disabled. "
+            "Set it in .env or run with --skip-ai."
         )
     if EUR_USD_RATE <= 0:
         warnings.append(f"EUR_USD_RATE={EUR_USD_RATE} is invalid.")
@@ -150,5 +148,5 @@ if __name__ == "__main__":
     else:
         print("✅ Configuration OK")
     print(f"\n   EUR/USD rate: {EUR_USD_RATE}")
-    print(f"   Claude model: {CLAUDE_MODEL}")
+    print(f"   OpenRouter key: {'SET' if OPENROUTER_API_KEY else 'NOT SET'}")
     print(f"   Auto-approve threshold: {AUTO_APPROVE_CONFIDENCE}")

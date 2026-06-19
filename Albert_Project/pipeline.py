@@ -12,7 +12,7 @@
 
   Steps executed:
     1. Load project config
-    2. For each unit type: extract → detect regions → crop → Claude AI → validate
+    2. For each unit type: extract -> detect regions -> crop -> Gemini Vision -> validate
     3. Count units (from floor plans or project_config.json)
     4. Price match (Euro price list → USD)
     5. Job costing (selling price)
@@ -32,11 +32,13 @@ from pathlib import Path
 from typing import Optional
 
 # ── Core modules ────────────────────────────────────────────────────────────
-from core.config import get_output_dir, validate_config, GROQ_API_KEY
+from core.config import get_output_dir, validate_config
 from core.pdf_extractor import PDFExtractor
+from core.ai_vision_classifier import (
+    CabinetVisionClassifier, ElevationResult, OPENROUTER_API_KEY
+)
 from core.region_detector import RegionDetector
 from core.dimension_parser import classify_spans, associate_dims_to_rects
-from core.ai_vision_classifier import CabinetVisionClassifier, ElevationResult
 from core.cabinet_validator import CabinetValidator
 from core.price_matcher import PriceMatcher, get_fallback_price_usd, _generate_code
 from core.unit_counter import UnitCounter, load_matrix_from_config
@@ -123,6 +125,7 @@ def process_unit(
     classifier:     Optional[CabinetVisionClassifier],
     validator:      CabinetValidator,
     skip_ai:        bool = False,
+    demo_mode:      bool = False,
 ) -> UnitSchedule:
     """
     Process one unit type PDF: extract → detect → crop → AI → validate.
@@ -154,7 +157,7 @@ def process_unit(
         return schedule
 
     if not pdf_path.exists():
-        print(f"\n  ⚠️  [{unit_type}] PDF not found: {pdf_path}")
+        print(f"\n  [WARN] [{unit_type}] PDF not found: {pdf_path}")
         schedule.review_flags.append(f"PDF not found: {pdf_path}")
         return schedule
 
@@ -166,7 +169,7 @@ def process_unit(
         regions = detector.detect()
 
         if not regions:
-            print(f"    ⚠️  No elevation regions detected in {pdf_path.name}")
+            print(f"    [WARN] No elevation regions detected in {pdf_path.name}")
             schedule.review_flags.append("No elevation regions detected")
             return schedule
 
@@ -209,7 +212,8 @@ def process_unit(
                 continue
 
             # Call Gemini Vision API
-            print(f"    Calling Claude Vision for {region.region_type}...")
+            mode_tag = "DEMO (low-token)" if demo_mode else "FULL"
+            print(f"    Sending {region.region_type} crop to Gemini Vision [{mode_tag}]...")
             elevation_result = classifier.classify_elevation(
                 image_bytes         = img_bytes,
                 unit_type           = unit_type,
@@ -218,6 +222,7 @@ def process_unit(
                 pre_extracted_dims  = pre_dims,
                 pre_extracted_rects = pre_rects,
                 is_ada              = is_ada,
+                demo_mode           = demo_mode,
             )
 
             # Validate
@@ -286,7 +291,7 @@ def compute_pricing(
     use_fallback = not price_list_path.exists()
 
     if use_fallback:
-        print(f"\n  ⚠️  Price list not found — using fallback USD catalog: {price_list_path}")
+        print(f"\n  [WARN] Price list not found — using fallback USD catalog: {price_list_path}")
     else:
         print(f"\n  Loading price list: {price_list_path.name}")
 
@@ -297,7 +302,7 @@ def compute_pricing(
             tier    = config.get("price_list_tier", 1)
             matcher = PriceMatcher(price_list_path, tier=tier, eur_usd_rate=eur_usd)
         except Exception as e:
-            print(f"  ⚠️  Failed to load price list: {e} — using fallback")
+            print(f"  [WARN] Failed to load price list: {e} — using fallback")
 
     total_material_cost = 0.0
     total_cabinet_count = 0
@@ -305,7 +310,7 @@ def compute_pricing(
     for unit_type, quantity in unit_totals.items():
         schedule = unit_schedules.get(unit_type)
         if not schedule:
-            print(f"    ⚠️  No schedule found for {unit_type} — using fallback prices")
+            print(f"    [WARN] No schedule found for {unit_type} — using fallback prices")
             continue
 
         unit_cost = 0.0
@@ -335,13 +340,14 @@ def run_pipeline(
     skip_ai:      bool = False,
     unit_filter:  Optional[str] = None,
     dry_run:      bool = False,
+    demo_mode:    bool = False,
 ) -> PipelineResult:
     """
     Run the complete cabinet estimation pipeline.
 
     Args:
         config_path:  Path to project_config.json
-        skip_ai:      If True, use cached JSON instead of calling Claude
+        skip_ai:      If True, use cached JSON instead of calling Gemini Vision
         unit_filter:  If set, only process this unit type (e.g., "A1")
         dry_run:      If True, skip PDF generation (config check only)
     """
@@ -349,14 +355,15 @@ def run_pipeline(
     config_path = Path(config_path)
     project_root = Path.cwd()  # resolve PDF paths relative to CWD
 
-    print(f"\n{'═' * 60}")
-    print(f"  AI Cabinet Estimation Pipeline")
-    print(f"{'═' * 60}")
+    print(f"\n{'=' * 60}")
+    print(f"  AI Cabinet Estimation Pipeline"
+          + ("  [DEMO MODE - low-token]" if demo_mode else ""))
+    print(f"{'=' * 60}")
 
     # ── Check config ───────────────────────────────────────────────────────
     config_warnings = validate_config()
     for w in config_warnings:
-        print(f"  ⚠️  {w}")
+        print(f"  [WARN] {w}")
 
     config = load_project_config(config_path)
     project_name = config["project_name"]
@@ -373,13 +380,19 @@ def run_pipeline(
     # ── Initialize AI classifier ───────────────────────────────────────────
     classifier = None
     if not skip_ai:
-        if not GROQ_API_KEY:
-            print("\n  [WARN] GROQ_API_KEY not set — running in --skip-ai mode")
+        if not OPENROUTER_API_KEY:
+            print("\n  [WARN] OPENROUTER_API_KEY not set — running in --skip-ai mode")
             skip_ai = True
         else:
             try:
                 classifier = CabinetVisionClassifier()
-                print("  [OK] Groq llama-3.2-90b-vision classifier ready")
+                print("  [OK] OpenRouter vision classifier ready")
+                print("  [OK] Primary:  google/gemini-2.5-flash")
+                if demo_mode:
+                    print("  [OK] Demo mode: 150 DPI image, compact prompt, 1 retry")
+                    print("       (Est. cost: ~$0.0002/call vs $0.0015 in full mode)")
+                else:
+                    print("  [OK] Fallback: google/gemini-2.5-pro")
             except EnvironmentError as e:
                 print(f"  [FAIL] {e}")
                 skip_ai = True
@@ -392,7 +405,7 @@ def run_pipeline(
     unit_schedules: dict[str, UnitSchedule] = {}
 
     print(f"\n  STEP 1: PDF Extraction + AI Classification")
-    print(f"  {'─' * 50}")
+    print(f"  {'-' * 50}")
 
     for unit_type, pdf_rel_path in unit_plan_pdfs.items():
         if unit_filter and unit_type != unit_filter:
@@ -410,12 +423,13 @@ def run_pipeline(
             classifier   = classifier,
             validator    = validator,
             skip_ai      = skip_ai,
+            demo_mode    = demo_mode,
         )
         unit_schedules[unit_type] = schedule
 
     # ── Step 2: Unit counts ────────────────────────────────────────────────
     print(f"\n  STEP 2: Unit Count Matrix")
-    print(f"  {'─' * 50}")
+    print(f"  {'-' * 50}")
 
     unit_counts_config = config.get("unit_counts", {})
     if unit_counts_config:
@@ -431,20 +445,20 @@ def run_pipeline(
     unit_totals = matrix.totals
 
     # ── Step 3–4: Pricing + Job Costing ───────────────────────────────────
-    print(f"\n  STEP 3: Price Matching (Euro list → USD)")
-    print(f"  {'─' * 50}")
+    print(f"\n  STEP 3: Price Matching (Euro list -> USD)")
+    print(f"  {'-' * 50}")
 
     if unit_schedules and any(s.all_cabinets for s in unit_schedules.values()):
         material_cost_usd, total_cabinet_count = compute_pricing(
             unit_schedules, unit_totals, config, project_root
         )
     else:
-        print("  ⚠️  No cabinet schedules available — using manual cost estimate")
+        print("  [WARN] No cabinet schedules available — using manual cost estimate")
         material_cost_usd   = 0.0
         total_cabinet_count = sum(unit_totals.values()) * 10  # rough estimate
 
     print(f"\n  STEP 4: Job Costing")
-    print(f"  {'─' * 50}")
+    print(f"  {'-' * 50}")
 
     jc_input = JobCostingInput(
         total_cabinet_count = total_cabinet_count,
@@ -459,7 +473,7 @@ def run_pipeline(
 
     # ── Step 5: Generate Excel ─────────────────────────────────────────────
     print(f"\n  STEP 5: Generating Excel Estimation")
-    print(f"  {'─' * 50}")
+    print(f"  {'-' * 50}")
 
     try:
         from generators.cabinet_excel import generate_excel
@@ -471,52 +485,38 @@ def run_pipeline(
             jc_result      = jc_result,
             output_path    = str(excel_path),
         )
-        print(f"  ✅ Excel saved: {excel_path}")
+        print(f"  [SUCCESS] Excel saved: {excel_path}")
     except Exception as e:
-        print(f"  ❌ Excel generation failed: {e}")
+        print(f"  [ERROR] Excel generation failed: {e}")
         import traceback; traceback.print_exc()
 
     # ── Step 6: Generate Shop Drawing PDF ─────────────────────────────────
     print(f"\n  STEP 6: Generating Shop Drawing PDF")
-    print(f"  {'─' * 50}")
+    print(f"  {'-' * 50}")
 
     try:
         pdf_out = output_dir / f"{project_id}_Shop_Drawings.pdf"
-        if project_id == "23-033":
-            print("  Using high-fidelity vector compiler for Casa Familia...")
-            from generate_italiankb_shop_drawings import compile_shop_drawings
-            compile_shop_drawings(
-                ref_pdf_path    = r"Casa familia\03_Shop_Drawings\ITALIANKB SHOP DRAWINGS - 23-033 CASA FAMILIA - 03.04.2025 hatch corregido.pdf",
-                output_pdf_path = str(pdf_out)
-            )
-        elif project_id == "23-045":
-            print("  Using high-fidelity vector compiler for Heritage Village...")
-            from generate_heritage_shop_drawings import compile_heritage_shop_drawings
-            compile_heritage_shop_drawings(
-                ref_dir_path    = r"Heritage\01_Architectural_Drawings\Unit_Plans_FHA_ADA",
-                output_pdf_path = str(pdf_out)
-            )
-        else:
-            from generators.shop_drawing_pdf import generate_shop_drawings
-            generate_shop_drawings(
-                config         = config,
-                unit_schedules = unit_schedules,
-                unit_totals    = unit_totals,
-                output_path    = str(pdf_out),
-            )
-        print(f"  ✅ PDF saved: {pdf_out}")
+        # Always use the universal parameterized generator (works for any project)
+        from generators.shop_drawing_pdf import generate_shop_drawings
+        generate_shop_drawings(
+            config         = config,
+            unit_schedules = unit_schedules,
+            unit_totals    = unit_totals,
+            output_path    = str(pdf_out),
+        )
+        print(f"  [SUCCESS] PDF saved: {pdf_out}")
     except Exception as e:
-        print(f"  ❌ PDF generation failed: {e}")
+        print(f"  [ERROR] PDF generation failed: {e}")
         import traceback; traceback.print_exc()
 
-    # ── Summary ────────────────────────────────────────────────────────────
+    # -- Summary ------------------------------------------------------------
     duration = time.time() - start_time
-    print(f"\n{'═' * 60}")
-    print(f"  ✅ PIPELINE COMPLETE in {duration:.1f}s")
+    print(f"\n{'=' * 60}")
+    print(f"  [SUCCESS] PIPELINE COMPLETE in {duration:.1f}s")
     print(f"  Total cabinets: {total_cabinet_count:,}")
     print(f"  Material cost:  ${material_cost_usd:,.2f}")
     print(f"  Selling price:  ${jc_result.selling_price:,.2f}")
-    print(f"{'═' * 60}\n")
+    print(f"{'=' * 60}\n")
 
     return PipelineResult(
         project_name        = project_name,
@@ -562,6 +562,10 @@ Examples:
         "--dry-run", action="store_true",
         help="Validate config and print plan without executing"
     )
+    parser.add_argument(
+        "--demo", action="store_true",
+        help="Demo mode: lower image DPI + compact prompt — saves ~85%% Vision API tokens"
+    )
     return parser.parse_args()
 
 
@@ -572,4 +576,5 @@ if __name__ == "__main__":
         skip_ai     = args.skip_ai,
         unit_filter = args.unit,
         dry_run     = args.dry_run,
+        demo_mode   = args.demo,
     )

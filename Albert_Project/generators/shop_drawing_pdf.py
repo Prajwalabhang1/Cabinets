@@ -522,7 +522,7 @@ def generate_shop_drawings(
         c.showPage()
 
     c.save()
-    print(f"  ✅ Shop drawing PDF saved: {output_path}  ({total_pages} pages)")
+    print(f"  [SUCCESS] Shop drawing PDF saved: {output_path}  ({total_pages} pages)")
     return output_path
 
 

@@ -1,7 +1,9 @@
-# ── Secrets ─────────────────────────────────────────────────────────────────
+# Secrets
 .env
+.env.*
+!.env.example
 
-# ── Python ───────────────────────────────────────────────────────────────────
+# Python
 __pycache__/
 *.py[cod]
 *.pyo
@@ -15,28 +17,30 @@ build/
 .mypy_cache/
 *.so
 
-# ── Virtual environments ──────────────────────────────────────────────────────
+# Virtual environments
 venv/
 .venv/
 env/
 ENV/
 
-# ── OS files ──────────────────────────────────────────────────────────────────
+# OS files
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# ── IDE ───────────────────────────────────────────────────────────────────────
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 
-# ── Outputs (generated — do NOT commit large output files) ────────────────────
-# Comment these out if you WANT to commit generated outputs
-# outputs/
-
-# ── Temporary / scratch ───────────────────────────────────────────────────────
+# Logs and scratch
+*.log
+outputs/*.log
 *.tmp
 *.bak
 scratch/
+
+# Generated outputs are currently tracked for demo artifacts.
+# Uncomment this line if generated artifacts should be excluded in future.
+# outputs/
