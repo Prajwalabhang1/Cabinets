@@ -22,6 +22,8 @@ load_dotenv(PROJECT_ROOT / ".env", override=False)
 # ── API Keys ────────────────────────────────────────────────────────────────
 ANTHROPIC_API_KEY: str = os.getenv("ANTHROPIC_API_KEY", "")
 OPENAI_API_KEY:    str = os.getenv("OPENAI_API_KEY", "")
+GEMINI_API_KEY:    str = os.getenv("GEMINI_API_KEY", "")
+GROQ_API_KEY:      str = os.getenv("GROQ_API_KEY", "")
 
 # ── Claude model config ─────────────────────────────────────────────────────
 CLAUDE_MODEL        = "claude-3-5-sonnet-20241022"

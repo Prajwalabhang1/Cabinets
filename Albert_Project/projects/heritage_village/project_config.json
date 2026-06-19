@@ -22,26 +22,26 @@
   "price_list_path": "Heritage/02_Price_List/MS PRICE LIST LEVEL 1 -90CM.xlsx",
 
   "unit_plan_pdfs": {
-    "A-1":      "Heritage/01_Architectural_Drawings/Unit_Plans/A-1_UNIT_A1.pdf",
-    "A-1a ACC": "Heritage/01_Architectural_Drawings/Unit_Plans/A-1a_UNIT_A1_ACC.pdf",
-    "B-1":      "Heritage/01_Architectural_Drawings/Unit_Plans/B-1_UNIT_B1.pdf",
-    "B-1a ACC": "Heritage/01_Architectural_Drawings/Unit_Plans/B-1a_UNIT_B1_ACC.pdf",
-    "C-1":      "Heritage/01_Architectural_Drawings/Unit_Plans/C-1_UNIT_C1.pdf",
-    "C-2":      "Heritage/01_Architectural_Drawings/Unit_Plans/C-2_UNIT_C2.pdf",
-    "C-2a ACC": "Heritage/01_Architectural_Drawings/Unit_Plans/C-2a_UNIT_C2_ACC.pdf",
-    "C-3":      "Heritage/01_Architectural_Drawings/Unit_Plans/C-3_UNIT_C3.pdf",
-    "D-1N":     "Heritage/01_Architectural_Drawings/Unit_Plans/D-1N_UNIT_D1N.pdf",
-    "D-1":      "Heritage/01_Architectural_Drawings/Unit_Plans/D-1_UNIT_D1.pdf",
-    "D-1a ACC": "Heritage/01_Architectural_Drawings/Unit_Plans/D-1a_UNIT_D1_ACC.pdf",
-    "D-1A ACC": "Heritage/01_Architectural_Drawings/Unit_Plans/D-1A_UNIT_D1A_ACC.pdf",
-    "ST-1a ACC":"Heritage/01_Architectural_Drawings/Unit_Plans/ST-1a_UNIT_ST1_ACC.pdf",
-    "ST-1":     "Heritage/01_Architectural_Drawings/Unit_Plans/ST-1_UNIT_ST1.pdf"
+    "A-1":      "Heritage/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.00_ UNIT A-1 -FHA - FLOOR PLANS & DETAILS Rev.17 markup.pdf",
+    "A-1a ACC": "Heritage/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.01_ UNIT A-1A ACC FLOOR PLANS & DETAILS Rev.17 markup.pdf",
+    "B-1":      "Heritage/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.02_ UNIT B-1 FLOOR PLANS & DETAILS Rev.17 markup.pdf",
+    "B-1a ACC": "Heritage/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.03_ UNIT B-1A ACC FLOOR PLANS & DETAILS Rev.17 markup.pdf",
+    "C-1":      "Heritage/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.04_ UNIT C-1 - FHA FLOOR PLANS & DETAILS Rev.17 markup.pdf",
+    "C-2":      "Heritage/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.05 - UNIT C-2 - FHA - FLOOR PLANS & DETAILS.pdf",
+    "C-2a ACC": "Heritage/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.06 - UNIT C-2a ACC- FLOOR PLANS & DETAILS-.pdf",
+    "C-3":      "Heritage/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.07_ UNIT C-3 FLOOR PLANS & DETAILS Rev.15 markup.pdf",
+    "D-1N":     "Heritage/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.08A_ UNIT D-1N- FHA - FLOOR PLANS AND DETAILS Rev.15 markup.pdf",
+    "D-1":      "Heritage/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.08_ UNIT D-1 - FHA FLOOR PLANS & DETAILS Rev.17 markup.pdf",
+    "D-1a ACC": "Heritage/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.09A_ UNIT D-1a ACC. FLOOR PLANS & DETAILS (CONTINUED) Rev.15 markup.pdf",
+    "D-1A ACC": "Heritage/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.09_ UNIT D-1A ACC FLOOR PLANS AND DETAILS Rev.15 markup.pdf",
+    "ST-1a ACC":"Heritage/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.10_ UNIT ST-1A ACC FLOOR PLANS & DETAILS Rev.15 markup.pdf",
+    "ST-1":     "Heritage/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.11_ UNIT ST-1 - FHA FLOOR PLANS & DETAILS Rev.15 markup.pdf"
   },
 
   "floor_plan_pdfs": [
-    "Heritage/01_Architectural_Drawings/Floor_Plans/GROUND_FLOOR_PLAN.pdf",
-    "Heritage/01_Architectural_Drawings/Floor_Plans/2ND_FLOOR_PLAN.pdf",
-    "Heritage/01_Architectural_Drawings/Floor_Plans/3RD_FLOOR_PLAN.pdf"
+    "Heritage/01_Architectural_Drawings/Floor_Plans/A-2.00C - PARTIAL C- GROUND LEVEL FLOOR PLAN.pdf",
+    "Heritage/01_Architectural_Drawings/Floor_Plans/A-2.01C - PARTIAL C- 2ND LEVEL FLOOR PLAN.pdf",
+    "Heritage/01_Architectural_Drawings/Floor_Plans/A-2.02C - PARTIAL C- 3RD LEVEL FLOOR PLAN.pdf"
   ],
 
   "unit_counts": {

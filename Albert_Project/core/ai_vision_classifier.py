@@ -1,30 +1,21 @@
 """
 ===========================================================================
-  core/ai_vision_classifier.py — Claude Vision Cabinet Classifier
+  core/ai_vision_classifier.py — Groq Vision Cabinet Classifier
 ===========================================================================
-  THE MISSING PIECE: Integrates Claude 3.5 Sonnet Vision API to classify
-  cabinets from architectural elevation drawings.
-
-  This is Layer 4 of the 5-layer extraction pipeline:
-    Layer 1: PDF rendering (pdf_extractor.py)
-    Layer 2: Region detection (region_detector.py)
-    Layer 3: Dimension text extraction (dimension_parser.py)
-    Layer 4: AI Vision spatial reasoning ← THIS FILE
-    Layer 5: Rule-based validation (cabinet_validator.py)
+  Uses Groq API (llama-3.2-90b-vision-preview) to classify cabinets from
+  architectural elevation drawings. Groq is free, extremely fast, and
+  llama-3.2-90b-vision is excellent at reading technical drawings.
 
   Pipeline per elevation crop:
     1. Receive: PNG image bytes (400 DPI crop) + pre-extracted dims + rects
     2. Build: structured prompt with dimension context
-    3. Call: Claude 3.5 Sonnet API with image
+    3. Call: Groq API (llama-3.2-90b-vision-preview) with base64 image
     4. Parse: JSON response → list[CabinetItem]
-    5. Retry: if JSON parse fails, request fix
-    6. Optionally validate with GPT-4o (if confidence < threshold)
+    5. Retry with fix prompt if JSON parse fails
+    6. Exponential backoff on API errors
 
-  Error handling:
-    - JSON parse failures: retry up to 3 times with "fix this JSON" prompt
-    - API errors: exponential backoff with 3 retries
-    - Low confidence: flag for human review (don't crash)
-    - No API key: raise clear error with instructions
+  Free tier: very generous (no hard daily limit on llama-3.2-90b-vision)
+  Get key at: https://console.groq.com
 ===========================================================================
 """
 from __future__ import annotations
@@ -36,11 +27,11 @@ import time
 from dataclasses import dataclass, field, asdict
 from typing import Optional
 
-from core.config import (
-    ANTHROPIC_API_KEY, OPENAI_API_KEY,
-    CLAUDE_MODEL, CLAUDE_MAX_TOKENS, CLAUDE_TEMPERATURE,
-    GPT4O_MODEL, AUTO_APPROVE_CONFIDENCE,
-)
+from core.config import GROQ_API_KEY, AUTO_APPROVE_CONFIDENCE
+
+GROQ_MODEL      = "meta-llama/llama-4-scout-17b-16e-instruct"
+GROQ_MAX_TOKENS = 4096
+
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -260,7 +251,7 @@ Return ONLY the JSON array, nothing else."""
 class CabinetVisionClassifier:
     """
     Classifies cabinets from architectural elevation drawing images
-    using Claude 3.5 Sonnet Vision API.
+    using Groq API (llama-3.2-90b-vision-preview) — free & fast.
 
     Usage:
         classifier = CabinetVisionClassifier()
@@ -272,37 +263,25 @@ class CabinetVisionClassifier:
         )
     """
 
-    def __init__(self, use_gpt4o_backup: bool = False):
-        """
-        Args:
-            use_gpt4o_backup: If True, cross-validate low-confidence results
-                              with GPT-4o (requires OPENAI_API_KEY).
-        """
-        self.use_gpt4o_backup = use_gpt4o_backup
-        self._anthropic_client = None
-        self._openai_client    = None
+    def __init__(self):
+        self._groq_client = None
         self._validate_keys()
 
     def _validate_keys(self):
-        if not ANTHROPIC_API_KEY:
+        if not GROQ_API_KEY:
             raise EnvironmentError(
-                "ANTHROPIC_API_KEY is not set.\n"
-                "1. Copy .env.example to .env\n"
-                "2. Add your Anthropic API key\n"
-                "3. Or use --skip-ai flag to use cached results"
+                "GROQ_API_KEY is not set.\n"
+                "1. Go to https://console.groq.com\n"
+                "2. Create an API key\n"
+                "3. Add to .env: GROQ_API_KEY=gsk_...\n"
+                "4. Or use --skip-ai flag to skip AI extraction"
             )
 
-    def _get_anthropic(self):
-        if self._anthropic_client is None:
-            import anthropic
-            self._anthropic_client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
-        return self._anthropic_client
-
-    def _get_openai(self):
-        if self._openai_client is None:
-            import openai
-            self._openai_client = openai.OpenAI(api_key=OPENAI_API_KEY)
-        return self._openai_client
+    def _get_groq(self):
+        if self._groq_client is None:
+            from groq import Groq
+            self._groq_client = Groq(api_key=GROQ_API_KEY)
+        return self._groq_client
 
     # ── Main Classification ───────────────────────────────────────────────
 
@@ -353,137 +332,93 @@ class CabinetVisionClassifier:
         # Encode image for API
         image_b64 = base64.standard_b64encode(image_bytes).decode("utf-8")
 
-        # Call Claude with retries
-        raw_json = self._call_claude(
-            image_b64   = image_b64,
+        # Call Groq with retries
+        raw_json = self._call_groq(
+            image_bytes = image_bytes,
             user_prompt = user_prompt,
             max_retries = max_retries,
         )
         result.api_calls += 1
 
         if raw_json is None:
-            result.review_flags.append("Claude API call failed after all retries")
+            result.review_flags.append("Groq API call failed after all retries")
             return result
 
         # Parse JSON response
         cabinets = self._parse_cabinet_json(raw_json, elevation_label)
         if cabinets is None:
-            result.review_flags.append("Failed to parse Claude JSON response")
+            # Retry with explicit JSON fix instruction
+            fix_prompt = (
+                f"{user_prompt}\n\nIMPORTANT: Return ONLY a valid JSON array. "
+                "No explanation text, no markdown fences, just the raw JSON array."
+            )
+            raw_json2 = self._call_groq(image_bytes, fix_prompt, max_retries=1)
+            if raw_json2:
+                cabinets = self._parse_cabinet_json(raw_json2, elevation_label)
+
+        if cabinets is None:
+            result.review_flags.append("Failed to parse Groq JSON response")
             return result
 
         result.cabinets = cabinets
-
-        # Cross-validate with GPT-4o if confidence is low
-        if self.use_gpt4o_backup and result.avg_confidence < AUTO_APPROVE_CONFIDENCE:
-            gpt_cabinets = self._call_gpt4o(image_b64, user_prompt)
-            result.api_calls += 1
-            if gpt_cabinets:
-                result.cabinets = self._merge_results(cabinets, gpt_cabinets)
-                result.review_flags.append(
-                    f"GPT-4o cross-validation applied (avg confidence was {result.avg_confidence:.2f})"
-                )
 
         # Set auto-approve flag
         result.auto_approved = (
             result.avg_confidence >= AUTO_APPROVE_CONFIDENCE and
             len(result.cabinets) > 0
         )
-
         if not result.auto_approved:
             result.review_flags.append(
-                f"Requires human review: avg confidence {result.avg_confidence:.2f} < {AUTO_APPROVE_CONFIDENCE}"
+                f"Requires review: avg confidence {result.avg_confidence:.2f} < {AUTO_APPROVE_CONFIDENCE}"
             )
-
         return result
 
-    # ── Claude API Call ───────────────────────────────────────────────────
+    # ── Groq API Call ────────────────────────────────────────────────────
 
-    def _call_claude(
+    def _call_groq(
         self,
-        image_b64:   str,
+        image_bytes: bytes,
         user_prompt: str,
         max_retries: int = 3,
     ) -> Optional[str]:
-        """Call Claude 3.5 Sonnet Vision API. Returns raw text response or None."""
-        client = self._get_anthropic()
+        """Call Groq llama-3.2-90b-vision API. Returns raw text or None."""
+        client = self._get_groq()
+        image_b64 = base64.standard_b64encode(image_bytes).decode("utf-8")
+        system_prompt = _build_system_prompt()
 
         for attempt in range(max_retries):
             try:
-                response = client.messages.create(
-                    model      = CLAUDE_MODEL,
-                    max_tokens = CLAUDE_MAX_TOKENS,
-                    system     = _build_system_prompt(),
-                    messages   = [
+                response = client.chat.completions.create(
+                    model=GROQ_MODEL,
+                    max_tokens=GROQ_MAX_TOKENS,
+                    temperature=0.1,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
                         {
                             "role": "user",
                             "content": [
                                 {
-                                    "type": "image",
-                                    "source": {
-                                        "type":       "base64",
-                                        "media_type": "image/png",
-                                        "data":       image_b64,
+                                    "type": "image_url",
+                                    "image_url": {
+                                        "url": f"data:image/png;base64,{image_b64}",
                                     },
                                 },
-                                {
-                                    "type": "text",
-                                    "text": user_prompt,
-                                },
+                                {"type": "text", "text": user_prompt},
                             ],
-                        }
+                        },
                     ],
                 )
-                return response.content[0].text
+                return response.choices[0].message.content
 
             except Exception as e:
-                wait = 2 ** attempt  # exponential backoff: 1s, 2s, 4s
-                print(f"  ⚠️  Claude API attempt {attempt+1}/{max_retries} failed: {e}")
+                wait = 2 ** attempt
+                print(f"  [WARN] Groq attempt {attempt+1}/{max_retries} failed: {e}")
                 if attempt < max_retries - 1:
-                    print(f"      Retrying in {wait}s...")
+                    print(f"         Retrying in {wait}s...")
                     time.sleep(wait)
                 else:
-                    print("  ❌ All Claude retries exhausted.")
-
+                    print("  [FAIL] All Groq retries exhausted.")
         return None
-
-    # ── GPT-4o Backup Call ────────────────────────────────────────────────
-
-    def _call_gpt4o(
-        self,
-        image_b64:   str,
-        user_prompt: str,
-    ) -> Optional[list[CabinetItem]]:
-        """Call GPT-4o Vision as backup validator."""
-        if not OPENAI_API_KEY:
-            return None
-
-        try:
-            client = self._get_openai()
-            response = client.chat.completions.create(
-                model      = GPT4O_MODEL,
-                max_tokens = CLAUDE_MAX_TOKENS,
-                messages   = [
-                    {"role": "system", "content": _build_system_prompt()},
-                    {
-                        "role": "user",
-                        "content": [
-                            {
-                                "type": "image_url",
-                                "image_url": {
-                                    "url":    f"data:image/png;base64,{image_b64}",
-                                    "detail": "high",
-                                },
-                            },
-                            {"type": "text", "text": user_prompt},
-                        ],
-                    },
-                ],
-            )
-            raw = response.choices[0].message.content
-            return self._parse_cabinet_json(raw, "GPT-4o")
-        except Exception as e:
-            print(f"  ⚠️  GPT-4o backup call failed: {e}")
-            return None
 
     # ── JSON Parsing ──────────────────────────────────────────────────────
 
@@ -562,56 +497,12 @@ class CabinetVisionClassifier:
                 quantity      = int(item.get("quantity", 1)),
                 is_ada        = bool(item.get("is_ada", False)),
                 notes         = str(item.get("notes", "")),
-                source        = "claude",
+                source        = "groq",
             ))
 
         return cabinets
 
-    # ── Result Merging ────────────────────────────────────────────────────
-
-    def _merge_results(
-        self,
-        claude_cabinets:  list[CabinetItem],
-        gpt_cabinets:     list[CabinetItem],
-    ) -> list[CabinetItem]:
-        """
-        Merge Claude + GPT-4o results.
-        Where both agree on type+width, boost confidence.
-        Where they disagree, lower confidence and flag.
-        """
-        if not gpt_cabinets:
-            return claude_cabinets
-        if not claude_cabinets:
-            return gpt_cabinets
-
-        # Match by item order (both should have same number of items)
-        if len(claude_cabinets) != len(gpt_cabinets):
-            # Count mismatch — return Claude's result with reduced confidence
-            for c in claude_cabinets:
-                c.confidence = min(c.confidence, 0.75)
-                c.notes += " [count mismatch with GPT-4o backup]"
-            return claude_cabinets
-
-        merged = []
-        for claude_item, gpt_item in zip(claude_cabinets, gpt_cabinets):
-            item = claude_item
-            # Both agree on type
-            if claude_item.cabinet_type == gpt_item.cabinet_type:
-                # Average the widths if close
-                if abs(claude_item.width_mm - gpt_item.width_mm) < 50:
-                    item.width_mm = (claude_item.width_mm + gpt_item.width_mm) / 2
-                    item.confidence = min(1.0, (claude_item.confidence + gpt_item.confidence) / 2 + 0.05)
-                    item.source = "claude+gpt4o"
-                else:
-                    item.confidence = min(claude_item.confidence, 0.75)
-                    item.notes += f" [width mismatch: Claude={claude_item.width_mm:.0f}mm GPT={gpt_item.width_mm:.0f}mm]"
-            else:
-                # Type mismatch — flag for review
-                item.confidence = min(claude_item.confidence, 0.65)
-                item.notes += f" [type mismatch: Claude={claude_item.cabinet_type} GPT={gpt_item.cabinet_type}]"
-            merged.append(item)
-
-        return merged
+    # (merge_results removed — single-model pipeline with Gemini)
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -739,18 +630,18 @@ if __name__ == "__main__":
 ```
 """
 
-    # Test parsing
-    classifier = object.__new__(CabinetVisionClassifier)  # skip __init__ to avoid key check
+    # Test parsing (no API key needed for this test)
+    classifier = object.__new__(CabinetVisionClassifier)  # skip __init__
     classifier.__class__ = CabinetVisionClassifier
     cabinets = classifier._parse_cabinet_json(sample_response, "ELEVATION A")
 
     if cabinets:
-        print(f"✅ Parsed {len(cabinets)} cabinets:")
+        print(f"[PASS] Parsed {len(cabinets)} cabinets:")
         for c in cabinets:
             print(f"   Item {c.item_num}: {c.cabinet_type:20s} {c.width_mm:.0f}mm  "
                   f"confidence={c.confidence:.2f}  code={c.code}")
     else:
-        print("❌ Parsing failed")
+        print("[FAIL] Parsing failed")
 
     # Test type normalization
     print("\n=== Type Normalization ===")

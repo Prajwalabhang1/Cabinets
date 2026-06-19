@@ -1,0 +1,140 @@
+{
+  "unit_type": "ST-1a ACC",
+  "is_ada": true,
+  "auto_approved": true,
+  "review_flags": [],
+  "elevations": [
+    {
+      "elevation_label": "KITCHEN",
+      "unit_type": "ST-1a ACC",
+      "is_ada": true,
+      "auto_approved": true,
+      "avg_confidence": 1.0,
+      "review_flags": [],
+      "cabinets": [
+        {
+          "item_num": 1,
+          "cabinet_type": "upper_wall",
+          "width_mm": 762.0,
+          "height_mm": 762.0,
+          "depth_mm": 304.79999999999995,
+          "location": "Standard upper",
+          "elevation_ref": "Elev.1",
+          "confidence": 1.0,
+          "quantity": 1,
+          "is_ada": true,
+          "notes": "Wall Cabinet — 30\"W x 30\"H x 12\"D",
+          "source": "manual"
+        },
+        {
+          "item_num": 2,
+          "cabinet_type": "appliance_space",
+          "width_mm": 762.0,
+          "height_mm": 304.79999999999995,
+          "depth_mm": 304.79999999999995,
+          "location": "Over fridge",
+          "elevation_ref": "Elev.1",
+          "confidence": 1.0,
+          "quantity": 1,
+          "is_ada": true,
+          "notes": "Wall Cabinet — 30\"W x 12\"H x 12\"D (Fridge)",
+          "source": "manual"
+        },
+        {
+          "item_num": 3,
+          "cabinet_type": "upper_wall",
+          "width_mm": 762.0,
+          "height_mm": 457.2,
+          "depth_mm": 304.79999999999995,
+          "location": "Over microwave",
+          "elevation_ref": "Elev.1",
+          "confidence": 1.0,
+          "quantity": 1,
+          "is_ada": true,
+          "notes": "Wall Cabinet — 30\"W x 18\"H x 12\"D (Microwave)",
+          "source": "manual"
+        },
+        {
+          "item_num": 4,
+          "cabinet_type": "appliance_space",
+          "width_mm": 762.0,
+          "height_mm": 876.3,
+          "depth_mm": 609.5999999999999,
+          "location": "ADA DW adjacent",
+          "elevation_ref": "Elev.2",
+          "confidence": 1.0,
+          "quantity": 1,
+          "is_ada": true,
+          "notes": "Dishwasher Cabinet space (Accessible)",
+          "source": "manual"
+        },
+        {
+          "item_num": 5,
+          "cabinet_type": "sink_base",
+          "width_mm": 914.4,
+          "height_mm": 876.3,
+          "depth_mm": 609.5999999999999,
+          "location": "ADA Sink base",
+          "elevation_ref": "Elev.2",
+          "confidence": 1.0,
+          "quantity": 1,
+          "is_ada": true,
+          "notes": "Sink Base Cabinet — 36\"W (Accessible)",
+          "source": "manual"
+        },
+        {
+          "item_num": 6,
+          "cabinet_type": "base",
+          "width_mm": 609.5999999999999,
+          "height_mm": 876.3,
+          "depth_mm": 609.5999999999999,
+          "location": "ADA Standard base",
+          "elevation_ref": "Elev.2",
+          "confidence": 1.0,
+          "quantity": 1,
+          "is_ada": true,
+          "notes": "Base Cabinet — 24\"W (Accessible)",
+          "source": "manual"
+        }
+      ]
+    },
+    {
+      "elevation_label": "BATH",
+      "unit_type": "ST-1a ACC",
+      "is_ada": true,
+      "auto_approved": true,
+      "avg_confidence": 1.0,
+      "review_flags": [],
+      "cabinets": [
+        {
+          "item_num": 1,
+          "cabinet_type": "vanity",
+          "width_mm": 762.0,
+          "height_mm": 876.3,
+          "depth_mm": 533.4,
+          "location": "ADA Single sink",
+          "elevation_ref": "Floor Plan",
+          "confidence": 1.0,
+          "quantity": 1,
+          "is_ada": true,
+          "notes": "Bathroom Vanity — 30\"W (Accessible)",
+          "source": "manual"
+        },
+        {
+          "item_num": 2,
+          "cabinet_type": "medicine_cabinet",
+          "width_mm": 762.0,
+          "height_mm": 762.0,
+          "depth_mm": 101.6,
+          "location": "Mirror cabinet",
+          "elevation_ref": "Floor Plan",
+          "confidence": 1.0,
+          "quantity": 1,
+          "is_ada": true,
+          "notes": "Medicine Cabinet — 30\"W",
+          "source": "manual"
+        }
+      ]
+    }
+  ]
+}

@@ -21,17 +21,17 @@
   "price_list_path": "Casa familia/02_Price_List/MS PRICE LIST LEVEL 1 -90CM.xlsx",
 
   "unit_plan_pdfs": {
-    "A1":     "Casa familia/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.00_UNIT_A1_FHA.pdf",
-    "A2-ADA": "Casa familia/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.01_UNIT_A2_ADA.pdf",
-    "A3":     "Casa familia/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.02_UNIT_A3.pdf",
-    "B1":     "Casa familia/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.03_UNIT_B1.pdf",
-    "B2-ADA": "Casa familia/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.04_UNIT_B2_ADA.pdf"
+    "A1":     "Casa familia/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.00-FHA-UNIT-A1-FLOOR-PLAN-&-DETAILS-Rev.10.pdf",
+    "A2-ADA": "Casa familia/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.01-ADA-UNIT-A2-FULLY-ACCESSIBLE-FLOOR-PLAN-&-DETAILS-Rev.10.pdf",
+    "A3":     "Casa familia/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.02-FHA-UNIT-A3-FLOOR-PLAN-&-DETAILS-Rev.10.pdf",
+    "B1":     "Casa familia/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.03-FHA-UNIT-B1-FLOOR-PLAN-&-DETAILS-Rev.10.pdf",
+    "B2-ADA": "Casa familia/01_Architectural_Drawings/Unit_Plans_FHA_ADA/A-6.04-ADA-UNIT-B2-FULLY-ACCESSIBLE-FLOOR-PLAN-&-DETAILS-Rev.10.pdf"
   },
 
   "floor_plan_pdfs": [
-    "Casa familia/01_Architectural_Drawings/Floor_Plans/A-2.00_GROUND_FLOOR_PLAN.pdf",
-    "Casa familia/01_Architectural_Drawings/Floor_Plans/A-2.01_2ND_FLOOR_PLAN.pdf",
-    "Casa familia/01_Architectural_Drawings/Floor_Plans/A-2.02_3RD_FLOOR_PLAN.pdf"
+    "Casa familia/01_Architectural_Drawings/Floor_Plans/A-2.00-BLDG-A---GROUND-FLOOR-PLAN-Rev.10.pdf",
+    "Casa familia/01_Architectural_Drawings/Floor_Plans/A-2.01-BLDG-A---2ND-FLOOR-PLAN-Rev.10.pdf",
+    "Casa familia/01_Architectural_Drawings/Floor_Plans/A-2.02-BLDG-A---3RD-FLOOR-PLAN-Rev.10.pdf"
   ],
 
   "unit_counts": {

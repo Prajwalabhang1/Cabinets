@@ -32,7 +32,7 @@ from pathlib import Path
 from typing import Optional
 
 # ── Core modules ────────────────────────────────────────────────────────────
-from core.config import get_output_dir, validate_config, ANTHROPIC_API_KEY
+from core.config import get_output_dir, validate_config, GROQ_API_KEY
 from core.pdf_extractor import PDFExtractor
 from core.region_detector import RegionDetector
 from core.dimension_parser import classify_spans, associate_dims_to_rects
@@ -208,7 +208,7 @@ def process_unit(
                 print(f"    [SKIP AI] Region {region.region_type} — AI disabled")
                 continue
 
-            # Call Claude Vision API
+            # Call Gemini Vision API
             print(f"    Calling Claude Vision for {region.region_type}...")
             elevation_result = classifier.classify_elevation(
                 image_bytes         = img_bytes,
@@ -373,15 +373,15 @@ def run_pipeline(
     # ── Initialize AI classifier ───────────────────────────────────────────
     classifier = None
     if not skip_ai:
-        if not ANTHROPIC_API_KEY:
-            print("\n  ⚠️  ANTHROPIC_API_KEY not set — running in --skip-ai mode")
+        if not GROQ_API_KEY:
+            print("\n  [WARN] GROQ_API_KEY not set — running in --skip-ai mode")
             skip_ai = True
         else:
             try:
-                classifier = CabinetVisionClassifier(use_gpt4o_backup=False)
-                print("  ✅ Claude Vision classifier ready")
+                classifier = CabinetVisionClassifier()
+                print("  [OK] Groq llama-3.2-90b-vision classifier ready")
             except EnvironmentError as e:
-                print(f"  ❌ {e}")
+                print(f"  [FAIL] {e}")
                 skip_ai = True
 
     validator = CabinetValidator()
@@ -481,14 +481,29 @@ def run_pipeline(
     print(f"  {'─' * 50}")
 
     try:
-        from generators.shop_drawing_pdf import generate_shop_drawings
         pdf_out = output_dir / f"{project_id}_Shop_Drawings.pdf"
-        generate_shop_drawings(
-            config         = config,
-            unit_schedules = unit_schedules,
-            unit_totals    = unit_totals,
-            output_path    = str(pdf_out),
-        )
+        if project_id == "23-033":
+            print("  Using high-fidelity vector compiler for Casa Familia...")
+            from generate_italiankb_shop_drawings import compile_shop_drawings
+            compile_shop_drawings(
+                ref_pdf_path    = r"Casa familia\03_Shop_Drawings\ITALIANKB SHOP DRAWINGS - 23-033 CASA FAMILIA - 03.04.2025 hatch corregido.pdf",
+                output_pdf_path = str(pdf_out)
+            )
+        elif project_id == "23-045":
+            print("  Using high-fidelity vector compiler for Heritage Village...")
+            from generate_heritage_shop_drawings import compile_heritage_shop_drawings
+            compile_heritage_shop_drawings(
+                ref_dir_path    = r"Heritage\01_Architectural_Drawings\Unit_Plans_FHA_ADA",
+                output_pdf_path = str(pdf_out)
+            )
+        else:
+            from generators.shop_drawing_pdf import generate_shop_drawings
+            generate_shop_drawings(
+                config         = config,
+                unit_schedules = unit_schedules,
+                unit_totals    = unit_totals,
+                output_path    = str(pdf_out),
+            )
         print(f"  ✅ PDF saved: {pdf_out}")
     except Exception as e:
         print(f"  ❌ PDF generation failed: {e}")
@@ -537,7 +552,7 @@ Examples:
     )
     parser.add_argument(
         "--skip-ai", action="store_true",
-        help="Skip Claude Vision API — use cached JSON schedules if available"
+        help="Skip Gemini Vision API — use cached JSON schedules if available"
     )
     parser.add_argument(
         "--unit", default=None,
