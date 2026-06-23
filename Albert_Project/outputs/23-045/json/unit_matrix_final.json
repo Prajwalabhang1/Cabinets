@@ -1,0 +1,335 @@
+[
+  {
+    "building": "Building C",
+    "floor": 1,
+    "unit_type": "A-1",
+    "count": 5,
+    "kitchen_type": "K1",
+    "bathroom_type": "V1",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 2,
+    "unit_type": "A-1",
+    "count": 5,
+    "kitchen_type": "K1",
+    "bathroom_type": "V1",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 3,
+    "unit_type": "A-1",
+    "count": 5,
+    "kitchen_type": "K1",
+    "bathroom_type": "V1",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 1,
+    "unit_type": "A-1a ACC",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V2",
+    "is_ada": true
+  },
+  {
+    "building": "Building C",
+    "floor": 2,
+    "unit_type": "A-1a ACC",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V2",
+    "is_ada": true
+  },
+  {
+    "building": "Building C",
+    "floor": 3,
+    "unit_type": "A-1a ACC",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V2",
+    "is_ada": true
+  },
+  {
+    "building": "Building C",
+    "floor": 1,
+    "unit_type": "B-1",
+    "count": 4,
+    "kitchen_type": "K1",
+    "bathroom_type": "V3",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 2,
+    "unit_type": "B-1",
+    "count": 4,
+    "kitchen_type": "K1",
+    "bathroom_type": "V3",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 3,
+    "unit_type": "B-1",
+    "count": 4,
+    "kitchen_type": "K1",
+    "bathroom_type": "V3",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 1,
+    "unit_type": "B-1a ACC",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V4",
+    "is_ada": true
+  },
+  {
+    "building": "Building C",
+    "floor": 2,
+    "unit_type": "B-1a ACC",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V4",
+    "is_ada": true
+  },
+  {
+    "building": "Building C",
+    "floor": 3,
+    "unit_type": "B-1a ACC",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V4",
+    "is_ada": true
+  },
+  {
+    "building": "Building C",
+    "floor": 1,
+    "unit_type": "C-1",
+    "count": 3,
+    "kitchen_type": "K1",
+    "bathroom_type": "V5",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 2,
+    "unit_type": "C-1",
+    "count": 3,
+    "kitchen_type": "K1",
+    "bathroom_type": "V5",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 3,
+    "unit_type": "C-1",
+    "count": 2,
+    "kitchen_type": "K1",
+    "bathroom_type": "V5",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 1,
+    "unit_type": "C-2",
+    "count": 2,
+    "kitchen_type": "K1",
+    "bathroom_type": "V5",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 2,
+    "unit_type": "C-2",
+    "count": 2,
+    "kitchen_type": "K1",
+    "bathroom_type": "V5",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 3,
+    "unit_type": "C-2",
+    "count": 2,
+    "kitchen_type": "K1",
+    "bathroom_type": "V5",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 1,
+    "unit_type": "C-2a ACC",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V6",
+    "is_ada": true
+  },
+  {
+    "building": "Building C",
+    "floor": 2,
+    "unit_type": "C-2a ACC",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V6",
+    "is_ada": true
+  },
+  {
+    "building": "Building C",
+    "floor": 1,
+    "unit_type": "C-3",
+    "count": 2,
+    "kitchen_type": "K1",
+    "bathroom_type": "V5",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 2,
+    "unit_type": "C-3",
+    "count": 2,
+    "kitchen_type": "K1",
+    "bathroom_type": "V5",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 3,
+    "unit_type": "C-3",
+    "count": 2,
+    "kitchen_type": "K1",
+    "bathroom_type": "V5",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 1,
+    "unit_type": "D-1N",
+    "count": 2,
+    "kitchen_type": "K2",
+    "bathroom_type": "V7",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 2,
+    "unit_type": "D-1N",
+    "count": 1,
+    "kitchen_type": "K2",
+    "bathroom_type": "V7",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 3,
+    "unit_type": "D-1N",
+    "count": 1,
+    "kitchen_type": "K2",
+    "bathroom_type": "V7",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 1,
+    "unit_type": "D-1",
+    "count": 1,
+    "kitchen_type": "K2",
+    "bathroom_type": "V7",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 1,
+    "unit_type": "D-1a ACC",
+    "count": 1,
+    "kitchen_type": "K2",
+    "bathroom_type": "V8",
+    "is_ada": true
+  },
+  {
+    "building": "Building C",
+    "floor": 2,
+    "unit_type": "D-1a ACC",
+    "count": 1,
+    "kitchen_type": "K2",
+    "bathroom_type": "V8",
+    "is_ada": true
+  },
+  {
+    "building": "Building C",
+    "floor": 1,
+    "unit_type": "D-1A ACC",
+    "count": 1,
+    "kitchen_type": "K2",
+    "bathroom_type": "V8",
+    "is_ada": true
+  },
+  {
+    "building": "Building C",
+    "floor": 2,
+    "unit_type": "D-1A ACC",
+    "count": 1,
+    "kitchen_type": "K2",
+    "bathroom_type": "V8",
+    "is_ada": true
+  },
+  {
+    "building": "Building C",
+    "floor": 1,
+    "unit_type": "ST-1a ACC",
+    "count": 2,
+    "kitchen_type": "K3",
+    "bathroom_type": "V4",
+    "is_ada": true
+  },
+  {
+    "building": "Building C",
+    "floor": 2,
+    "unit_type": "ST-1a ACC",
+    "count": 1,
+    "kitchen_type": "K3",
+    "bathroom_type": "V4",
+    "is_ada": true
+  },
+  {
+    "building": "Building C",
+    "floor": 3,
+    "unit_type": "ST-1a ACC",
+    "count": 1,
+    "kitchen_type": "K3",
+    "bathroom_type": "V4",
+    "is_ada": true
+  },
+  {
+    "building": "Building C",
+    "floor": 1,
+    "unit_type": "ST-1",
+    "count": 2,
+    "kitchen_type": "K3",
+    "bathroom_type": "V3",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 2,
+    "unit_type": "ST-1",
+    "count": 2,
+    "kitchen_type": "K3",
+    "bathroom_type": "V3",
+    "is_ada": false
+  },
+  {
+    "building": "Building C",
+    "floor": 3,
+    "unit_type": "ST-1",
+    "count": 2,
+    "kitchen_type": "K3",
+    "bathroom_type": "V3",
+    "is_ada": false
+  }
+]

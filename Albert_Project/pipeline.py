@@ -41,8 +41,14 @@ from core.region_detector import RegionDetector
 from core.dimension_parser import classify_spans, associate_dims_to_rects
 from core.cabinet_validator import CabinetValidator
 from core.price_matcher import PriceMatcher, get_fallback_price_usd, _generate_code
-from core.unit_counter import UnitCounter, load_matrix_from_config
+from core.unit_matrix_extractor import UnitMatrixExtractor, load_matrix_from_config
 from core.job_costing import JobCostingInput, calculate_selling_price
+from core.drawing_classifier import DrawingClassifier
+from core.ceiling_height_extractor import CeilingHeightExtractor
+from core.opening_extractor import OpeningExtractor
+from core.confidence_engine import ConfidenceEngine
+from core.geometry_engine import GeometryEngine
+from generators.shop_drawing_dxf import DXFDrawingGenerator
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -57,6 +63,7 @@ class UnitSchedule:
     is_ada:          bool = False
     auto_approved:   bool = False
     review_flags:    list[str] = field(default_factory=list)
+    legend_map:      dict[str, str] = field(default_factory=dict)
 
     @property
     def all_cabinets(self):
@@ -140,11 +147,16 @@ def process_unit(
         print(f"\n  [{unit_type}] Loading cached cabinet schedule...")
         with open(cache_path, encoding="utf-8") as f:
             cached = json.load(f)
+        schedule.legend_map = cached.get("legend_map", {})
         # Convert back to ElevationResult objects
         for ev_data in cached.get("elevations", []):
             from core.ai_vision_classifier import CabinetItem, ElevationResult
             cabs = []
             for c in ev_data.get("cabinets", []):
+                if "cabinet_id" not in c:
+                    c["cabinet_id"] = ""
+                if "source" not in c:
+                    c["source"] = "gemini"
                 cabs.append(CabinetItem(**c))
             ev = ElevationResult(
                 elevation_label = ev_data["elevation_label"],
@@ -152,6 +164,17 @@ def process_unit(
                 project_name    = project_name,
                 cabinets        = cabs,
                 is_ada          = is_ada,
+                appliances      = ev_data.get("appliances", []),
+                doors           = ev_data.get("doors", []),
+                windows         = ev_data.get("windows", []),
+                fillers         = ev_data.get("fillers", []),
+                panels          = ev_data.get("panels", []),
+                moldings        = ev_data.get("moldings", []),
+                relationships   = ev_data.get("relationships", []),
+                ceiling_height_in = ev_data.get("ceiling_height_in", None),
+                soffit_present  = ev_data.get("soffit_present", False),
+                backsplash      = ev_data.get("backsplash", ""),
+                counter_material = ev_data.get("counter_material", ""),
             )
             schedule.elevations.append(ev)
         return schedule
@@ -164,75 +187,116 @@ def process_unit(
     print(f"\n  [{unit_type}] Processing: {pdf_path.name}")
 
     with PDFExtractor(pdf_path) as ex:
-        page = ex.extract_page(0)
-        detector = RegionDetector(page.spans, page.rects, page.page_w, page.page_h)
-        regions = detector.detect()
-
-        if not regions:
-            print(f"    [WARN] No elevation regions detected in {pdf_path.name}")
-            schedule.review_flags.append("No elevation regions detected")
-            return schedule
-
-        print(f"    Detected {len(regions)} regions")
-
-        # Pre-extract dimensions for AI context
-        classified = classify_spans(page.spans)
-        pre_dims = [
-            {"text": s.text, "type": "METRIC", "x": s.cx, "y": s.cy}
-            for s in classified["metric_dims"]
-        ] + [
-            {"text": s.text, "type": "IMPERIAL", "x": s.cx, "y": s.cy}
-            for s in classified["imperial_dims"]
-        ]
-
-        labeled_rects = associate_dims_to_rects(page.spans, page.rects)
-        pre_rects = [
-            {"x0": lr.rect.x0, "y0": lr.rect.y0,
-             "x1": lr.rect.x1, "y1": lr.rect.y1,
-             "w": lr.rect.w,   "h": lr.rect.h}
-            for lr in labeled_rects if lr.rect.w > 20
-        ][:50]
-
-        # Process each detected region
-        for region in regions:
-            if not region.is_elevation() and region.region_type not in ("KITCHEN", "BATH", "VANITY", "MASTER_BATH"):
+        for page_idx in range(ex.page_count):
+            page = ex.extract_page(page_idx)
+            
+            # --- Stage 0 Filter: Drawing Classification ---
+            sheet_type = DrawingClassifier.classify_page(page.spans)
+            print(f"    [Page {page_idx + 1}] Class: {sheet_type}")
+            
+            # If the PDF contains only 1 page, do not skip it even if classified as RCP/Detail,
+            # as it is the only source drawing for this unit type.
+            is_single_page = (ex.page_count == 1)
+            if not is_single_page and sheet_type not in ("UNIT PLAN", "ELEVATION"):
+                print(f"    Skipping page {page_idx + 1} ({sheet_type})")
                 continue
 
-            # Crop the region
-            crop_path = output_dir / "crops" / f"{unit_type.replace(' ','_')}_{region.region_type}.png"
-            print(f"    Cropping region: {region.region_type} (conf={region.confidence:.2f})")
-            img_bytes = ex.render_region(region.crop_rect, dpi=400)
+            # Extract legend mapping if not already done
+            if not schedule.legend_map:
+                from core.legend_extractor import LegendExtractor
+                legend_extractor = LegendExtractor(page.spans, page.page_w, page.page_h)
+                schedule.legend_map = legend_extractor.extract()
+                if schedule.legend_map:
+                    print(f"    Extracted {len(schedule.legend_map)} keynotes from drawing legend")
 
-            # Save crop for reference
-            crop_path.parent.mkdir(parents=True, exist_ok=True)
-            crop_path.write_bytes(img_bytes)
+            # --- Physical Parameter Extractions ---
+            clg_data = CeilingHeightExtractor.extract_heights(page.spans)
+            openings_data = OpeningExtractor.extract_openings(page.spans, page.rects)
 
-            if skip_ai or classifier is None:
-                print(f"    [SKIP AI] Region {region.region_type} — AI disabled")
+            detector = RegionDetector(page.spans, page.rects, page.page_w, page.page_h)
+            regions = detector.detect()
+
+            if not regions:
+                print(f"    [WARN] No elevation regions detected in page {page_idx + 1}")
                 continue
 
-            # Call Gemini Vision API
-            mode_tag = "DEMO (low-token)" if demo_mode else "FULL"
-            print(f"    Sending {region.region_type} crop to Gemini Vision [{mode_tag}]...")
-            elevation_result = classifier.classify_elevation(
-                image_bytes         = img_bytes,
-                unit_type           = unit_type,
-                elevation_label     = region.region_type,
-                project_name        = project_name,
-                pre_extracted_dims  = pre_dims,
-                pre_extracted_rects = pre_rects,
-                is_ada              = is_ada,
-                demo_mode           = demo_mode,
-            )
+            print(f"    Detected {len(regions)} regions on page {page_idx + 1}")
 
-            # Validate
-            validator.validate(
-                elevation_result.cabinets,
-                is_ada   = is_ada,
-                location = f"{unit_type} / {region.region_type}",
-            )
+            # Pre-extract dimensions for AI context
+            classified = classify_spans(page.spans)
+            pre_dims = [
+                {"text": s.text, "type": "METRIC", "x": s.cx, "y": s.cy}
+                for s in classified["metric_dims"]
+            ] + [
+                {"text": s.text, "type": "IMPERIAL", "x": s.cx, "y": s.cy}
+                for s in classified["imperial_dims"]
+            ]
 
-            schedule.elevations.append(elevation_result)
+            labeled_rects = associate_dims_to_rects(page.spans, page.rects)
+            pre_rects = [
+                {"x0": lr.rect.x0, "y0": lr.rect.y0,
+                 "x1": lr.rect.x1, "y1": lr.rect.y1,
+                 "w": lr.rect.w,   "h": lr.rect.h}
+                for lr in labeled_rects if lr.rect.w > 20
+            ][:50]
+
+            # Process each detected region
+            for region in regions:
+                if not region.is_elevation() and region.region_type not in ("KITCHEN", "BATH", "VANITY", "MASTER_BATH"):
+                    continue
+
+                # Crop the region
+                crop_path = output_dir / "crops" / f"{unit_type.replace(' ','_')}_{region.region_type}.png"
+                print(f"    Cropping region: {region.region_type} (conf={region.confidence:.2f})")
+                img_bytes = ex.render_region(region.crop_rect, dpi=400)
+
+                # Save crop for reference
+                crop_path.parent.mkdir(parents=True, exist_ok=True)
+                crop_path.write_bytes(img_bytes)
+
+                if skip_ai or classifier is None:
+                    print(f"    [SKIP AI] Region {region.region_type} — AI disabled")
+                    continue
+
+                # Call Gemini Vision API
+                mode_tag = "DEMO (low-token)" if demo_mode else "FULL"
+                print(f"    Sending {region.region_type} crop to Gemini Vision [{mode_tag}]...")
+                elevation_result = classifier.classify_elevation(
+                    image_bytes         = img_bytes,
+                    unit_type           = unit_type,
+                    elevation_label     = region.region_type,
+                    project_name        = project_name,
+                    pre_extracted_dims  = pre_dims,
+                    pre_extracted_rects = pre_rects,
+                    is_ada              = is_ada,
+                    legend_map          = schedule.legend_map,
+                    demo_mode           = demo_mode,
+                )
+
+                # Populate extracted metrics
+                elevation_result.ceiling_height_in = clg_data["ceiling_height"]
+                elevation_result.soffit_present = clg_data["soffit_height"] is not None
+                if not elevation_result.doors:
+                    elevation_result.doors = openings_data["doors"]
+                if not elevation_result.windows:
+                    elevation_result.windows = openings_data["windows"]
+
+                # Validate
+                validator.validate(
+                    elevation_result.cabinets,
+                    is_ada   = is_ada,
+                    location = f"{unit_type} / {region.region_type}",
+                )
+
+                # Confidence Evaluation
+                qa_res = ConfidenceEngine.evaluate(elevation_result)
+                elevation_result.review_flags.extend(qa_res["warnings"])
+                if qa_res["needs_review"]:
+                    print(f"    [QA review flagged] {region.region_type}: {qa_res['warnings']}")
+                    elevation_result.auto_approved = False
+                    elevation_result.avg_confidence = min(elevation_result.avg_confidence, qa_res["confidence_score"])
+
+                schedule.elevations.append(elevation_result)
 
     # Auto-approve if all elevations passed
     schedule.auto_approved = (
@@ -256,6 +320,7 @@ def _save_schedule_json(schedule: UnitSchedule, out_path: Path):
         "is_ada":       schedule.is_ada,
         "auto_approved": schedule.auto_approved,
         "review_flags": schedule.review_flags,
+        "legend_map":   schedule.legend_map,
         "elevations": [
             {
                 "elevation_label": ev.elevation_label,
@@ -265,6 +330,17 @@ def _save_schedule_json(schedule: UnitSchedule, out_path: Path):
                 "avg_confidence":  ev.avg_confidence,
                 "review_flags":    ev.review_flags,
                 "cabinets": [c.to_dict() for c in ev.cabinets],
+                "appliances":      ev.appliances,
+                "doors":           ev.doors,
+                "windows":         ev.windows,
+                "fillers":         ev.fillers,
+                "panels":          ev.panels,
+                "moldings":        ev.moldings,
+                "relationships":   ev.relationships,
+                "ceiling_height_in": ev.ceiling_height_in,
+                "soffit_present":  ev.soffit_present,
+                "backsplash":      ev.backsplash,
+                "counter_material": ev.counter_material,
             }
             for ev in schedule.elevations
         ],
@@ -427,7 +503,7 @@ def run_pipeline(
         )
         unit_schedules[unit_type] = schedule
 
-    # ── Step 2: Unit counts ────────────────────────────────────────────────
+    # ── Step 2: Unit Count Matrix ──────────────────────────────────────────
     print(f"\n  STEP 2: Unit Count Matrix")
     print(f"  {'-' * 50}")
 
@@ -438,11 +514,130 @@ def run_pipeline(
     else:
         print("  Auto-detecting unit counts from floor plan PDFs...")
         floor_plan_pdfs = [project_root / p for p in config.get("floor_plan_pdfs", [])]
-        counter = UnitCounter()
+        counter = UnitMatrixExtractor()
         matrix = counter.count_from_pdfs(floor_plan_pdfs, project_name)
 
     matrix.print_summary()
     unit_totals = matrix.totals
+
+    # helper to parse building/floor info from filenames
+    def extract_building_floor_from_path(pdf_path_str: str) -> tuple[str, int]:
+        name = Path(pdf_path_str).name.upper()
+        building = "Building A"
+        bldg_m = re.search(r'\b(?:BLDG|BUILDING|PARTIAL)[\s_-]*([A-Z0-9]+)\b', name)
+        if bldg_m:
+            building = f"Building {bldg_m.group(1)}"
+        else:
+            sheet_m = re.search(r'A-2\.\d+([A-Z])', name)
+            if sheet_m:
+                building = f"Building {sheet_m.group(1)}"
+                
+        floor = 1
+        if "GROUND" in name or "1ST" in name or "LEVEL 1" in name or "2.00" in name:
+            floor = 1
+        elif "2ND" in name or "LEVEL 2" in name or "2.01" in name:
+            floor = 2
+        elif "3RD" in name or "LEVEL 3" in name or "2.02" in name:
+            floor = 3
+        elif "4TH" in name or "LEVEL 4" in name or "2.03" in name:
+            floor = 4
+        elif "5TH" in name or "LEVEL 5" in name or "2.04" in name:
+            floor = 5
+        else:
+            floor_digit_m = re.search(r'(\d+)(?:ND|RD|TH|ST)\s+FLOOR', name)
+            if floor_digit_m:
+                floor = int(floor_digit_m.group(1))
+        return building, floor
+
+    import re
+    from collections import defaultdict
+    unit_matrix_list = []
+    detected_matrix = None
+    floor_plans_config = config.get("floor_plan_pdfs", [])
+    if floor_plans_config:
+        try:
+            floor_plan_paths = [project_root / p for p in floor_plans_config]
+            counter = UnitMatrixExtractor()
+            detected_matrix = counter.count_from_pdfs(floor_plan_paths, project_name)
+        except Exception as e:
+            print(f"  [WARN] Failed to auto-detect unit counts: {e}")
+
+    matrix_counts = defaultdict(int)
+    if detected_matrix and detected_matrix.floor_counts:
+        for fc in detected_matrix.floor_counts:
+            bldg, fl = extract_building_floor_from_path(fc.pdf_path)
+            for ut, cnt in fc.unit_counts.items():
+                matrix_counts[(bldg, fl, ut)] = cnt
+
+        if unit_counts_config:
+            detected_totals = defaultdict(int)
+            for (bldg, fl, ut), cnt in matrix_counts.items():
+                detected_totals[ut] += cnt
+
+            adjusted_counts = defaultdict(int)
+            for ut, target_cnt in unit_counts_config.items():
+                det_tot = detected_totals.get(ut, 0)
+                if det_tot > 0:
+                    for (bldg, fl, ut2), cnt in list(matrix_counts.items()):
+                        if ut2 == ut:
+                            adjusted_counts[(bldg, fl, ut)] = round(cnt * target_cnt / det_tot)
+                    adj_tot = sum(adjusted_counts[(bldg, fl, ut2)] for (bldg, fl, ut2) in adjusted_counts if ut2 == ut)
+                    diff = target_cnt - adj_tot
+                    if diff != 0:
+                        for (bldg, fl, ut2) in adjusted_counts:
+                            if ut2 == ut:
+                                adjusted_counts[(bldg, fl, ut)] += diff
+                                break
+                else:
+                    if floor_plans_config:
+                        available_floors = []
+                        for p in floor_plans_config:
+                            bldg, fl = extract_building_floor_from_path(p)
+                            if (bldg, fl) not in available_floors:
+                                available_floors.append((bldg, fl))
+                        num_floors = len(available_floors)
+                        base_cnt = target_cnt // num_floors
+                        rem = target_cnt % num_floors
+                        for idx, (bldg, fl) in enumerate(available_floors):
+                            c = base_cnt + (1 if idx < rem else 0)
+                            if c > 0:
+                                adjusted_counts[(bldg, fl, ut)] = c
+                    else:
+                        first_bldg = "Building A"
+                        adjusted_counts[(first_bldg, 1, ut)] = target_cnt
+            matrix_counts = adjusted_counts
+    else:
+        if floor_plans_config:
+            available_floors = []
+            for p in floor_plans_config:
+                bldg, fl = extract_building_floor_from_path(p)
+                if (bldg, fl) not in available_floors:
+                    available_floors.append((bldg, fl))
+            
+            num_floors = len(available_floors)
+            for ut, cnt in unit_totals.items():
+                base_cnt = cnt // num_floors
+                rem = cnt % num_floors
+                for idx, (bldg, fl) in enumerate(available_floors):
+                    c = base_cnt + (1 if idx < rem else 0)
+                    if c > 0:
+                        matrix_counts[(bldg, fl, ut)] = c
+        else:
+            first_bldg = "Building A"
+            for ut, cnt in unit_totals.items():
+                matrix_counts[(first_bldg, 1, ut)] = cnt
+
+    for (bldg, fl, ut), cnt in matrix_counts.items():
+        if cnt > 0:
+            unit_matrix_list.append({
+                "building": bldg,
+                "floor": fl,
+                "unit_type": ut,
+                "count": cnt,
+                "kitchen_type": "K1",
+                "bathroom_type": "V1",
+                "is_ada": ut in ada_units
+            })
 
     # ── Step 3–4: Pricing + Job Costing ───────────────────────────────────
     print(f"\n  STEP 3: Price Matching (Euro list -> USD)")
@@ -478,14 +673,26 @@ def run_pipeline(
     try:
         from generators.cabinet_excel import generate_excel
         excel_path = output_dir / f"{project_id}_Cabinet_Estimation.xlsx"
-        generate_excel(
-            config         = config,
-            unit_schedules = unit_schedules,
-            unit_totals    = unit_totals,
-            jc_result      = jc_result,
-            output_path    = str(excel_path),
-        )
-        print(f"  [SUCCESS] Excel saved: {excel_path}")
+        try:
+            generate_excel(
+                config         = config,
+                unit_schedules = unit_schedules,
+                unit_totals    = unit_totals,
+                jc_result      = jc_result,
+                output_path    = str(excel_path),
+            )
+            print(f"  [SUCCESS] Excel saved: {excel_path}")
+        except PermissionError:
+            excel_path_backup = output_dir / f"{project_id}_Cabinet_Estimation_NEW.xlsx"
+            print(f"  [WARN] Permission denied on standard path. Saving backup to: {excel_path_backup}")
+            generate_excel(
+                config         = config,
+                unit_schedules = unit_schedules,
+                unit_totals    = unit_totals,
+                jc_result      = jc_result,
+                output_path    = str(excel_path_backup),
+            )
+            print(f"  [SUCCESS] Excel saved (backup): {excel_path_backup}")
     except Exception as e:
         print(f"  [ERROR] Excel generation failed: {e}")
         import traceback; traceback.print_exc()
@@ -498,15 +705,198 @@ def run_pipeline(
         pdf_out = output_dir / f"{project_id}_Shop_Drawings.pdf"
         # Always use the universal parameterized generator (works for any project)
         from generators.shop_drawing_pdf import generate_shop_drawings
-        generate_shop_drawings(
-            config         = config,
-            unit_schedules = unit_schedules,
-            unit_totals    = unit_totals,
-            output_path    = str(pdf_out),
-        )
-        print(f"  [SUCCESS] PDF saved: {pdf_out}")
+        try:
+            generate_shop_drawings(
+                config         = config,
+                unit_schedules = unit_schedules,
+                unit_totals    = unit_totals,
+                output_path    = str(pdf_out),
+            )
+            print(f"  [SUCCESS] PDF saved: {pdf_out}")
+        except PermissionError:
+            pdf_out_backup = output_dir / f"{project_id}_Shop_Drawings_NEW.pdf"
+            print(f"  [WARN] Permission denied on standard path. Saving backup to: {pdf_out_backup}")
+            generate_shop_drawings(
+                config         = config,
+                unit_schedules = unit_schedules,
+                unit_totals    = unit_totals,
+                output_path    = str(pdf_out_backup),
+            )
+            print(f"  [SUCCESS] PDF saved (backup): {pdf_out_backup}")
     except Exception as e:
         print(f"  [ERROR] PDF generation failed: {e}")
+        import traceback; traceback.print_exc()
+
+    # ── Step 7: Output Final Deliverable Schemas ───────────────────────────
+    print(f"\n  STEP 7: Generating Target Deliverables JSON Schemas")
+    print(f"  {'-' * 50}")
+
+    from core.kitchen_layout_classifier import KitchenLayoutClassifier
+    from core.vanity_layout_classifier import VanityLayoutClassifier
+    from core.cabinet_graph_builder import CabinetGraphBuilder
+
+    kitchen_classifier = KitchenLayoutClassifier()
+    vanity_classifier = VanityLayoutClassifier()
+    graph_builder = CabinetGraphBuilder()
+
+    for ut, schedule in unit_schedules.items():
+        vanity_cabs_list = []
+        for ev in schedule.elevations:
+            for cab in ev.cabinets:
+                if cab.cabinet_type in ("vanity", "medicine_cabinet", "linen"):
+                    vanity_cabs_list.append({
+                        "type": cab.cabinet_type,
+                        "width_mm": cab.width_mm,
+                        "is_ada": cab.is_ada,
+                        "notes": cab.notes,
+                        "location": cab.location
+                    })
+        bathroom_type = vanity_classifier.get_vanity_type(vanity_cabs_list)
+
+        walls_info = []
+        kitchen_appliances = []
+        for ev in schedule.elevations:
+            if ev.elevation_label.upper() in ("BATH", "VANITY", "MASTER_BATH"):
+                continue
+            wall_name = ev.elevation_label.replace("ELEVATION ", "").strip()
+            if wall_name.upper() in ("KITCHEN", "BATH", "VANITY", "MASTER_BATH"):
+                wall_name = "A"
+            cabs_on_wall = []
+            for cab in ev.cabinets:
+                w_in = round(cab.width_mm / 25.4)
+                cabs_on_wall.append({
+                    "id": cab.cabinet_id or cab.code,
+                    "type": cab.cabinet_type,
+                    "x": 0,
+                    "notes": cab.notes
+                })
+            wall_len = sum(round(c.width_mm / 25.4) for c in ev.cabinets)
+            walls_info.append({
+                "name": wall_name,
+                "length": wall_len or 90.0,
+                "cabinets": cabs_on_wall
+            })
+            for app in ev.appliances:
+                kitchen_appliances.append({
+                    "type": app.get("type", "REF"),
+                    "wall": wall_name,
+                    "x": app.get("x_in", 0)
+                })
+
+        if not walls_info:
+            walls_info.append({
+                "name": "A",
+                "length": 90.0,
+                "cabinets": []
+            })
+
+        kitchen_type = kitchen_classifier.get_kitchen_type(walls_info, kitchen_appliances, layout_shape="straight")
+
+        # Build final schemas
+        shop_drawing = graph_builder.build_shop_drawing_schema(
+            unit_type = ut,
+            elevations = schedule.elevations,
+            kitchen_type = kitchen_type,
+            bathroom_type = bathroom_type,
+            layout_shape = "straight"
+        )
+        cost_drawing = graph_builder.build_cost_schema(
+            unit_type = ut,
+            elevations = schedule.elevations,
+            is_ada = schedule.is_ada
+        )
+
+        schedule.kitchen_type = kitchen_type
+        schedule.bathroom_type = bathroom_type
+        schedule.shop_drawing_schema = shop_drawing
+        schedule.cost_schema = cost_drawing
+
+    for entry in unit_matrix_list:
+        ut = entry["unit_type"]
+        if ut in unit_schedules:
+            entry["kitchen_type"] = unit_schedules[ut].kitchen_type
+            entry["bathroom_type"] = unit_schedules[ut].bathroom_type
+
+    # Save unit matrix final
+    unit_matrix_path = output_dir / "json" / "unit_matrix_final.json"
+    unit_matrix_path.parent.mkdir(parents=True, exist_ok=True)
+    unit_matrix_path.write_text(json.dumps(unit_matrix_list, indent=2), encoding="utf-8")
+    print(f"  [SUCCESS] Unit Matrix schema saved: {unit_matrix_path}")
+
+    # Save shop drawing final
+    shop_drawing_list = [s.shop_drawing_schema for s in unit_schedules.values() if hasattr(s, "shop_drawing_schema")]
+    shop_drawing_path = output_dir / "json" / "shop_drawing_final.json"
+    shop_drawing_path.write_text(json.dumps(shop_drawing_list, indent=2), encoding="utf-8")
+    print(f"  [SUCCESS] Shop Drawing schema saved: {shop_drawing_path}")
+
+    # Save cost estimation final
+    cost_list = [s.cost_schema for s in unit_schedules.values() if hasattr(s, "cost_schema")]
+    cost_path = output_dir / "json" / "cost_estimation_final.json"
+    cost_path.write_text(json.dumps(cost_list, indent=2), encoding="utf-8")
+    print(f"  [SUCCESS] Cost Estimation schema saved: {cost_path}")
+
+    # ── Step 8: Generate CAD DXF Drawings ─────────────────────────────────
+    print(f"\n  STEP 8: Generating CAD DXF Drawings")
+    print(f"  {'-' * 50}")
+
+    try:
+        dxf_dir = output_dir / "dxf"
+        dxf_dir.mkdir(parents=True, exist_ok=True)
+        geom_engine = GeometryEngine()
+        dxf_generator = DXFDrawingGenerator()
+        
+        for ut, schedule in unit_schedules.items():
+            walls_info = []
+            for ev in schedule.elevations:
+                cabs_list = []
+                base_x = 0
+                for cab in ev.cabinets:
+                    w_in = round(cab.width_mm / 25.4)
+                    h_in = round(cab.height_mm / 25.4)
+                    cabs_list.append({
+                        "id": cab.cabinet_id or cab.code,
+                        "x": base_x,
+                        "width": w_in,
+                        "height": h_in,
+                        "type": cab.cabinet_type,
+                        "cabinet_type": cab.cabinet_type
+                    })
+                    base_x += w_in
+                
+                wall_name = ev.elevation_label.replace("ELEVATION ", "").strip()
+                if wall_name.upper() in ("KITCHEN", "BATH", "VANITY", "MASTER_BATH"):
+                    wall_name = "A"
+                    
+                walls_info.append({
+                    "name": wall_name,
+                    "length": max(90.0, base_x),
+                    "cabinets": cabs_list
+                })
+                
+            if not walls_info:
+                walls_info.append({
+                    "name": "A",
+                    "length": 90.0,
+                    "cabinets": []
+                })
+                
+            ceiling_height = 108.0
+            for ev in schedule.elevations:
+                if ev.ceiling_height_in is not None:
+                    ceiling_height = ev.ceiling_height_in
+                    break
+                    
+            geom_data = geom_engine.generate_layout_geometry(
+                walls = walls_info,
+                appliances = [],
+                ceiling_height = ceiling_height,
+                soffit_height = ceiling_height - 12.0
+            )
+            
+            dxf_path = dxf_dir / f"{ut.replace(' ', '_')}.dxf"
+            dxf_generator.generate(geom_data, dxf_path)
+    except Exception as e:
+        print(f"  [ERROR] DXF generation failed: {e}")
         import traceback; traceback.print_exc()
 
     # -- Summary ------------------------------------------------------------

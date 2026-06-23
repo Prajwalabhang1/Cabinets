@@ -1,0 +1,793 @@
+[
+  {
+    "unit_type": "A-1",
+    "cabinets": [
+      {
+        "code": "B24",
+        "qty": 1
+      },
+      {
+        "code": "B36",
+        "qty": 2
+      },
+      {
+        "code": "LIN18",
+        "qty": 1
+      },
+      {
+        "code": "MED36",
+        "qty": 1
+      },
+      {
+        "code": "SB36",
+        "qty": 1
+      },
+      {
+        "code": "T15-84",
+        "qty": 1
+      },
+      {
+        "code": "VAN36",
+        "qty": 1
+      },
+      {
+        "code": "W30-18",
+        "qty": 1
+      },
+      {
+        "code": "W30-30",
+        "qty": 1
+      },
+      {
+        "code": "W36-30",
+        "qty": 2
+      }
+    ],
+    "countertop_lf": 14.0,
+    "upper_cabinet_lf": 11.0,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "Pantry"
+    ],
+    "installation_complexity": "medium"
+  },
+  {
+    "unit_type": "A-1a ACC",
+    "cabinets": [
+      {
+        "code": "B24-ADA",
+        "qty": 1
+      },
+      {
+        "code": "B36-ADA",
+        "qty": 2
+      },
+      {
+        "code": "LIN18-ADA",
+        "qty": 1
+      },
+      {
+        "code": "MED36-ADA",
+        "qty": 1
+      },
+      {
+        "code": "SB36-ADA",
+        "qty": 1
+      },
+      {
+        "code": "T15-84-ADA",
+        "qty": 1
+      },
+      {
+        "code": "VAN36-ADA",
+        "qty": 1
+      },
+      {
+        "code": "W30-18-ADA",
+        "qty": 1
+      },
+      {
+        "code": "W30-30-ADA",
+        "qty": 1
+      },
+      {
+        "code": "W36-30-ADA",
+        "qty": 2
+      }
+    ],
+    "countertop_lf": 14.0,
+    "upper_cabinet_lf": 11.0,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "ADA",
+      "Pantry"
+    ],
+    "installation_complexity": "high"
+  },
+  {
+    "unit_type": "B-1",
+    "cabinets": [
+      {
+        "code": "B24",
+        "qty": 2
+      },
+      {
+        "code": "B36",
+        "qty": 2
+      },
+      {
+        "code": "LIN18",
+        "qty": 1
+      },
+      {
+        "code": "MED30",
+        "qty": 2
+      },
+      {
+        "code": "SB36",
+        "qty": 1
+      },
+      {
+        "code": "T15-84",
+        "qty": 1
+      },
+      {
+        "code": "VAN30",
+        "qty": 2
+      },
+      {
+        "code": "W30-18",
+        "qty": 1
+      },
+      {
+        "code": "W30-30",
+        "qty": 2
+      },
+      {
+        "code": "W36-30",
+        "qty": 2
+      }
+    ],
+    "countertop_lf": 18.0,
+    "upper_cabinet_lf": 13.5,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "Pantry"
+    ],
+    "installation_complexity": "high"
+  },
+  {
+    "unit_type": "B-1a ACC",
+    "cabinets": [
+      {
+        "code": "B24-ADA",
+        "qty": 2
+      },
+      {
+        "code": "B36-ADA",
+        "qty": 2
+      },
+      {
+        "code": "LIN18-ADA",
+        "qty": 1
+      },
+      {
+        "code": "MED30-ADA",
+        "qty": 2
+      },
+      {
+        "code": "SB36-ADA",
+        "qty": 1
+      },
+      {
+        "code": "T15-84-ADA",
+        "qty": 1
+      },
+      {
+        "code": "VAN30-ADA",
+        "qty": 2
+      },
+      {
+        "code": "W30-18-ADA",
+        "qty": 1
+      },
+      {
+        "code": "W30-30-ADA",
+        "qty": 2
+      },
+      {
+        "code": "W36-30-ADA",
+        "qty": 2
+      }
+    ],
+    "countertop_lf": 18.0,
+    "upper_cabinet_lf": 13.5,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "ADA",
+      "Pantry"
+    ],
+    "installation_complexity": "high"
+  },
+  {
+    "unit_type": "C-1",
+    "cabinets": [
+      {
+        "code": "B24",
+        "qty": 1
+      },
+      {
+        "code": "B36",
+        "qty": 3
+      },
+      {
+        "code": "LIN18",
+        "qty": 1
+      },
+      {
+        "code": "MED30",
+        "qty": 1
+      },
+      {
+        "code": "MED36",
+        "qty": 1
+      },
+      {
+        "code": "SB36",
+        "qty": 1
+      },
+      {
+        "code": "T15-84",
+        "qty": 1
+      },
+      {
+        "code": "VAN30",
+        "qty": 1
+      },
+      {
+        "code": "VAN36",
+        "qty": 1
+      },
+      {
+        "code": "W30-18",
+        "qty": 1
+      },
+      {
+        "code": "W30-30",
+        "qty": 1
+      },
+      {
+        "code": "W36-30",
+        "qty": 3
+      }
+    ],
+    "countertop_lf": 19.5,
+    "upper_cabinet_lf": 14.0,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "Pantry"
+    ],
+    "installation_complexity": "high"
+  },
+  {
+    "unit_type": "C-2",
+    "cabinets": [
+      {
+        "code": "B24",
+        "qty": 1
+      },
+      {
+        "code": "B36",
+        "qty": 3
+      },
+      {
+        "code": "LIN18",
+        "qty": 1
+      },
+      {
+        "code": "MED30",
+        "qty": 1
+      },
+      {
+        "code": "MED36",
+        "qty": 1
+      },
+      {
+        "code": "SB36",
+        "qty": 1
+      },
+      {
+        "code": "T15-84",
+        "qty": 1
+      },
+      {
+        "code": "VAN30",
+        "qty": 1
+      },
+      {
+        "code": "VAN36",
+        "qty": 1
+      },
+      {
+        "code": "W30-18",
+        "qty": 1
+      },
+      {
+        "code": "W30-30",
+        "qty": 1
+      },
+      {
+        "code": "W36-30",
+        "qty": 3
+      }
+    ],
+    "countertop_lf": 19.5,
+    "upper_cabinet_lf": 14.0,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "Pantry"
+    ],
+    "installation_complexity": "high"
+  },
+  {
+    "unit_type": "C-2a ACC",
+    "cabinets": [
+      {
+        "code": "B24-ADA",
+        "qty": 1
+      },
+      {
+        "code": "B36-ADA",
+        "qty": 3
+      },
+      {
+        "code": "LIN18-ADA",
+        "qty": 1
+      },
+      {
+        "code": "MED30-ADA",
+        "qty": 1
+      },
+      {
+        "code": "MED36-ADA",
+        "qty": 1
+      },
+      {
+        "code": "SB36-ADA",
+        "qty": 1
+      },
+      {
+        "code": "T15-84-ADA",
+        "qty": 1
+      },
+      {
+        "code": "VAN30-ADA",
+        "qty": 1
+      },
+      {
+        "code": "VAN36-ADA",
+        "qty": 1
+      },
+      {
+        "code": "W30-18-ADA",
+        "qty": 1
+      },
+      {
+        "code": "W30-30-ADA",
+        "qty": 1
+      },
+      {
+        "code": "W36-30-ADA",
+        "qty": 3
+      }
+    ],
+    "countertop_lf": 19.5,
+    "upper_cabinet_lf": 14.0,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "ADA",
+      "Pantry"
+    ],
+    "installation_complexity": "high"
+  },
+  {
+    "unit_type": "C-3",
+    "cabinets": [
+      {
+        "code": "B24",
+        "qty": 1
+      },
+      {
+        "code": "B36",
+        "qty": 3
+      },
+      {
+        "code": "LIN18",
+        "qty": 1
+      },
+      {
+        "code": "MED30",
+        "qty": 1
+      },
+      {
+        "code": "MED36",
+        "qty": 1
+      },
+      {
+        "code": "SB36",
+        "qty": 1
+      },
+      {
+        "code": "T15-84",
+        "qty": 1
+      },
+      {
+        "code": "VAN30",
+        "qty": 1
+      },
+      {
+        "code": "VAN36",
+        "qty": 1
+      },
+      {
+        "code": "W30-18",
+        "qty": 1
+      },
+      {
+        "code": "W30-30",
+        "qty": 1
+      },
+      {
+        "code": "W36-30",
+        "qty": 3
+      }
+    ],
+    "countertop_lf": 19.5,
+    "upper_cabinet_lf": 14.0,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "Pantry"
+    ],
+    "installation_complexity": "high"
+  },
+  {
+    "unit_type": "D-1N",
+    "cabinets": [
+      {
+        "code": "B24",
+        "qty": 1
+      },
+      {
+        "code": "B36",
+        "qty": 4
+      },
+      {
+        "code": "LIN18",
+        "qty": 1
+      },
+      {
+        "code": "MED36",
+        "qty": 1
+      },
+      {
+        "code": "MED60",
+        "qty": 1
+      },
+      {
+        "code": "SB36",
+        "qty": 1
+      },
+      {
+        "code": "T15-84",
+        "qty": 1
+      },
+      {
+        "code": "VAN36",
+        "qty": 1
+      },
+      {
+        "code": "VAN60",
+        "qty": 1
+      },
+      {
+        "code": "W30-18",
+        "qty": 1
+      },
+      {
+        "code": "W30-30",
+        "qty": 2
+      },
+      {
+        "code": "W36-30",
+        "qty": 3
+      }
+    ],
+    "countertop_lf": 25.0,
+    "upper_cabinet_lf": 16.5,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "Pantry"
+    ],
+    "installation_complexity": "high"
+  },
+  {
+    "unit_type": "D-1",
+    "cabinets": [
+      {
+        "code": "B24",
+        "qty": 1
+      },
+      {
+        "code": "B36",
+        "qty": 4
+      },
+      {
+        "code": "LIN18",
+        "qty": 1
+      },
+      {
+        "code": "MED36",
+        "qty": 1
+      },
+      {
+        "code": "MED60",
+        "qty": 1
+      },
+      {
+        "code": "SB36",
+        "qty": 1
+      },
+      {
+        "code": "T15-84",
+        "qty": 1
+      },
+      {
+        "code": "VAN36",
+        "qty": 1
+      },
+      {
+        "code": "VAN60",
+        "qty": 1
+      },
+      {
+        "code": "W30-18",
+        "qty": 1
+      },
+      {
+        "code": "W30-30",
+        "qty": 2
+      },
+      {
+        "code": "W36-30",
+        "qty": 3
+      }
+    ],
+    "countertop_lf": 25.0,
+    "upper_cabinet_lf": 16.5,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "Pantry"
+    ],
+    "installation_complexity": "high"
+  },
+  {
+    "unit_type": "D-1a ACC",
+    "cabinets": [
+      {
+        "code": "B24-ADA",
+        "qty": 1
+      },
+      {
+        "code": "B36-ADA",
+        "qty": 4
+      },
+      {
+        "code": "LIN18-ADA",
+        "qty": 1
+      },
+      {
+        "code": "MED36-ADA",
+        "qty": 1
+      },
+      {
+        "code": "MED60-ADA",
+        "qty": 1
+      },
+      {
+        "code": "SB36-ADA",
+        "qty": 1
+      },
+      {
+        "code": "T15-84-ADA",
+        "qty": 1
+      },
+      {
+        "code": "VAN36-ADA",
+        "qty": 1
+      },
+      {
+        "code": "VAN60-ADA",
+        "qty": 1
+      },
+      {
+        "code": "W30-18-ADA",
+        "qty": 1
+      },
+      {
+        "code": "W30-30-ADA",
+        "qty": 2
+      },
+      {
+        "code": "W36-30-ADA",
+        "qty": 3
+      }
+    ],
+    "countertop_lf": 25.0,
+    "upper_cabinet_lf": 16.5,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "ADA",
+      "Pantry"
+    ],
+    "installation_complexity": "high"
+  },
+  {
+    "unit_type": "D-1A ACC",
+    "cabinets": [
+      {
+        "code": "B24-ADA",
+        "qty": 1
+      },
+      {
+        "code": "B36-ADA",
+        "qty": 4
+      },
+      {
+        "code": "LIN18-ADA",
+        "qty": 1
+      },
+      {
+        "code": "MED36-ADA",
+        "qty": 1
+      },
+      {
+        "code": "MED60-ADA",
+        "qty": 1
+      },
+      {
+        "code": "SB36-ADA",
+        "qty": 1
+      },
+      {
+        "code": "T15-84-ADA",
+        "qty": 1
+      },
+      {
+        "code": "VAN36-ADA",
+        "qty": 1
+      },
+      {
+        "code": "VAN60-ADA",
+        "qty": 1
+      },
+      {
+        "code": "W30-18-ADA",
+        "qty": 1
+      },
+      {
+        "code": "W30-30-ADA",
+        "qty": 2
+      },
+      {
+        "code": "W36-30-ADA",
+        "qty": 3
+      }
+    ],
+    "countertop_lf": 25.0,
+    "upper_cabinet_lf": 16.5,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "ADA",
+      "Pantry"
+    ],
+    "installation_complexity": "high"
+  },
+  {
+    "unit_type": "ST-1a ACC",
+    "cabinets": [
+      {
+        "code": "B24-ADA",
+        "qty": 1
+      },
+      {
+        "code": "MED30-ADA",
+        "qty": 1
+      },
+      {
+        "code": "SB36-ADA",
+        "qty": 1
+      },
+      {
+        "code": "VAN30-ADA",
+        "qty": 1
+      },
+      {
+        "code": "W30-18-ADA",
+        "qty": 1
+      },
+      {
+        "code": "W30-30-ADA",
+        "qty": 1
+      }
+    ],
+    "countertop_lf": 7.5,
+    "upper_cabinet_lf": 5.0,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "ADA"
+    ],
+    "installation_complexity": "medium"
+  },
+  {
+    "unit_type": "ST-1",
+    "cabinets": [
+      {
+        "code": "B24",
+        "qty": 1
+      },
+      {
+        "code": "MED30",
+        "qty": 1
+      },
+      {
+        "code": "SB36",
+        "qty": 1
+      },
+      {
+        "code": "VAN30",
+        "qty": 1
+      },
+      {
+        "code": "W30-18",
+        "qty": 1
+      },
+      {
+        "code": "W30-30",
+        "qty": 1
+      }
+    ],
+    "countertop_lf": 7.5,
+    "upper_cabinet_lf": 5.0,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [],
+    "installation_complexity": "low"
+  }
+]

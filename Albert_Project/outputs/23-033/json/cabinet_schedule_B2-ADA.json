@@ -1,6 +1,6 @@
 {
-  "unit_type": "A1",
-  "is_ada": false,
+  "unit_type": "B2-ADA",
+  "is_ada": true,
   "auto_approved": false,
   "review_flags": [
     "Requires review: avg confidence 0.75 < 0.9",
@@ -11,8 +11,8 @@
   "elevations": [
     {
       "elevation_label": "KITCHEN",
-      "unit_type": "A1",
-      "is_ada": false,
+      "unit_type": "B2-ADA",
+      "is_ada": true,
       "auto_approved": false,
       "avg_confidence": 0.8944444444444445,
       "review_flags": [
@@ -29,7 +29,7 @@
           "elevation_ref": "UNIT A1 KITCHEN EL.",
           "confidence": 0.9,
           "quantity": 1,
-          "is_ada": false,
+          "is_ada": true,
           "notes": "Width estimated from drawing, 3'-0\" dimension",
           "source": "gemini"
         },
@@ -43,7 +43,7 @@
           "elevation_ref": "UNIT A1 KITCHEN EL.",
           "confidence": 0.9,
           "quantity": 1,
-          "is_ada": false,
+          "is_ada": true,
           "notes": "Width estimated from drawing, 2'-6\" range space below",
           "source": "gemini"
         },
@@ -57,7 +57,7 @@
           "elevation_ref": "UNIT A1 KITCHEN EL.",
           "confidence": 0.9,
           "quantity": 1,
-          "is_ada": false,
+          "is_ada": true,
           "notes": "Width estimated from drawing, similar to item 1",
           "source": "gemini"
         },
@@ -71,7 +71,7 @@
           "elevation_ref": "UNIT A1 KITCHEN EL.",
           "confidence": 0.95,
           "quantity": 1,
-          "is_ada": false,
+          "is_ada": true,
           "notes": "Space for 'FULL SIZE RANGE' (U4)",
           "source": "gemini"
         },
@@ -79,13 +79,13 @@
           "item_num": 5,
           "cabinet_type": "base",
           "width_mm": 900,
-          "height_mm": 720.0,
+          "height_mm": 864.0,
           "depth_mm": 600.0,
           "location": "Left of range, Elevation 1",
           "elevation_ref": "UNIT A1 KITCHEN EL.",
           "confidence": 0.9,
           "quantity": 1,
-          "is_ada": false,
+          "is_ada": true,
           "notes": "Width estimated from drawing, 3'-0\" dimension",
           "source": "gemini"
         },
@@ -93,13 +93,13 @@
           "item_num": 6,
           "cabinet_type": "base",
           "width_mm": 762.0,
-          "height_mm": 720.0,
+          "height_mm": 864.0,
           "depth_mm": 600.0,
           "location": "Right of range, Elevation 1",
           "elevation_ref": "UNIT A1 KITCHEN EL.",
           "confidence": 0.9,
           "quantity": 1,
-          "is_ada": false,
+          "is_ada": true,
           "notes": "Width estimated from drawing, similar to item 2",
           "source": "gemini"
         },
@@ -113,7 +113,7 @@
           "elevation_ref": "UNIT A1 KITCHEN EL.",
           "confidence": 0.95,
           "quantity": 1,
-          "is_ada": false,
+          "is_ada": true,
           "notes": "Space for 'REF.' (Refrigerator)",
           "source": "gemini"
         },
@@ -127,7 +127,7 @@
           "elevation_ref": "UNIT A1 KITCHEN EL.",
           "confidence": 0.8,
           "quantity": 1,
-          "is_ada": false,
+          "is_ada": true,
           "notes": "Width estimated, height 7'-6\" (2286mm) from drawing, depth 'CABINET OVER REF. TO BE 24\" DEPTH' implies 24\" depth for tall cabinets as well. U9 indicates 12\" width, 24\" depth, which could be this cabinet.",
           "source": "gemini"
         },
@@ -141,7 +141,7 @@
           "elevation_ref": "UNIT A1 KITCHEN EL.",
           "confidence": 0.85,
           "quantity": 1,
-          "is_ada": false,
+          "is_ada": true,
           "notes": "Width estimated from drawing, 3'-0\" dimension. Height estimated to match adjacent upper cabinets.",
           "source": "gemini"
         }
@@ -149,8 +149,8 @@
     },
     {
       "elevation_label": "BATHROOM",
-      "unit_type": "A1",
-      "is_ada": false,
+      "unit_type": "B2-ADA",
+      "is_ada": true,
       "auto_approved": false,
       "avg_confidence": 0.75,
       "review_flags": [
@@ -161,13 +161,13 @@
           "item_num": 1,
           "cabinet_type": "vanity",
           "width_mm": 1880.0,
-          "height_mm": 870.0,
+          "height_mm": 864.0,
           "depth_mm": 530.0,
           "location": "Bathroom, left wall",
           "elevation_ref": "A-6.00A",
           "confidence": 0.8,
           "quantity": 1,
-          "is_ada": false,
+          "is_ada": true,
           "notes": "Width estimated from 6'-2\" dimension for the counter, assuming a standard vanity depth.",
           "source": "gemini"
         },
@@ -181,7 +181,7 @@
           "elevation_ref": "A-6.00A",
           "confidence": 0.7,
           "quantity": 1,
-          "is_ada": false,
+          "is_ada": true,
           "notes": "Labeled 'LN.', assuming standard pantry/linen dimensions.",
           "source": "gemini"
         }

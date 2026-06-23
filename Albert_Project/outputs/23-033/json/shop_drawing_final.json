@@ -1,0 +1,462 @@
+[
+  {
+    "unit": "A1",
+    "kitchen_type": "K1",
+    "layout": "single_wall",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 137,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "B35",
+            "x": 30,
+            "width": 35,
+            "height": 28
+          },
+          {
+            "id": "B30",
+            "x": 65,
+            "width": 30,
+            "height": 28
+          },
+          {
+            "id": "T12-84",
+            "x": 125,
+            "width": 12,
+            "height": 84
+          },
+          {
+            "id": "W35-30",
+            "x": 0,
+            "width": 35,
+            "height": 30
+          },
+          {
+            "id": "MW30-15",
+            "x": 35,
+            "width": 30,
+            "height": 15
+          },
+          {
+            "id": "W30-30",
+            "x": 65,
+            "width": 30,
+            "height": 30
+          },
+          {
+            "id": "W35-30",
+            "x": 95,
+            "width": 35,
+            "height": 30
+          }
+        ]
+      },
+      {
+        "name": "BATHROOM",
+        "length": 98,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN74",
+            "x": 0,
+            "width": 74,
+            "height": 34
+          },
+          {
+            "id": "LIN24",
+            "x": 74,
+            "width": 24,
+            "height": 84
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "RANGE",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 95,
+        "width": 30
+      }
+    ]
+  },
+  {
+    "unit": "A2-ADA",
+    "kitchen_type": "K1",
+    "layout": "single_wall",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 137,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "B35-ADA",
+            "x": 30,
+            "width": 35,
+            "height": 34
+          },
+          {
+            "id": "B30-ADA",
+            "x": 65,
+            "width": 30,
+            "height": 34
+          },
+          {
+            "id": "T12-84-ADA",
+            "x": 125,
+            "width": 12,
+            "height": 84
+          },
+          {
+            "id": "W35-30-ADA",
+            "x": 0,
+            "width": 35,
+            "height": 30
+          },
+          {
+            "id": "MW30-15-ADA",
+            "x": 35,
+            "width": 30,
+            "height": 15
+          },
+          {
+            "id": "W30-30-ADA",
+            "x": 65,
+            "width": 30,
+            "height": 30
+          },
+          {
+            "id": "W35-30-ADA",
+            "x": 95,
+            "width": 35,
+            "height": 30
+          }
+        ]
+      },
+      {
+        "name": "BATHROOM",
+        "length": 98,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN74-ADA",
+            "x": 0,
+            "width": 74,
+            "height": 34
+          },
+          {
+            "id": "LIN24-ADA",
+            "x": 74,
+            "width": 24,
+            "height": 84
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "RANGE",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 95,
+        "width": 30
+      }
+    ]
+  },
+  {
+    "unit": "A3",
+    "kitchen_type": "K1",
+    "layout": "single_wall",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 137,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "B35",
+            "x": 30,
+            "width": 35,
+            "height": 28
+          },
+          {
+            "id": "B30",
+            "x": 65,
+            "width": 30,
+            "height": 28
+          },
+          {
+            "id": "T12-84",
+            "x": 125,
+            "width": 12,
+            "height": 84
+          },
+          {
+            "id": "W35-30",
+            "x": 0,
+            "width": 35,
+            "height": 30
+          },
+          {
+            "id": "MW30-15",
+            "x": 35,
+            "width": 30,
+            "height": 15
+          },
+          {
+            "id": "W30-30",
+            "x": 65,
+            "width": 30,
+            "height": 30
+          },
+          {
+            "id": "W35-30",
+            "x": 95,
+            "width": 35,
+            "height": 30
+          }
+        ]
+      },
+      {
+        "name": "BATHROOM",
+        "length": 98,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN74",
+            "x": 0,
+            "width": 74,
+            "height": 34
+          },
+          {
+            "id": "LIN24",
+            "x": 74,
+            "width": 24,
+            "height": 84
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "RANGE",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 95,
+        "width": 30
+      }
+    ]
+  },
+  {
+    "unit": "B1",
+    "kitchen_type": "K1",
+    "layout": "single_wall",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 137,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "B35",
+            "x": 30,
+            "width": 35,
+            "height": 28
+          },
+          {
+            "id": "B30",
+            "x": 65,
+            "width": 30,
+            "height": 28
+          },
+          {
+            "id": "T12-84",
+            "x": 125,
+            "width": 12,
+            "height": 84
+          },
+          {
+            "id": "W35-30",
+            "x": 0,
+            "width": 35,
+            "height": 30
+          },
+          {
+            "id": "MW30-15",
+            "x": 35,
+            "width": 30,
+            "height": 15
+          },
+          {
+            "id": "W30-30",
+            "x": 65,
+            "width": 30,
+            "height": 30
+          },
+          {
+            "id": "W35-30",
+            "x": 95,
+            "width": 35,
+            "height": 30
+          }
+        ]
+      },
+      {
+        "name": "BATHROOM",
+        "length": 98,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN74",
+            "x": 0,
+            "width": 74,
+            "height": 34
+          },
+          {
+            "id": "LIN24",
+            "x": 74,
+            "width": 24,
+            "height": 84
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "RANGE",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 95,
+        "width": 30
+      }
+    ]
+  },
+  {
+    "unit": "B2-ADA",
+    "kitchen_type": "K1",
+    "layout": "single_wall",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 137,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "B35-ADA",
+            "x": 30,
+            "width": 35,
+            "height": 34
+          },
+          {
+            "id": "B30-ADA",
+            "x": 65,
+            "width": 30,
+            "height": 34
+          },
+          {
+            "id": "T12-84-ADA",
+            "x": 125,
+            "width": 12,
+            "height": 84
+          },
+          {
+            "id": "W35-30-ADA",
+            "x": 0,
+            "width": 35,
+            "height": 30
+          },
+          {
+            "id": "MW30-15-ADA",
+            "x": 35,
+            "width": 30,
+            "height": 15
+          },
+          {
+            "id": "W30-30-ADA",
+            "x": 65,
+            "width": 30,
+            "height": 30
+          },
+          {
+            "id": "W35-30-ADA",
+            "x": 95,
+            "width": 35,
+            "height": 30
+          }
+        ]
+      },
+      {
+        "name": "BATHROOM",
+        "length": 98,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN74-ADA",
+            "x": 0,
+            "width": 74,
+            "height": 34
+          },
+          {
+            "id": "LIN24-ADA",
+            "x": 74,
+            "width": 24,
+            "height": 84
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "RANGE",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 95,
+        "width": 30
+      }
+    ]
+  }
+]

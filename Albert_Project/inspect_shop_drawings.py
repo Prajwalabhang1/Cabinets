@@ -1,5 +1,6 @@
-import fitz
 import sys
+sys.stdout.reconfigure(encoding="utf-8")
+import fitz
 
 def inspect_pdf(path, label):
     print(f"\n{'='*65}")

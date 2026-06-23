@@ -1,0 +1,128 @@
+[
+  {
+    "building": "Building A",
+    "floor": 1,
+    "unit_type": "A1",
+    "count": 5,
+    "kitchen_type": "K1",
+    "bathroom_type": "V1",
+    "is_ada": false
+  },
+  {
+    "building": "Building A",
+    "floor": 2,
+    "unit_type": "A1",
+    "count": 5,
+    "kitchen_type": "K1",
+    "bathroom_type": "V1",
+    "is_ada": false
+  },
+  {
+    "building": "Building A",
+    "floor": 3,
+    "unit_type": "A1",
+    "count": 4,
+    "kitchen_type": "K1",
+    "bathroom_type": "V1",
+    "is_ada": false
+  },
+  {
+    "building": "Building A",
+    "floor": 1,
+    "unit_type": "A2-ADA",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V2",
+    "is_ada": true
+  },
+  {
+    "building": "Building A",
+    "floor": 2,
+    "unit_type": "A2-ADA",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V2",
+    "is_ada": true
+  },
+  {
+    "building": "Building A",
+    "floor": 3,
+    "unit_type": "A2-ADA",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V2",
+    "is_ada": true
+  },
+  {
+    "building": "Building A",
+    "floor": 1,
+    "unit_type": "A3",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V1",
+    "is_ada": false
+  },
+  {
+    "building": "Building A",
+    "floor": 2,
+    "unit_type": "A3",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V1",
+    "is_ada": false
+  },
+  {
+    "building": "Building A",
+    "floor": 1,
+    "unit_type": "B1",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V1",
+    "is_ada": false
+  },
+  {
+    "building": "Building A",
+    "floor": 2,
+    "unit_type": "B1",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V1",
+    "is_ada": false
+  },
+  {
+    "building": "Building A",
+    "floor": 3,
+    "unit_type": "B1",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V1",
+    "is_ada": false
+  },
+  {
+    "building": "Building A",
+    "floor": 1,
+    "unit_type": "B2-ADA",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V2",
+    "is_ada": true
+  },
+  {
+    "building": "Building A",
+    "floor": 2,
+    "unit_type": "B2-ADA",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V2",
+    "is_ada": true
+  },
+  {
+    "building": "Building A",
+    "floor": 3,
+    "unit_type": "B2-ADA",
+    "count": 1,
+    "kitchen_type": "K1",
+    "bathroom_type": "V2",
+    "is_ada": true
+  }
+]

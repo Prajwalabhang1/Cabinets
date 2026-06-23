@@ -1,0 +1,234 @@
+[
+  {
+    "unit_type": "A1",
+    "cabinets": [
+      {
+        "code": "B30",
+        "qty": 1
+      },
+      {
+        "code": "B35",
+        "qty": 1
+      },
+      {
+        "code": "LIN24",
+        "qty": 1
+      },
+      {
+        "code": "MW30-15",
+        "qty": 1
+      },
+      {
+        "code": "T12-84",
+        "qty": 1
+      },
+      {
+        "code": "VAN74",
+        "qty": 1
+      },
+      {
+        "code": "W30-30",
+        "qty": 1
+      },
+      {
+        "code": "W35-30",
+        "qty": 2
+      }
+    ],
+    "countertop_lf": 11.6,
+    "upper_cabinet_lf": 10.8,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "Pantry"
+    ],
+    "installation_complexity": "medium"
+  },
+  {
+    "unit_type": "A2-ADA",
+    "cabinets": [
+      {
+        "code": "B30-ADA",
+        "qty": 1
+      },
+      {
+        "code": "B35-ADA",
+        "qty": 1
+      },
+      {
+        "code": "LIN24-ADA",
+        "qty": 1
+      },
+      {
+        "code": "MW30-15-ADA",
+        "qty": 1
+      },
+      {
+        "code": "T12-84-ADA",
+        "qty": 1
+      },
+      {
+        "code": "VAN74-ADA",
+        "qty": 1
+      },
+      {
+        "code": "W30-30-ADA",
+        "qty": 1
+      },
+      {
+        "code": "W35-30-ADA",
+        "qty": 2
+      }
+    ],
+    "countertop_lf": 11.6,
+    "upper_cabinet_lf": 10.8,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "ADA",
+      "Pantry"
+    ],
+    "installation_complexity": "high"
+  },
+  {
+    "unit_type": "A3",
+    "cabinets": [
+      {
+        "code": "B30",
+        "qty": 1
+      },
+      {
+        "code": "B35",
+        "qty": 1
+      },
+      {
+        "code": "LIN24",
+        "qty": 1
+      },
+      {
+        "code": "MW30-15",
+        "qty": 1
+      },
+      {
+        "code": "T12-84",
+        "qty": 1
+      },
+      {
+        "code": "VAN74",
+        "qty": 1
+      },
+      {
+        "code": "W30-30",
+        "qty": 1
+      },
+      {
+        "code": "W35-30",
+        "qty": 2
+      }
+    ],
+    "countertop_lf": 11.6,
+    "upper_cabinet_lf": 10.8,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "Pantry"
+    ],
+    "installation_complexity": "medium"
+  },
+  {
+    "unit_type": "B1",
+    "cabinets": [
+      {
+        "code": "B30",
+        "qty": 1
+      },
+      {
+        "code": "B35",
+        "qty": 1
+      },
+      {
+        "code": "LIN24",
+        "qty": 1
+      },
+      {
+        "code": "MW30-15",
+        "qty": 1
+      },
+      {
+        "code": "T12-84",
+        "qty": 1
+      },
+      {
+        "code": "VAN74",
+        "qty": 1
+      },
+      {
+        "code": "W30-30",
+        "qty": 1
+      },
+      {
+        "code": "W35-30",
+        "qty": 2
+      }
+    ],
+    "countertop_lf": 11.6,
+    "upper_cabinet_lf": 10.8,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "Pantry"
+    ],
+    "installation_complexity": "medium"
+  },
+  {
+    "unit_type": "B2-ADA",
+    "cabinets": [
+      {
+        "code": "B30-ADA",
+        "qty": 1
+      },
+      {
+        "code": "B35-ADA",
+        "qty": 1
+      },
+      {
+        "code": "LIN24-ADA",
+        "qty": 1
+      },
+      {
+        "code": "MW30-15-ADA",
+        "qty": 1
+      },
+      {
+        "code": "T12-84-ADA",
+        "qty": 1
+      },
+      {
+        "code": "VAN74-ADA",
+        "qty": 1
+      },
+      {
+        "code": "W30-30-ADA",
+        "qty": 1
+      },
+      {
+        "code": "W35-30-ADA",
+        "qty": 2
+      }
+    ],
+    "countertop_lf": 11.6,
+    "upper_cabinet_lf": 10.8,
+    "fillers": [],
+    "panels": [],
+    "moldings": [],
+    "special_items": [
+      "ADA",
+      "Pantry"
+    ],
+    "installation_complexity": "high"
+  }
+]

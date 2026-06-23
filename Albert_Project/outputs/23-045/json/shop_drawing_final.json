@@ -1,0 +1,1446 @@
+[
+  {
+    "unit": "A-1",
+    "kitchen_type": "K1",
+    "layout": "single_wall",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 171,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "B36",
+            "x": 30,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "SB36",
+            "x": 96,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "B24",
+            "x": 132,
+            "width": 24,
+            "height": 34
+          },
+          {
+            "id": "T15-84",
+            "x": 156,
+            "width": 15,
+            "height": 84
+          },
+          {
+            "id": "W36-30",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          },
+          {
+            "id": "W30-18",
+            "x": 36,
+            "width": 30,
+            "height": 18
+          },
+          {
+            "id": "W30-30",
+            "x": 66,
+            "width": 30,
+            "height": 30
+          }
+        ]
+      },
+      {
+        "name": "A",
+        "length": 54,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN36",
+            "x": 0,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "LIN18",
+            "x": 36,
+            "width": 18,
+            "height": 84
+          },
+          {
+            "id": "MED36",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 66,
+        "width": 30
+      }
+    ]
+  },
+  {
+    "unit": "A-1a ACC",
+    "kitchen_type": "K1",
+    "layout": "single_wall",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 171,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "B36-ADA",
+            "x": 30,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "SB36-ADA",
+            "x": 96,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "B24-ADA",
+            "x": 132,
+            "width": 24,
+            "height": 34
+          },
+          {
+            "id": "T15-84-ADA",
+            "x": 156,
+            "width": 15,
+            "height": 84
+          },
+          {
+            "id": "W36-30-ADA",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          },
+          {
+            "id": "W30-18-ADA",
+            "x": 36,
+            "width": 30,
+            "height": 18
+          },
+          {
+            "id": "W30-30-ADA",
+            "x": 66,
+            "width": 30,
+            "height": 30
+          }
+        ]
+      },
+      {
+        "name": "A",
+        "length": 54,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN36-ADA",
+            "x": 0,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "LIN18-ADA",
+            "x": 36,
+            "width": 18,
+            "height": 84
+          },
+          {
+            "id": "MED36-ADA",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 66,
+        "width": 30
+      }
+    ]
+  },
+  {
+    "unit": "B-1",
+    "kitchen_type": "K1",
+    "layout": "single_wall",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 171,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "B36",
+            "x": 30,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "SB36",
+            "x": 96,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "B24",
+            "x": 132,
+            "width": 24,
+            "height": 34
+          },
+          {
+            "id": "T15-84",
+            "x": 156,
+            "width": 15,
+            "height": 84
+          },
+          {
+            "id": "W36-30",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          },
+          {
+            "id": "W30-30",
+            "x": 36,
+            "width": 30,
+            "height": 30
+          },
+          {
+            "id": "W30-18",
+            "x": 66,
+            "width": 30,
+            "height": 18
+          }
+        ]
+      },
+      {
+        "name": "A",
+        "length": 48,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN30",
+            "x": 0,
+            "width": 30,
+            "height": 34
+          },
+          {
+            "id": "LIN18",
+            "x": 30,
+            "width": 18,
+            "height": 84
+          },
+          {
+            "id": "MED30",
+            "x": 0,
+            "width": 30,
+            "height": 30
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 66,
+        "width": 30
+      }
+    ]
+  },
+  {
+    "unit": "B-1a ACC",
+    "kitchen_type": "K1",
+    "layout": "single_wall",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 171,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "B36-ADA",
+            "x": 30,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "SB36-ADA",
+            "x": 96,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "B24-ADA",
+            "x": 132,
+            "width": 24,
+            "height": 34
+          },
+          {
+            "id": "T15-84-ADA",
+            "x": 156,
+            "width": 15,
+            "height": 84
+          },
+          {
+            "id": "W36-30-ADA",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          },
+          {
+            "id": "W30-30-ADA",
+            "x": 36,
+            "width": 30,
+            "height": 30
+          },
+          {
+            "id": "W30-18-ADA",
+            "x": 66,
+            "width": 30,
+            "height": 18
+          }
+        ]
+      },
+      {
+        "name": "A",
+        "length": 48,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN30-ADA",
+            "x": 0,
+            "width": 30,
+            "height": 34
+          },
+          {
+            "id": "LIN18-ADA",
+            "x": 30,
+            "width": 18,
+            "height": 84
+          },
+          {
+            "id": "MED30-ADA",
+            "x": 0,
+            "width": 30,
+            "height": 30
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 66,
+        "width": 30
+      }
+    ]
+  },
+  {
+    "unit": "C-1",
+    "kitchen_type": "K1",
+    "layout": "single_wall",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 171,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "B36",
+            "x": 30,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "SB36",
+            "x": 96,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "B24",
+            "x": 132,
+            "width": 24,
+            "height": 34
+          },
+          {
+            "id": "T15-84",
+            "x": 156,
+            "width": 15,
+            "height": 84
+          },
+          {
+            "id": "W36-30",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          },
+          {
+            "id": "W30-18",
+            "x": 36,
+            "width": 30,
+            "height": 18
+          },
+          {
+            "id": "W30-30",
+            "x": 66,
+            "width": 30,
+            "height": 30
+          }
+        ]
+      },
+      {
+        "name": "A",
+        "length": 84,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN36",
+            "x": 0,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "VAN30",
+            "x": 36,
+            "width": 30,
+            "height": 34
+          },
+          {
+            "id": "LIN18",
+            "x": 66,
+            "width": 18,
+            "height": 84
+          },
+          {
+            "id": "MED36",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          },
+          {
+            "id": "MED30",
+            "x": 36,
+            "width": 30,
+            "height": 30
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 66,
+        "width": 30
+      }
+    ]
+  },
+  {
+    "unit": "C-2",
+    "kitchen_type": "K1",
+    "layout": "single_wall",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 171,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "B36",
+            "x": 30,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "SB36",
+            "x": 96,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "B24",
+            "x": 132,
+            "width": 24,
+            "height": 34
+          },
+          {
+            "id": "T15-84",
+            "x": 156,
+            "width": 15,
+            "height": 84
+          },
+          {
+            "id": "W36-30",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          },
+          {
+            "id": "W30-18",
+            "x": 36,
+            "width": 30,
+            "height": 18
+          },
+          {
+            "id": "W30-30",
+            "x": 66,
+            "width": 30,
+            "height": 30
+          }
+        ]
+      },
+      {
+        "name": "A",
+        "length": 84,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN36",
+            "x": 0,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "VAN30",
+            "x": 36,
+            "width": 30,
+            "height": 34
+          },
+          {
+            "id": "LIN18",
+            "x": 66,
+            "width": 18,
+            "height": 84
+          },
+          {
+            "id": "MED36",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          },
+          {
+            "id": "MED30",
+            "x": 36,
+            "width": 30,
+            "height": 30
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 66,
+        "width": 30
+      }
+    ]
+  },
+  {
+    "unit": "C-2a ACC",
+    "kitchen_type": "K1",
+    "layout": "single_wall",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 171,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "B36-ADA",
+            "x": 30,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "SB36-ADA",
+            "x": 96,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "B24-ADA",
+            "x": 132,
+            "width": 24,
+            "height": 34
+          },
+          {
+            "id": "T15-84-ADA",
+            "x": 156,
+            "width": 15,
+            "height": 84
+          },
+          {
+            "id": "W36-30-ADA",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          },
+          {
+            "id": "W30-18-ADA",
+            "x": 36,
+            "width": 30,
+            "height": 18
+          },
+          {
+            "id": "W30-30-ADA",
+            "x": 66,
+            "width": 30,
+            "height": 30
+          }
+        ]
+      },
+      {
+        "name": "A",
+        "length": 84,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN36-ADA",
+            "x": 0,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "VAN30-ADA",
+            "x": 36,
+            "width": 30,
+            "height": 34
+          },
+          {
+            "id": "LIN18-ADA",
+            "x": 66,
+            "width": 18,
+            "height": 84
+          },
+          {
+            "id": "MED36-ADA",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          },
+          {
+            "id": "MED30-ADA",
+            "x": 36,
+            "width": 30,
+            "height": 30
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 66,
+        "width": 30
+      }
+    ]
+  },
+  {
+    "unit": "C-3",
+    "kitchen_type": "K1",
+    "layout": "single_wall",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 171,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "B36",
+            "x": 30,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "SB36",
+            "x": 96,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "B24",
+            "x": 132,
+            "width": 24,
+            "height": 34
+          },
+          {
+            "id": "T15-84",
+            "x": 156,
+            "width": 15,
+            "height": 84
+          },
+          {
+            "id": "W36-30",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          },
+          {
+            "id": "W30-18",
+            "x": 36,
+            "width": 30,
+            "height": 18
+          },
+          {
+            "id": "W30-30",
+            "x": 66,
+            "width": 30,
+            "height": 30
+          }
+        ]
+      },
+      {
+        "name": "A",
+        "length": 84,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN36",
+            "x": 0,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "VAN30",
+            "x": 36,
+            "width": 30,
+            "height": 34
+          },
+          {
+            "id": "LIN18",
+            "x": 66,
+            "width": 18,
+            "height": 84
+          },
+          {
+            "id": "MED36",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          },
+          {
+            "id": "MED30",
+            "x": 36,
+            "width": 30,
+            "height": 30
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 66,
+        "width": 30
+      }
+    ]
+  },
+  {
+    "unit": "D-1N",
+    "kitchen_type": "K2",
+    "layout": "l_shape",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 207,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "B36",
+            "x": 30,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "SB36",
+            "x": 96,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "B24",
+            "x": 132,
+            "width": 24,
+            "height": 34
+          },
+          {
+            "id": "B36",
+            "x": 156,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "T15-84",
+            "x": 192,
+            "width": 15,
+            "height": 84
+          },
+          {
+            "id": "W36-30",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          },
+          {
+            "id": "W30-30",
+            "x": 36,
+            "width": 30,
+            "height": 30
+          },
+          {
+            "id": "W30-18",
+            "x": 66,
+            "width": 30,
+            "height": 18
+          }
+        ]
+      },
+      {
+        "name": "A",
+        "length": 114,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN60",
+            "x": 0,
+            "width": 60,
+            "height": 34
+          },
+          {
+            "id": "VAN36",
+            "x": 60,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "LIN18",
+            "x": 96,
+            "width": 18,
+            "height": 84
+          },
+          {
+            "id": "MED60",
+            "x": 0,
+            "width": 60,
+            "height": 30
+          },
+          {
+            "id": "MED36",
+            "x": 60,
+            "width": 36,
+            "height": 30
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 66,
+        "width": 30
+      }
+    ]
+  },
+  {
+    "unit": "D-1",
+    "kitchen_type": "K2",
+    "layout": "l_shape",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 207,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "B36",
+            "x": 30,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "SB36",
+            "x": 96,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "B24",
+            "x": 132,
+            "width": 24,
+            "height": 34
+          },
+          {
+            "id": "B36",
+            "x": 156,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "T15-84",
+            "x": 192,
+            "width": 15,
+            "height": 84
+          },
+          {
+            "id": "W36-30",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          },
+          {
+            "id": "W30-30",
+            "x": 36,
+            "width": 30,
+            "height": 30
+          },
+          {
+            "id": "W30-18",
+            "x": 66,
+            "width": 30,
+            "height": 18
+          }
+        ]
+      },
+      {
+        "name": "A",
+        "length": 114,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN60",
+            "x": 0,
+            "width": 60,
+            "height": 34
+          },
+          {
+            "id": "VAN36",
+            "x": 60,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "LIN18",
+            "x": 96,
+            "width": 18,
+            "height": 84
+          },
+          {
+            "id": "MED60",
+            "x": 0,
+            "width": 60,
+            "height": 30
+          },
+          {
+            "id": "MED36",
+            "x": 60,
+            "width": 36,
+            "height": 30
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 66,
+        "width": 30
+      }
+    ]
+  },
+  {
+    "unit": "D-1a ACC",
+    "kitchen_type": "K2",
+    "layout": "l_shape",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 207,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "B36-ADA",
+            "x": 30,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "SB36-ADA",
+            "x": 96,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "B24-ADA",
+            "x": 132,
+            "width": 24,
+            "height": 34
+          },
+          {
+            "id": "B36-ADA",
+            "x": 156,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "T15-84-ADA",
+            "x": 192,
+            "width": 15,
+            "height": 84
+          },
+          {
+            "id": "W36-30-ADA",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          },
+          {
+            "id": "W30-30-ADA",
+            "x": 36,
+            "width": 30,
+            "height": 30
+          },
+          {
+            "id": "W30-18-ADA",
+            "x": 66,
+            "width": 30,
+            "height": 18
+          }
+        ]
+      },
+      {
+        "name": "A",
+        "length": 114,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN60-ADA",
+            "x": 0,
+            "width": 60,
+            "height": 34
+          },
+          {
+            "id": "VAN36-ADA",
+            "x": 60,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "LIN18-ADA",
+            "x": 96,
+            "width": 18,
+            "height": 84
+          },
+          {
+            "id": "MED60-ADA",
+            "x": 0,
+            "width": 60,
+            "height": 30
+          },
+          {
+            "id": "MED36-ADA",
+            "x": 60,
+            "width": 36,
+            "height": 30
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 66,
+        "width": 30
+      }
+    ]
+  },
+  {
+    "unit": "D-1A ACC",
+    "kitchen_type": "K2",
+    "layout": "l_shape",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 207,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "B36-ADA",
+            "x": 30,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "SB36-ADA",
+            "x": 96,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "B24-ADA",
+            "x": 132,
+            "width": 24,
+            "height": 34
+          },
+          {
+            "id": "B36-ADA",
+            "x": 156,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "T15-84-ADA",
+            "x": 192,
+            "width": 15,
+            "height": 84
+          },
+          {
+            "id": "W36-30-ADA",
+            "x": 0,
+            "width": 36,
+            "height": 30
+          },
+          {
+            "id": "W30-30-ADA",
+            "x": 36,
+            "width": 30,
+            "height": 30
+          },
+          {
+            "id": "W30-18-ADA",
+            "x": 66,
+            "width": 30,
+            "height": 18
+          }
+        ]
+      },
+      {
+        "name": "A",
+        "length": 114,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN60-ADA",
+            "x": 0,
+            "width": 60,
+            "height": 34
+          },
+          {
+            "id": "VAN36-ADA",
+            "x": 60,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "LIN18-ADA",
+            "x": 96,
+            "width": 18,
+            "height": 84
+          },
+          {
+            "id": "MED60-ADA",
+            "x": 0,
+            "width": 60,
+            "height": 30
+          },
+          {
+            "id": "MED36-ADA",
+            "x": 60,
+            "width": 36,
+            "height": 30
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 66,
+        "width": 30
+      }
+    ]
+  },
+  {
+    "unit": "ST-1a ACC",
+    "kitchen_type": "K3",
+    "layout": "galley",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 120,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "SB36-ADA",
+            "x": 60,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "B24-ADA",
+            "x": 96,
+            "width": 24,
+            "height": 34
+          },
+          {
+            "id": "W30-30-ADA",
+            "x": 0,
+            "width": 30,
+            "height": 30
+          },
+          {
+            "id": "W30-18-ADA",
+            "x": 30,
+            "width": 30,
+            "height": 18
+          }
+        ]
+      },
+      {
+        "name": "A",
+        "length": 30,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN30-ADA",
+            "x": 0,
+            "width": 30,
+            "height": 34
+          },
+          {
+            "id": "MED30-ADA",
+            "x": 0,
+            "width": 30,
+            "height": 30
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 30,
+        "width": 30
+      }
+    ]
+  },
+  {
+    "unit": "ST-1",
+    "kitchen_type": "K3",
+    "layout": "galley",
+    "ceiling_height": 108.0,
+    "walls": [
+      {
+        "name": "A",
+        "length": 120,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "SB36",
+            "x": 60,
+            "width": 36,
+            "height": 34
+          },
+          {
+            "id": "B24",
+            "x": 96,
+            "width": 24,
+            "height": 34
+          },
+          {
+            "id": "W30-30",
+            "x": 0,
+            "width": 30,
+            "height": 30
+          },
+          {
+            "id": "W30-18",
+            "x": 30,
+            "width": 30,
+            "height": 18
+          }
+        ]
+      },
+      {
+        "name": "A",
+        "length": 30,
+        "doors": [],
+        "windows": [],
+        "cabinets": [
+          {
+            "id": "VAN30",
+            "x": 0,
+            "width": 30,
+            "height": 34
+          },
+          {
+            "id": "MED30",
+            "x": 0,
+            "width": 30,
+            "height": 30
+          }
+        ]
+      }
+    ],
+    "appliances": [
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 0,
+        "width": 30
+      },
+      {
+        "type": "REF",
+        "wall": "A",
+        "x": 30,
+        "width": 30
+      }
+    ]
+  }
+]

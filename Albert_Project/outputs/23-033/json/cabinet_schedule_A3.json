@@ -1,5 +1,5 @@
 {
-  "unit_type": "A1",
+  "unit_type": "A3",
   "is_ada": false,
   "auto_approved": false,
   "review_flags": [
@@ -11,7 +11,7 @@
   "elevations": [
     {
       "elevation_label": "KITCHEN",
-      "unit_type": "A1",
+      "unit_type": "A3",
       "is_ada": false,
       "auto_approved": false,
       "avg_confidence": 0.8944444444444445,
@@ -149,7 +149,7 @@
     },
     {
       "elevation_label": "BATHROOM",
-      "unit_type": "A1",
+      "unit_type": "A3",
       "is_ada": false,
       "auto_approved": false,
       "avg_confidence": 0.75,

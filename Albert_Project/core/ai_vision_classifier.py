@@ -18,9 +18,9 @@
 
   Pipeline per elevation crop:
     1. Receive: PNG image bytes (400 DPI crop) + pre-extracted dims + rects
-    2. Build: structured prompt with dimension context
+    2. Build: structured prompt with dimension context and legend mappings
     3. Call: OpenRouter API (gemini-2.5-flash) with base64 image
-    4. Parse: JSON response → list[CabinetItem]
+    4. Parse: JSON response → detailed dict containing cabinets, openings, relationships
     5. Retry with gemini-2.5-pro if JSON parse fails or confidence < 0.7
     6. Exponential backoff on API errors
 
@@ -53,7 +53,7 @@ MAX_TOKENS      = 4096
 # Reduces cost from ~$0.0015/call → ~$0.0002/call (~85% savings)
 DEMO_MODE: bool = os.getenv("DEMO_MODE", "false").lower() in ("1", "true", "yes")
 DEMO_DPI        = 150    # vs 400 in full mode  — image tokens: ~88% smaller
-DEMO_MAX_TOKENS = 800    # vs 4096              — output capped tightly
+DEMO_MAX_TOKENS = 1200   # slightly larger for complex nested JSON output
 DEMO_MAX_DIMS   = 8      # vs 30 pre-extracted dims sent in context
 DEMO_MAX_RECTS  = 10     # vs 40 rectangle vectors sent in context
 
@@ -95,6 +95,7 @@ class CabinetItem:
     is_ada:        bool   = False
     notes:         str    = ""
     source:        str    = "gemini"  # "gemini" | "manual" | "fallback"
+    cabinet_id:    str    = ""        # keynote ID (e.g. U10, U3)
 
     @property
     def code(self) -> str:
@@ -129,7 +130,7 @@ class CabinetItem:
 
 @dataclass
 class ElevationResult:
-    """Result of classifying one elevation section."""
+    """Result of classifying one elevation section with detailed schema support."""
     elevation_label:  str                # "ELEVATION A"
     unit_type:        str                # "A1", "B1-ADA"
     project_name:     str
@@ -139,6 +140,19 @@ class ElevationResult:
     auto_approved:    bool              = False
     review_flags:     list[str]         = field(default_factory=list)
     api_calls:        int               = 0
+
+    # Extended parsed details
+    appliances:       list[dict]        = field(default_factory=list)
+    doors:            list[dict]        = field(default_factory=list)
+    windows:          list[dict]        = field(default_factory=list)
+    fillers:          list[str]         = field(default_factory=list)
+    panels:           list[str]         = field(default_factory=list)
+    moldings:         list[str]         = field(default_factory=list)
+    relationships:    list[dict]        = field(default_factory=list)
+    ceiling_height_in: Optional[float]  = None
+    soffit_present:   bool              = False
+    backsplash:       str               = ""
+    counter_material: str               = ""
 
     @property
     def kitchen_cabinets(self) -> list[CabinetItem]:
@@ -169,21 +183,99 @@ class ElevationResult:
 
 def _build_system_prompt(demo: bool = False) -> str:
     if demo:
-        # Compact prompt — ~250 tokens vs ~800 tokens
         return (
             "You are a cabinet estimator. Analyze this architectural elevation drawing and return "
-            "a JSON array of cabinets. Types: upper_wall, base, sink_base, dw_adjacent, "
-            "microwave_shelf, pantry, corner_upper, corner_base, vanity, medicine_cabinet, "
-            "linen, appliance_space, filler, unknown. "
-            "Each item: {item_num, cabinet_type, width_mm, height_mm, depth_mm, location, "
-            "elevation_ref, confidence, quantity, is_ada, notes}. "
-            "Std widths: 300,350,400,450,500,550,600,762,900mm. "
-            "Base h=720mm d=600mm. Wall h=300mm d=330mm. Pantry h=2130mm. "
-            "Return ONLY valid JSON array, no markdown."
+            "a JSON object with the following schema:\n"
+            "{\n"
+            "  \"ceiling_height_in\": 108,\n"
+            "  \"soffit_present\": false,\n"
+            "  \"backsplash\": \"4\\\" backsplash\",\n"
+            "  \"counter_material\": \"Quartz\",\n"
+            "  \"cabinets\": [\n"
+            "    { \"item_num\": 1, \"cabinet_type\": \"upper_wall\", \"cabinet_id\": \"U10\", \"width_mm\": 762, \"height_mm\": 720, \"depth_mm\": 330, \"location\": \"Left of range\", \"confidence\": 0.95, \"quantity\": 1, \"is_ada\": false, \"notes\": \"\" }\n"
+            "  ],\n"
+            "  \"appliances\": [\n"
+            "    { \"type\": \"REF\", \"width_in\": 36, \"height_in\": 70, \"x_in\": 0, \"notes\": \"\" }\n"
+            "  ],\n"
+            "  \"doors\": [\n"
+            "    { \"width_in\": 36, \"height_in\": 80, \"x_in\": 120, \"notes\": \"\" }\n"
+            "  ],\n"
+            "  \"windows\": [\n"
+            "    { \"width_in\": 36, \"height_in\": 48, \"x_in\": 60, \"sill_height_in\": 36, \"notes\": \"\" }\n"
+            "  ],\n"
+            "  \"fillers\": [\"F3\"],\n"
+            "  \"panels\": [\"EP24\"],\n"
+            "  \"moldings\": [\"CM96\"],\n"
+            "  \"relationships\": [\n"
+            "    { \"type\": \"above\", \"item_a\": \"MIC\", \"item_b\": \"RANGE\", \"notes\": \"\" }\n"
+            "  ]\n"
+            "}\n"
+            "Return ONLY valid JSON."
         )
+
     return """You are an expert cabinet estimator with 20+ years of experience reading architectural kitchen and bathroom elevation drawings for US residential construction projects (FHA/ADA housing).
 
-Your job is to analyze architectural elevation drawings and extract a precise, complete cabinet schedule.
+Your job is to analyze architectural elevation drawings and extract a precise, complete cabinet and appliance schedule with wall segmentation, ceiling details, opening dimensions, fillers, moldings, and spatial relationships.
+
+You must return a single JSON object matching this schema:
+{
+  "ceiling_height_in": 108,   // Ceiling height in inches if visible or indicated, else null
+  "soffit_present": false,    // true if a soffit (dropped ceiling bulkhead above cabinets) is present
+  "backsplash": "4\\" backsplash", // Wall finish backsplash description, or empty string
+  "counter_material": "Quartz", // Countertop material description, or empty string
+  "cabinets": [
+    {
+      "item_num": 1,
+      "cabinet_type": "upper_wall", // from cabinet types listed below
+      "cabinet_id": "U10",         // Keynote code matching the KEYNOTE LEGEND MAPPING if specified
+      "width_mm": 762,             // Width in mm
+      "height_mm": 720,            // Height in mm
+      "depth_mm": 330,             // Depth in mm
+      "location": "Left of range", // Position description
+      "confidence": 0.95,          // Confidence score (0.0 to 1.0)
+      "quantity": 1,
+      "is_ada": false,
+      "notes": ""
+    }
+  ],
+  "appliances": [
+    {
+      "type": "REF",               // Refrigerator (REF), Dishwasher (DW), Range (RANGE), Microwave (MIC), Hood (HOOD), Oven (OVEN)
+      "width_in": 36,
+      "height_in": 70,
+      "x_in": 0,                   // Approximate offset in inches from left wall/boundary
+      "notes": ""
+    }
+  ],
+  "doors": [
+    {
+      "width_in": 36,
+      "height_in": 80,
+      "x_in": 120,                 // Approximate offset in inches from left wall/boundary
+      "notes": ""
+    }
+  ],
+  "windows": [
+    {
+      "width_in": 36,
+      "height_in": 48,
+      "x_in": 60,                  // Approximate offset in inches from left wall/boundary
+      "sill_height_in": 36,        // Sill height in inches from floor
+      "notes": ""
+    }
+  ],
+  "fillers": ["F3"],               // Filler keynote codes (e.g. F3, F6) or dimensions (e.g. 3" Filler)
+  "panels": ["EP24"],              // End panel keynote codes (e.g. EP24, WEP30)
+  "moldings": ["CM96"],            // Crown molding/scribe keynote codes (e.g. CM, SCR)
+  "relationships": [
+    {
+      "type": "above",             // "above" or "adjacent"
+      "item_a": "MIC",             // item_num, appliance type, or cabinet_id (e.g., "MIC", "U10")
+      "item_b": "RANGE",           // item_num, appliance type, or cabinet_id (e.g., "RANGE", "U12")
+      "notes": "Microwave above range"
+    }
+  ]
+}
 
 CABINET TYPES you must classify:
 - upper_wall: Wall-mounted cabinet (above countertop)
@@ -201,39 +293,20 @@ CABINET TYPES you must classify:
 - filler: Filler panel (narrow strips between cabinets or walls)
 - unknown: Cannot determine type with confidence
 
-STANDARD DIMENSIONS (metric, 90cm depth standard):
-- Base cabinets: height 720mm (34.5"), depth 600mm (24")
-- ADA base: height 864mm (34" countertop max), depth 600mm  
-- Wall/upper cabinets: height 300mm (12"), 380mm (15"), 720mm (30"), depth 330mm (13")
-- Pantry: height 2130mm (84"), depth 600mm
-- Vanity: height 870mm (34.5"), depth 530mm (21")
-- Standard widths: 150, 300, 350, 400, 450, 500, 550, 600mm (6",12",14",16",18",20",22",24")
-  and 762mm (30"), 900mm (35.4"), 1050mm (41.3"), 1200mm (47.2")
+STANDARD DIMENSIONS (metric):
+- Base cabinets: height 720mm, depth 600mm
+- ADA base: height 864mm max, depth 600mm
+- Wall/upper cabinets: height 300, 380, 460, 720, 900mm; depth 330mm
+- Pantry: height 2130mm, depth 600mm
+- Vanity: height 870mm, depth 530mm
+- Standard widths: 150, 300, 350, 400, 450, 500, 550, 600, 762, 900, 1050, 1200mm
 
 RULES:
-1. Count ONLY cabinets. Do NOT count appliances (dishwasher, refrigerator, range, microwave).
-2. Mark appliance positions as type "appliance_space" with the appliance name in "notes".
+1. Try to match each cabinet/appliance to the provided KEYNOTE LEGEND MAPPING if it matches description and dimensions. Set "cabinet_id" to the keynote code (e.g. "U10").
+2. Mark appliance positions as type "appliance_space" with the appliance name in "notes". Also add them to the "appliances" list.
 3. If the drawing shows ADA text or 34" countertop, set is_ada: true.
-4. Provide a confidence score (0.0-1.0) for EACH item. Be conservative — if unsure, score 0.7 or lower.
-5. ALWAYS return valid JSON — no markdown, no explanation text around the JSON.
-6. If you cannot determine a dimension precisely, use the nearest standard size and note your assumption.
-
-OUTPUT FORMAT (JSON array, no other text):
-[
-  {
-    "item_num": 1,
-    "cabinet_type": "upper_wall",
-    "width_mm": 762,
-    "height_mm": 300,
-    "depth_mm": 330,
-    "location": "Left of range, Elevation A",
-    "elevation_ref": "ELEVATION A",
-    "confidence": 0.92,
-    "quantity": 1,
-    "is_ada": false,
-    "notes": ""
-  }
-]"""
+4. Return ONLY valid JSON — no markdown, no explanation text around the JSON.
+"""
 
 
 def _build_user_prompt(
@@ -243,6 +316,7 @@ def _build_user_prompt(
     pre_extracted_dims: list[dict],
     pre_extracted_rects: list[dict],
     is_ada:          bool = False,
+    legend_map:      Optional[dict[str, str]] = None,
     demo:            bool = False,
 ) -> str:
     """Build the user message with pre-extracted context."""
@@ -265,27 +339,40 @@ def _build_user_prompt(
             rects_str += (f"  R{i+1}: W={r.get('w',0):.0f}pt H={r.get('h',0):.0f}pt "
                           f"@ ({r.get('x0',0):.0f},{r.get('y0',0):.0f})\n")
 
+    legend_str = ""
+    if legend_map:
+        legend_str = "\nKEYNOTE LEGEND MAPPING:\n"
+        for k, v in sorted(legend_map.items(), key=lambda item: int(item[0][1:]) if item[0][1:].isdigit() else 999):
+            legend_str += f"  - {k}: {v}\n"
+
     if demo:
         return (f"Project:{project_name} Unit:{unit_type}{ada_note} Section:{elevation_label}\n"
-                f"{dims_str}\nIdentify all cabinets. Return ONLY JSON array.")
+                f"{dims_str}\n{legend_str}\nIdentify all cabinets and features. Return ONLY a valid JSON object matching the requested schema.")
 
     return f"""Project: {project_name}
 Unit Type: {unit_type}{ada_note}
 Section: {elevation_label}
 
 I am showing you a cropped section of an architectural elevation drawing.
-{dims_str}{rects_str}
+{dims_str}{rects_str}{legend_str}
 
-Please identify EVERY cabinet in this elevation drawing.
-For each rectangle/cabinet shape visible:
+Please identify EVERY cabinet and spatial feature in this elevation drawing.
+For each cabinet shape visible:
 1. Determine its type (upper_wall, base, sink_base, dw_adjacent, microwave_shelf, pantry, corner_upper, corner_base, vanity, medicine_cabinet, linen, appliance_space, filler, unknown)
 2. Measure/estimate its width in mm (use pre-extracted dimensions if available)
 3. Determine height and depth from standard sizes
-4. Note its position
-5. Score your confidence
+4. Match it to a keynote code (cabinet_id) from the KEYNOTE LEGEND MAPPING above if applicable (e.g. U10, U3). If none match, leave blank.
+5. Note its position and score confidence.
 
-Include appliance spaces (dishwasher, range, refrigerator) as type "appliance_space".
-Return ONLY the JSON array, nothing else."""
+Also identify:
+- Ceiling height if indicated, and whether a soffit is present.
+- Doors and windows (with approximate widths/heights and offsets from left edge).
+- Appliances (REF, DW, RANGE, MIC, HOOD, OVEN) with widths and offsets.
+- Wall finishes (backsplash and countertop material).
+- Accessories (fillers, end panels, moldings).
+- Spatial relationship pairs (adjacent and above relationships).
+
+Return ONLY the JSON object, nothing else."""
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -294,17 +381,8 @@ Return ONLY the JSON array, nothing else."""
 
 class CabinetVisionClassifier:
     """
-    Classifies cabinets from architectural elevation drawing images
+    Classifies cabinets and layouts from architectural elevation drawing images
     using Google Gemini vision models through OpenRouter.
-
-    Usage:
-        classifier = CabinetVisionClassifier()
-        result = classifier.classify_elevation(
-            image_bytes=png_bytes,
-            unit_type="A1",
-            elevation_label="ELEVATION A",
-            project_name="Casa Familia",
-        )
     """
 
     def __init__(self):
@@ -330,24 +408,12 @@ class CabinetVisionClassifier:
         pre_extracted_dims:   Optional[list[dict]] = None,
         pre_extracted_rects:  Optional[list[dict]] = None,
         is_ada:               bool = False,
+        legend_map:           Optional[dict[str, str]] = None,
         max_retries:          int = 3,
         demo_mode:            bool = None,   # None = use global DEMO_MODE
     ) -> ElevationResult:
         """
-        Classify all cabinets in one elevation section.
-
-        Args:
-            image_bytes:  PNG bytes of the cropped elevation (400 DPI)
-            unit_type:    e.g. "A1", "B1-ADA"
-            elevation_label: e.g. "ELEVATION A", "KITCHEN EL."
-            project_name: e.g. "Casa Familia"
-            pre_extracted_dims: list of {text, type, x, y} from dimension_parser
-            pre_extracted_rects: list of {x0, y0, x1, y1, w, h} from pdf_extractor
-            is_ada:       True if this unit is ADA/accessible
-            max_retries:  number of API retry attempts on failure
-
-        Returns:
-            ElevationResult with list of CabinetItem
+        Classify all cabinets and features in one elevation section.
         """
         # Resolve demo mode — argument overrides global flag
         use_demo = DEMO_MODE if demo_mode is None else demo_mode
@@ -372,6 +438,7 @@ class CabinetVisionClassifier:
             pre_extracted_dims   = pre_extracted_dims or [],
             pre_extracted_rects  = pre_extracted_rects or [],
             is_ada               = is_ada,
+            legend_map           = legend_map,
             demo                 = use_demo,
         )
 
@@ -396,24 +463,79 @@ class CabinetVisionClassifier:
             return result
 
         # Parse JSON response
-        cabinets = self._parse_cabinet_json(raw_json, elevation_label)
-        if cabinets is None and not use_demo:
+        data = self._parse_cabinet_json(raw_json, elevation_label)
+        if data is None and not use_demo:
             # Full mode only: retry with fallback model (Gemini 2.5 Pro)
             fix_prompt = (
-                f"{user_prompt}\n\nIMPORTANT: Return ONLY a valid JSON array. "
-                "No explanation text, no markdown fences, just the raw JSON array."
+                f"{user_prompt}\n\nIMPORTANT: Return ONLY a valid JSON object matching the requested schema. "
+                "No explanation text, no markdown fences, just the raw JSON."
             )
             print(f"    [AI] Retrying with fallback {FALLBACK_MODEL}...")
             raw_json2 = self._call_openrouter(
                 image_bytes, fix_prompt, model=FALLBACK_MODEL, max_retries=1
             )
             if raw_json2:
-                cabinets = self._parse_cabinet_json(raw_json2, elevation_label)
+                data = self._parse_cabinet_json(raw_json2, elevation_label)
 
-        if cabinets is None:
+        if data is None:
             model_info = f"{PRIMARY_MODEL}" + ("" if use_demo else f" + {FALLBACK_MODEL}")
             result.review_flags.append(f"Failed to parse AI JSON from {model_info}")
             return result
+
+        # Populate result fields from parsed data
+        result.ceiling_height_in = data.get("ceiling_height_in")
+        result.soffit_present = bool(data.get("soffit_present", False))
+        result.backsplash = str(data.get("backsplash", ""))
+        result.counter_material = str(data.get("counter_material", ""))
+        result.appliances = data.get("appliances", [])
+        result.doors = data.get("doors", [])
+        result.windows = data.get("windows", [])
+        result.fillers = data.get("fillers", [])
+        result.panels = data.get("panels", [])
+        result.moldings = data.get("moldings", [])
+        result.relationships = data.get("relationships", [])
+
+        # Process cabinet list
+        cabinets = []
+        raw_cabs = data.get("cabinets", [])
+        if not isinstance(raw_cabs, list):
+            raw_cabs = []
+        for i, item in enumerate(raw_cabs, 1):
+            if not isinstance(item, dict):
+                continue
+
+            cab_type = item.get("cabinet_type", "unknown").lower().strip()
+            if cab_type not in VALID_CABINET_TYPES:
+                cab_type = _normalize_cabinet_type(cab_type)
+
+            width_mm  = float(item.get("width_mm",  0) or 0)
+            height_mm = float(item.get("height_mm", 0) or 0)
+            depth_mm  = float(item.get("depth_mm",  0) or 0)
+
+            # Apply standard defaults if missing
+            if height_mm == 0:
+                height_mm = _default_height(cab_type)
+            if depth_mm == 0:
+                depth_mm = _default_depth(cab_type)
+
+            confidence = float(item.get("confidence", 0.7))
+            confidence = max(0.0, min(1.0, confidence))
+
+            cabinets.append(CabinetItem(
+                item_num      = item.get("item_num", i),
+                cabinet_type  = cab_type,
+                width_mm      = width_mm,
+                height_mm     = height_mm,
+                depth_mm      = depth_mm,
+                location      = str(item.get("location", "")),
+                elevation_ref = item.get("elevation_ref", elevation_label),
+                confidence    = confidence,
+                quantity      = int(item.get("quantity", 1)),
+                is_ada        = bool(item.get("is_ada", False)),
+                notes         = str(item.get("notes", "")),
+                source        = "gemini",
+                cabinet_id    = str(item.get("cabinet_id", "")),
+            ))
 
         result.cabinets = cabinets
 
@@ -438,12 +560,7 @@ class CabinetVisionClassifier:
         max_retries: int = 3,
         max_tokens:  int = MAX_TOKENS,
     ) -> Optional[str]:
-        """
-        Call OpenRouter vision API with any supported model.
-        Returns raw text response or None on failure.
-        """
         image_b64     = base64.standard_b64encode(image_bytes).decode("utf-8")
-        # Use compact system prompt if max_tokens budget is tight (demo mode)
         use_demo_prompt = max_tokens <= DEMO_MAX_TOKENS
         system_prompt = _build_system_prompt(demo=use_demo_prompt)
         img_kb = len(image_bytes) / 1024
@@ -513,83 +630,49 @@ class CabinetVisionClassifier:
         self,
         raw_text:       str,
         elevation_label: str,
-    ) -> Optional[list[CabinetItem]]:
+    ) -> Optional[dict]:
         """
-        Parse JSON array from AI response.
+        Parse JSON object from AI response.
         Handles: extra markdown fences, trailing commas, partial JSON.
         """
-        # Strip markdown code fences
         text = raw_text.strip()
         text = re.sub(r'^```(?:json)?\s*', '', text, flags=re.MULTILINE)
         text = re.sub(r'\s*```\s*$', '', text, flags=re.MULTILINE)
         text = text.strip()
 
-        # Find JSON array
-        start = text.find('[')
-        end   = text.rfind(']')
+        # Find JSON object or array
+        start_obj = text.find('{')
+        start_arr = text.find('[')
+
+        if start_arr != -1 and (start_obj == -1 or start_arr < start_obj):
+            end_arr = text.rfind(']')
+            if end_arr != -1:
+                json_str = text[start_arr:end_arr+1]
+                json_str = re.sub(r',\s*([}\]])', r'\1', json_str)  # trailing commas
+                try:
+                    cabs = json.loads(json_str)
+                    return {"cabinets": cabs}
+                except Exception as e:
+                    # Fallback to object matching if array parse fails
+                    pass
+
+        # Find JSON object
+        start = text.find('{')
+        end   = text.rfind('}')
         if start == -1 or end == -1:
-            # Try to find a JSON object
-            print(f"  ⚠️  No JSON array found in response. Raw: {text[:200]}")
+            print(f"  [WARN] No JSON object/array found in response. Raw text snippet: {text[:200]}")
             return None
 
         json_str = text[start:end+1]
-
-        # Fix common AI JSON mistakes
         json_str = re.sub(r',\s*([}\]])', r'\1', json_str)  # trailing commas
 
         try:
             data = json.loads(json_str)
+            return data
         except json.JSONDecodeError as e:
-            print(f"  ⚠️  JSON parse error: {e}")
+            print(f"  [WARN] JSON parse error: {e}")
             print(f"      Raw snippet: {json_str[:300]}")
             return None
-
-        if not isinstance(data, list):
-            print(f"  ⚠️  Expected JSON array, got {type(data)}")
-            return None
-
-        cabinets = []
-        for i, item in enumerate(data, 1):
-            if not isinstance(item, dict):
-                continue
-
-            # Validate and normalize cabinet_type
-            cab_type = item.get("cabinet_type", "unknown").lower().strip()
-            if cab_type not in VALID_CABINET_TYPES:
-                # Try to map common variations
-                cab_type = _normalize_cabinet_type(cab_type)
-
-            width_mm  = float(item.get("width_mm",  0) or 0)
-            height_mm = float(item.get("height_mm", 0) or 0)
-            depth_mm  = float(item.get("depth_mm",  0) or 0)
-
-            # Apply standard defaults if missing
-            if height_mm == 0:
-                height_mm = _default_height(cab_type)
-            if depth_mm == 0:
-                depth_mm = _default_depth(cab_type)
-
-            confidence = float(item.get("confidence", 0.7))
-            confidence = max(0.0, min(1.0, confidence))
-
-            cabinets.append(CabinetItem(
-                item_num      = item.get("item_num", i),
-                cabinet_type  = cab_type,
-                width_mm      = width_mm,
-                height_mm     = height_mm,
-                depth_mm      = depth_mm,
-                location      = str(item.get("location", "")),
-                elevation_ref = item.get("elevation_ref", elevation_label),
-                confidence    = confidence,
-                quantity      = int(item.get("quantity", 1)),
-                is_ada        = bool(item.get("is_ada", False)),
-                notes         = str(item.get("notes", "")),
-                source        = "gemini",
-            ))
-
-        return cabinets
-
-    # (merge_results removed — single-model pipeline with Gemini)
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -710,65 +793,111 @@ if __name__ == "__main__":
     print("Testing JSON parser (no API key needed)...")
 
     sample_response = """
-```json
-[
-  {
-    "item_num": 1,
-    "cabinet_type": "upper_wall",
-    "width_mm": 762,
-    "height_mm": 300,
-    "depth_mm": 330,
-    "location": "Left of range, Elevation A",
-    "elevation_ref": "ELEVATION A",
-    "confidence": 0.92,
-    "quantity": 1,
-    "is_ada": false,
-    "notes": ""
-  },
-  {
-    "item_num": 2,
-    "cabinet_type": "base",
-    "width_mm": 900,
-    "height_mm": 720,
-    "depth_mm": 600,
-    "location": "Sink base, Elevation A",
-    "elevation_ref": "ELEVATION A",
-    "confidence": 0.88,
-    "quantity": 1,
-    "is_ada": false,
-    "notes": "sink base cabinet"
-  },
-  {
-    "item_num": 3,
-    "cabinet_type": "appliance_space",
-    "width_mm": 610,
-    "height_mm": 720,
-    "depth_mm": 600,
-    "location": "Dishwasher slot",
-    "elevation_ref": "ELEVATION A",
-    "confidence": 0.95,
-    "quantity": 1,
-    "is_ada": false,
-    "notes": "24\" dishwasher space — no cabinet"
-  }
-]
-```
+{
+  "ceiling_height_in": 108,
+  "soffit_present": false,
+  "backsplash": "4\\\" backsplash",
+  "counter_material": "Quartz",
+  "cabinets": [
+    {
+      "item_num": 1,
+      "cabinet_type": "upper_wall",
+      "cabinet_id": "U10",
+      "width_mm": 762,
+      "height_mm": 300,
+      "depth_mm": 330,
+      "location": "Left of range, Elevation A",
+      "confidence": 0.92,
+      "quantity": 1,
+      "is_ada": false,
+      "notes": ""
+    },
+    {
+      "item_num": 2,
+      "cabinet_type": "base",
+      "cabinet_id": "U3",
+      "width_mm": 900,
+      "height_mm": 720,
+      "depth_mm": 600,
+      "location": "Sink base, Elevation A",
+      "confidence": 0.88,
+      "quantity": 1,
+      "is_ada": false,
+      "notes": "sink base cabinet"
+    }
+  ],
+  "appliances": [
+    {
+      "type": "REF",
+      "width_in": 36,
+      "height_in": 70,
+      "x_in": 0,
+      "notes": "Refrigerator space"
+    }
+  ],
+  "doors": [],
+  "windows": [],
+  "fillers": ["F3"],
+  "panels": ["EP24"],
+  "moldings": ["CM96"],
+  "relationships": [
+    {
+      "type": "above",
+      "item_a": "MIC",
+      "item_b": "RANGE",
+      "notes": "Microwave above range"
+    }
+  ]
+}
 """
 
     # Test parsing (no API key needed for this test)
     classifier = object.__new__(CabinetVisionClassifier)  # skip __init__
     classifier.__class__ = CabinetVisionClassifier
-    cabinets = classifier._parse_cabinet_json(sample_response, "ELEVATION A")
+    data = classifier._parse_cabinet_json(sample_response, "ELEVATION A")
 
-    if cabinets:
-        print(f"[PASS] Parsed {len(cabinets)} cabinets:")
+    if data:
+        print("[PASS] Parsed JSON successfully:")
+        print(f"  Ceiling Height: {data.get('ceiling_height_in')} in")
+        print(f"  Soffit: {data.get('soffit_present')}")
+        print(f"  Backsplash: {data.get('backsplash')}")
+        print(f"  Countertop: {data.get('counter_material')}")
+        print(f"  Fillers: {data.get('fillers')}")
+        print(f"  Panels: {data.get('panels')}")
+        print(f"  Moldings: {data.get('moldings')}")
+        print(f"  Relationships: {data.get('relationships')}")
+        
+        # Test mapping to CabinetItem
+        cabinets = []
+        raw_cabs = data.get("cabinets", [])
+        for i, item in enumerate(raw_cabs, 1):
+             cab_type = item.get("cabinet_type", "unknown").lower().strip()
+             if cab_type not in VALID_CABINET_TYPES:
+                 cab_type = _normalize_cabinet_type(cab_type)
+
+             cabinets.append(CabinetItem(
+                 item_num      = item.get("item_num", i),
+                 cabinet_type  = cab_type,
+                 width_mm      = float(item.get("width_mm", 0)),
+                 height_mm     = float(item.get("height_mm", 0)),
+                 depth_mm      = float(item.get("depth_mm", 0)),
+                 location      = str(item.get("location", "")),
+                 elevation_ref = item.get("elevation_ref", "ELEVATION A"),
+                 confidence    = float(item.get("confidence", 0.7)),
+                 quantity      = int(item.get("quantity", 1)),
+                 is_ada        = bool(item.get("is_ada", False)),
+                 notes         = str(item.get("notes", "")),
+                 source        = "gemini",
+                 cabinet_id    = str(item.get("cabinet_id", "")),
+             ))
+        
         for c in cabinets:
             print(f"   Item {c.item_num}: {c.cabinet_type:20s} {c.width_mm:.0f}mm  "
-                  f"confidence={c.confidence:.2f}  code={c.code}")
+                  f"confidence={c.confidence:.2f}  code={c.code}  id={c.cabinet_id}")
     else:
         print("[FAIL] Parsing failed")
 
     # Test type normalization
     print("\n=== Type Normalization ===")
     for raw in ["wall cabinet", "lower", "dishwasher", "tall_cabinet", "mirror"]:
-        print(f"  '{raw}' → '{_normalize_cabinet_type(raw)}'")
+        print(f"  '{raw}' -> '{_normalize_cabinet_type(raw)}'")

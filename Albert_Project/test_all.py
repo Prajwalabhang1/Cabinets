@@ -119,7 +119,33 @@ try:
        "depth_mm": 600, "location": "DW", "elevation_ref": "ELEV A",
        "confidence": 0.98, "quantity": 1, "is_ada": false, "notes": "dishwasher"}
     ]'''
-    cabs = c._parse_cabinet_json(sample_json, "ELEV A")
+    cabs_data = c._parse_cabinet_json(sample_json, "ELEV A")
+    from core.ai_vision_classifier import CabinetItem, _normalize_cabinet_type, _default_height, _default_depth, VALID_CABINET_TYPES
+    cabs = []
+    for i, item in enumerate(cabs_data.get("cabinets", []), 1):
+        cab_type = item.get("cabinet_type", "unknown").lower().strip()
+        if cab_type not in VALID_CABINET_TYPES:
+            cab_type = _normalize_cabinet_type(cab_type)
+        width_mm  = float(item.get("width_mm",  0) or 0)
+        height_mm = float(item.get("height_mm", 0) or 0)
+        depth_mm  = float(item.get("depth_mm",  0) or 0)
+        if height_mm == 0:
+            height_mm = _default_height(cab_type)
+        if depth_mm == 0:
+            depth_mm = _default_depth(cab_type)
+        cabs.append(CabinetItem(
+            item_num = i,
+            cabinet_type = cab_type,
+            width_mm = width_mm,
+            height_mm = height_mm,
+            depth_mm = depth_mm,
+            location = item.get("location", ""),
+            elevation_ref = "ELEV A",
+            confidence = item.get("confidence", 0.9),
+            quantity = item.get("quantity", 1),
+            is_ada = item.get("is_ada", False),
+            notes = item.get("notes", "")
+        ))
 
     check("Parsed 3 items", len(cabs) == 3, f"{len(cabs)} items")
     check("First item width=762mm", cabs[0].width_mm == 762, str(cabs[0].width_mm))
@@ -194,13 +220,13 @@ except Exception as e:
 # ── Test 7: Unit Counter (manual mode) ───────────────
 print("\n[7] Unit Counter (manual override)")
 try:
-    from core.unit_counter import load_matrix_from_config
+    from core.unit_matrix_extractor import load_matrix_from_config
     matrix = load_matrix_from_config({"A1": 14, "B1": 6}, "Test Project")
     check("Totals loaded", matrix.totals == {"A1": 14, "B1": 6})
     check("Confidence = 1.0", matrix.confidence == 1.0)
     check("Needs review = False", not matrix.needs_review)
 except Exception as e:
-    print(f"  {FAIL}  unit_counter error: {e}")
+    print(f"  {FAIL}  unit_matrix_extractor error: {e}")
     all_ok = False
 
 # ── Test 8: PDF Extractor (basic import) ─────────────
