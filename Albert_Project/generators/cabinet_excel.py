@@ -401,9 +401,9 @@ def _build_shop_drawing_sheet(ws, unit_type: str, config: dict, schedule, st: di
     bath_cabs    = [c for c in all_cabinets if c.cabinet_type in bath_types]
 
     for cab in kitchen_cabs:
-        w_in = round(cab.width_mm / 25.4, 1)
-        h_in = round(cab.height_mm / 25.4, 1)
-        d_in = round(cab.depth_mm  / 25.4, 1)
+        w_in = round(cab.width_in, 1)
+        h_in = round(cab.height_in, 1)
+        d_in = round(cab.depth_in  / 25.4, 1)
         vals = [item_num, cab.code, f"{cab.cabinet_type} {w_in}\"W × {h_in}\"H",
                 cab.cabinet_type.replace("_", " ").title(),
                 w_in, h_in, d_in, cab.quantity,
@@ -433,9 +433,9 @@ def _build_shop_drawing_sheet(ws, unit_type: str, config: dict, schedule, st: di
     item_num_bath = 1
     bath_qty = 0
     for cab in bath_cabs:
-        w_in = round(cab.width_mm / 25.4, 1)
-        h_in = round(cab.height_mm / 25.4, 1)
-        d_in = round(cab.depth_mm  / 25.4, 1)
+        w_in = round(cab.width_in, 1)
+        h_in = round(cab.height_in, 1)
+        d_in = round(cab.depth_in  / 25.4, 1)
         vals = [item_num_bath, cab.code,
                 f"{cab.cabinet_type} {w_in}\"W × {h_in}\"H",
                 cab.cabinet_type.replace("_", " ").title(),

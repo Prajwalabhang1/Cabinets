@@ -708,288 +708,139 @@ def _draw_generic_matrix(c: canvas.Canvas, config: dict, unit_schedules: dict,
 # PAGES 3+: UNIT ELEVATION PAGES
 # ══════════════════════════════════════════════════════════════════════════
 
-def _draw_unit_page(c: canvas.Canvas, config: dict, unit_type: str, schedule,
-                    page_num: int, total_pages: int):
-    """Draw one page for a unit type elevation schedule."""
+
+import math
+
+def format_imperial_arch(inches: float) -> str:
+    """Format decimal inches to architectural feet/inches (e.g., [2-11 7/16])."""
+    inches_round = round(inches * 16) / 16.0
+    feet = int(inches_round // 12)
+    rem_in = int(inches_round % 12)
+    frac = int(round((inches_round - int(inches_round)) * 16))
+    
+    if frac == 16:
+        rem_in += 1
+        frac = 0
+    if rem_in == 12:
+        feet += 1
+        rem_in = 0
+        
+    def frac_str(f):
+        if f == 0: return ""
+        if f % 8 == 0: return f"{f//8}/2"
+        if f % 4 == 0: return f"{f//4}/4"
+        if f % 2 == 0: return f"{f//2}/8"
+        return f"{f}/16"
+
+    f_str = frac_str(frac)
+    
+    # Handle pure fraction (e.g. [13/16])
+    if feet == 0 and rem_in == 0 and f_str:
+        return f"[{f_str}]"
+    
+    # Format components
+    if feet > 0:
+        if rem_in == 0 and not f_str:
+            return f"[{feet}]"
+        elif not f_str:
+            return f"[{feet}-{rem_in}]"
+        else:
+            return f"[{feet}-{rem_in} {f_str}]"
+    else:
+        if not f_str:
+            return f"[{rem_in}]"
+        else:
+            return f"[{rem_in} {f_str}]"
+
+def draw_dimension_line(c, x0: float, y0: float, x1: float, y1: float, text_val: str):
+    """Draws a dimension line with architectural tick marks and stacked metric/imperial text."""
+    c.saveState()
+    c.setStrokeColor(colors.black)
+    c.setLineWidth(0.5)
+    
+    # Draw main line
+    c.line(x0, y0, x1, y1)
+    
+    # Draw architectural ticks (45 degree short lines)
+    tick_len = 4
+    for px, py in [(x0, y0), (x1, y1)]:
+        c.line(px - tick_len, py - tick_len, px + tick_len, py + tick_len)
+        
+    # Process text value to extract inches
+    try:
+        if '"' in text_val:
+            inches = float(text_val.replace('"', '').strip())
+        else:
+            inches = float(text_val)
+    except ValueError:
+        inches = 0.0
+        
+    # If valid dimension, calculate metric (cm) and imperial
+    if inches > 0:
+        cm_val = inches * 2.54
+        metric_str = f"{cm_val:.2f}"
+        imperial_str = format_imperial_arch(inches)
+        
+        c.setFont("Helvetica", 5.0)
+        c.setFillColor(colors.black)
+        
+        # Horizontal dimension
+        if abs(y1 - y0) < 1.0:
+            cx = (x0 + x1) / 2
+            cy = y0
+            c.drawCentredString(cx, cy + 2, metric_str)
+            c.drawCentredString(cx, cy - 6, imperial_str)
+        # Vertical dimension
+        else:
+            cx = x0
+            cy = (y0 + y1) / 2
+            c.translate(cx, cy)
+            c.rotate(90)
+            c.drawCentredString(0, 2, metric_str)
+            c.drawCentredString(0, -6, imperial_str)
+    
+    c.restoreState()
+
+def _draw_unit_pages(c, config: dict, unit_type: str, schedule,
+                    start_page_num: int, total_pages: int) -> int:
+    """Draw pages for a unit type: CAD Title Block, Schedule."""
+    is_ada = "ACC" in unit_type or "ADA" in unit_type
+    page_num = start_page_num
+
+    # If no schedule, just print empty message
+    if not schedule:
+        _draw_page_border(c)
+        _draw_title_block(c, config, page_num, total_pages, f"UNIT {unit_type}")
+        c.setFillColor(colors.black)
+        c.setFont(_FONT_REG, 8)
+        c.drawString(DA_L + 20, DA_T - 28, "No AI schedule available — PDF not processed")
+        c.showPage()
+        page_num += 1
+        return page_num
+
+    # ---------------------------------------------------------
+    # PAGE 1: CAD DRAWING (Title Block Only, Content Merged Later)
+    # ---------------------------------------------------------
     _draw_page_border(c)
     _draw_title_block(c, config, page_num, total_pages, f"UNIT {unit_type}")
+    
+    # We do NOT draw geometry manually here anymore.
+    # The PyPDF2 merge step in generate_shop_drawings will overlay the DXF PDF onto this page.
+    
+    c.showPage()
+    page_num += 1
 
-    is_ada = "ACC" in unit_type or "ADA" in unit_type
+    # ---------------------------------------------------------
+    # PAGE 2: SCHEDULE
+    # ---------------------------------------------------------
+    _draw_page_border(c)
+    _draw_title_block(c, config, page_num, total_pages, f"UNIT {unit_type} SCHEDULE")
 
-    # Page header
+    # Page header for the schedule
     c.setFillColor(NAVY)
     c.setFont(_FONT_BOLD, 12)
-    c.drawString(DA_L + 4, DA_T - 18, f"UNIT {unit_type} — CABINET SCHEDULE & LAYOUTS")
-
-    # Render Geometries from GeometryEngine on the Left
-    wall_length_inches = 90.0
-    if schedule:
-        from core.geometry_engine import GeometryEngine
-        
-        # Build walls for GeometryEngine
-        walls_info = []
-        for ev in schedule.elevations:
-            cabs_list = []
-            base_x = 0
-            for cab in ev.cabinets:
-                w_in = round(cab.width_mm / 25.4)
-                h_in = round(cab.height_mm / 25.4)
-                cabs_list.append({
-                    "id": cab.cabinet_id or cab.code,
-                    "x": base_x,
-                    "width": w_in,
-                    "height": h_in,
-                    "type": cab.cabinet_type,
-                    "cabinet_type": cab.cabinet_type
-                })
-                base_x += w_in
-            
-            wall_name = ev.elevation_label.replace("ELEVATION ", "").strip()
-            if wall_name.upper() in ("KITCHEN", "BATH", "VANITY", "MASTER_BATH"):
-                wall_name = "A"
-                
-            walls_info.append({
-                "name": wall_name,
-                "length": max(90.0, base_x),
-                "cabinets": cabs_list
-            })
-            
-        if not walls_info:
-            walls_info.append({
-                "name": "A",
-                "length": 90.0,
-                "cabinets": []
-            })
-            
-        geom_engine = GeometryEngine()
-        ceiling_height = 108.0
-        for ev in schedule.elevations:
-            if ev.ceiling_height_in is not None:
-                ceiling_height = ev.ceiling_height_in
-                break
-                
-        geom_data = geom_engine.generate_layout_geometry(
-            walls = walls_info,
-            appliances = [],
-            ceiling_height = ceiling_height,
-            soffit_height = ceiling_height - 12.0
-        )
-        
-        # Left visual drawings area: X from 40 to 460 (width 420 pt).
-        # We reserve 280 pt for plan/elevation width, and the rest for side view.
-        visual_width_allowed = 280.0
-        
-        # Calculate total width of all walls including 100pt spacing (which is 25 inches)
-        total_length_inches = sum(w.get("length", 90.0) for w in walls_info) + (len(walls_info) - 1) * 25.0
-        wall_length_inches = total_length_inches
-        
-        draw_scale = 1.0
-        if wall_length_inches * 4.0 > visual_width_allowed:
-            draw_scale = visual_width_allowed / (wall_length_inches * 4.0)
-            
-        GE_PLAN_OX = 250.0
-        GE_PLAN_OY = 450.0
-        GE_ELEV_OX = 250.0
-        GE_ELEV_OY = 150.0
-        GE_SIDE_OX = 250.0
-        GE_SIDE_OY = 150.0
-
-        PDF_PLAN_OX = 50.0
-        PDF_PLAN_OY = 580.0
-        PDF_ELEV_OX = 50.0
-        PDF_ELEV_OY = 180.0
-        PDF_SIDE_OX = 370.0
-        PDF_SIDE_OY = 180.0
-        
-        # --- Draw Plan View ---
-        for line in geom_data.get("plan", {}).get("lines", []):
-            x0 = (line["start"][0] - GE_PLAN_OX) * draw_scale + PDF_PLAN_OX
-            y0 = (line["start"][1] - GE_PLAN_OY) * draw_scale + PDF_PLAN_OY
-            x1 = (line["end"][0] - GE_PLAN_OX) * draw_scale + PDF_PLAN_OX
-            y1 = (line["end"][1] - GE_PLAN_OY) * draw_scale + PDF_PLAN_OY
-            c.saveState()
-            c.setStrokeColor(NAVY if line.get("layer") == "WALLS" else colors.black)
-            c.setLineWidth(1.5 if line.get("layer") == "WALLS" else 0.5)
-            if line.get("style") == "dashed":
-                c.setDash([2, 2])
-            c.line(x0, y0, x1, y1)
-            c.restoreState()
-            
-        for block in geom_data.get("plan", {}).get("blocks", []):
-            x, y, w, h = block["coords"]
-            x_new = (x - GE_PLAN_OX) * draw_scale + PDF_PLAN_OX
-            y_new = (y - GE_PLAN_OY) * draw_scale + PDF_PLAN_OY
-            w_new = w * draw_scale
-            h_new = h * draw_scale
-            c.saveState()
-            c.setStrokeColor(colors.black)
-            c.setFillColor(colors.white)
-            if block.get("style") == "dashed":
-                c.setDash([2, 2])
-            c.rect(x_new, y_new, w_new, h_new, fill=1, stroke=1)
-            c.restoreState()
-            
-        for txt in geom_data.get("plan", {}).get("texts", []):
-            pos_x = (txt["pos"][0] - GE_PLAN_OX) * draw_scale + PDF_PLAN_OX
-            pos_y = (txt["pos"][1] - GE_PLAN_OY) * draw_scale + PDF_PLAN_OY
-            text_str = txt["text"]
-            c.saveState()
-            c.setFont(_FONT_REG, max(4.0, txt.get("size", 5.0) * draw_scale))
-            c.setFillColor(colors.black)
-            lines = text_str.split('\n')
-            for i, line_text in enumerate(lines):
-                c.drawCentredString(pos_x, pos_y - i * (max(4.0, txt.get("size", 5.0) * draw_scale) + 1), line_text)
-            c.restoreState()
-            
-        for dim in geom_data.get("plan", {}).get("dimensions", []):
-            x0 = (dim["start"][0] - GE_PLAN_OX) * draw_scale + PDF_PLAN_OX
-            y0 = (dim["start"][1] - GE_PLAN_OY) * draw_scale + PDF_PLAN_OY
-            x1 = (dim["end"][0] - GE_PLAN_OX) * draw_scale + PDF_PLAN_OX
-            y1 = (dim["end"][1] - GE_PLAN_OY) * draw_scale + PDF_PLAN_OY
-            text_str = dim["text"]
-            c.saveState()
-            c.setStrokeColor(PENCIL_MEDIUM)
-            c.setLineWidth(0.5)
-            c.line(x0, y0, x1, y1)
-            c.line(x0, y0 - 3, x0, y0 + 3)
-            c.line(x1, y1 - 3, x1, y1 + 3)
-            c.setFont(_FONT_REG, 5.0)
-            c.setFillColor(PENCIL_MEDIUM)
-            c.drawCentredString((x0 + x1) / 2, (y0 + y1) / 2 + 4, text_str)
-            c.restoreState()
-            
-        # --- Draw Elevation View ---
-        for line in geom_data.get("elevation", {}).get("lines", []):
-            x0 = (line["start"][0] - GE_ELEV_OX) * draw_scale + PDF_ELEV_OX
-            y0 = (line["start"][1] - GE_ELEV_OY) * draw_scale + PDF_ELEV_OY
-            x1 = (line["end"][0] - GE_ELEV_OX) * draw_scale + PDF_ELEV_OX
-            y1 = (line["end"][1] - GE_ELEV_OY) * draw_scale + PDF_ELEV_OY
-            c.saveState()
-            c.setStrokeColor(NAVY if line.get("layer") in ("GROUND", "CEILING") else colors.black)
-            c.setLineWidth(1.0 if line.get("layer") in ("GROUND", "CEILING") else 0.5)
-            if line.get("style") == "dashed":
-                c.setDash([2, 2])
-            c.line(x0, y0, x1, y1)
-            c.restoreState()
-            
-        for block in geom_data.get("elevation", {}).get("blocks", []):
-            x, y, w, h = block["coords"]
-            x_new = (x - GE_ELEV_OX) * draw_scale + PDF_ELEV_OX
-            y_new = (y - GE_ELEV_OY) * draw_scale + PDF_ELEV_OY
-            w_new = w * draw_scale
-            h_new = h * draw_scale
-            c.saveState()
-            c.setStrokeColor(colors.black)
-            c.setFillColor(colors.white)
-            if block.get("style") == "dashed":
-                c.setDash([2, 2])
-            c.rect(x_new, y_new, w_new, h_new, fill=1, stroke=1)
-            c.restoreState()
-            
-        for txt in geom_data.get("elevation", {}).get("texts", []):
-            pos_x = (txt["pos"][0] - GE_ELEV_OX) * draw_scale + PDF_ELEV_OX
-            pos_y = (txt["pos"][1] - GE_ELEV_OY) * draw_scale + PDF_ELEV_OY
-            text_str = txt["text"]
-            c.saveState()
-            c.setFont(_FONT_REG, max(4.0, txt.get("size", 5.0) * draw_scale))
-            c.setFillColor(colors.black)
-            lines = text_str.split('\n')
-            for i, line_text in enumerate(lines):
-                c.drawCentredString(pos_x, pos_y - i * (max(4.0, txt.get("size", 5.0) * draw_scale) + 1), line_text)
-            c.restoreState()
-            
-        for dim in geom_data.get("elevation", {}).get("dimensions", []):
-            x0 = (dim["start"][0] - GE_ELEV_OX) * draw_scale + PDF_ELEV_OX
-            y0 = (dim["start"][1] - GE_ELEV_OY) * draw_scale + PDF_ELEV_OY
-            x1 = (dim["end"][0] - GE_ELEV_OX) * draw_scale + PDF_ELEV_OX
-            y1 = (dim["end"][1] - GE_ELEV_OY) * draw_scale + PDF_ELEV_OY
-            text_str = dim["text"]
-            c.saveState()
-            c.setStrokeColor(PENCIL_MEDIUM)
-            c.setLineWidth(0.5)
-            c.line(x0, y0, x1, y1)
-            c.line(x0 - 3, y0, x0 + 3, y0)
-            c.line(x1 - 3, y1, x1 + 3, y1)
-            c.setFont(_FONT_REG, 5.0)
-            c.setFillColor(PENCIL_MEDIUM)
-            c.drawCentredString((x0 + x1) / 2, (y0 + y1) / 2 + 4, text_str)
-            c.restoreState()
-
-        # --- Draw Side View (Section) ---
-        for line in geom_data.get("side", {}).get("lines", []):
-            x0 = (line["start"][0] - GE_SIDE_OX) * draw_scale + PDF_SIDE_OX
-            y0 = (line["start"][1] - GE_SIDE_OY) * draw_scale + PDF_SIDE_OY
-            x1 = (line["end"][0] - GE_SIDE_OX) * draw_scale + PDF_SIDE_OX
-            y1 = (line["end"][1] - GE_SIDE_OY) * draw_scale + PDF_SIDE_OY
-            c.saveState()
-            c.setStrokeColor(NAVY if line.get("layer") in ("GROUND", "CEILING", "WALLS") else colors.black)
-            c.setLineWidth(1.0 if line.get("layer") in ("GROUND", "CEILING", "WALLS") else 0.5)
-            if line.get("style") == "dashed":
-                c.setDash([2, 2])
-            c.line(x0, y0, x1, y1)
-            c.restoreState()
-            
-        for block in geom_data.get("side", {}).get("blocks", []):
-            x, y, w, h = block["coords"]
-            x_new = (x - GE_SIDE_OX) * draw_scale + PDF_SIDE_OX
-            y_new = (y - GE_SIDE_OY) * draw_scale + PDF_SIDE_OY
-            w_new = w * draw_scale
-            h_new = h * draw_scale
-            c.saveState()
-            c.setStrokeColor(colors.black)
-            c.setFillColor(colors.white)
-            if block.get("style") == "dashed":
-                c.setDash([2, 2])
-            c.rect(x_new, y_new, w_new, h_new, fill=1, stroke=1)
-            c.restoreState()
-            
-        for txt in geom_data.get("side", {}).get("texts", []):
-            pos_x = (txt["pos"][0] - GE_SIDE_OX) * draw_scale + PDF_SIDE_OX
-            pos_y = (txt["pos"][1] - GE_SIDE_OY) * draw_scale + PDF_SIDE_OY
-            text_str = txt["text"]
-            c.saveState()
-            c.setFont(_FONT_REG, max(4.0, txt.get("size", 5.0) * draw_scale))
-            c.setFillColor(colors.black)
-            lines = text_str.split('\n')
-            for i, line_text in enumerate(lines):
-                c.drawCentredString(pos_x, pos_y - i * (max(4.0, txt.get("size", 5.0) * draw_scale) + 1), line_text)
-            c.restoreState()
-            
-        for dim in geom_data.get("side", {}).get("dimensions", []):
-            x0 = (dim["start"][0] - GE_SIDE_OX) * draw_scale + PDF_SIDE_OX
-            y0 = (dim["start"][1] - GE_SIDE_OY) * draw_scale + PDF_SIDE_OY
-            x1 = (dim["end"][0] - GE_SIDE_OX) * draw_scale + PDF_SIDE_OX
-            y1 = (dim["end"][1] - GE_SIDE_OY) * draw_scale + PDF_SIDE_OY
-            text_str = dim["text"]
-            c.saveState()
-            c.setStrokeColor(PENCIL_MEDIUM)
-            c.setLineWidth(0.5)
-            c.line(x0, y0, x1, y1)
-            if abs(x0 - x1) < 0.1: # Vertical dimension
-                c.line(x0 - 3, y0, x0 + 3, y0)
-                c.line(x1 - 3, y1, x1 + 3, y1)
-                c.setFont(_FONT_REG, 4.5)
-                c.setFillColor(PENCIL_MEDIUM)
-                c.drawRightString(x0 - 4, (y0 + y1) / 2 - 1.5, text_str)
-            else: # Horizontal dimension
-                c.line(x0, y0 - 3, x0, y0 + 3)
-                c.line(x1, y1 - 3, x1, y1 + 3)
-                c.setFont(_FONT_REG, 4.5)
-                c.setFillColor(PENCIL_MEDIUM)
-                c.drawCentredString((x0 + x1) / 2, (y0 + y1) / 2 + 4, text_str)
-            c.restoreState()
-            
-        # Draw labels
-        c.saveState()
-        c.setFont(_FONT_BOLD, 8)
-        c.setFillColor(NAVY)
-        plan_w = wall_length_inches * 4.0 * draw_scale
-        c.drawCentredString(PDF_PLAN_OX + plan_w / 2, PDF_PLAN_OY - 35, "COUNTERTOP PLAN VIEW")
-        c.drawCentredString(PDF_ELEV_OX + plan_w / 2, PDF_ELEV_OY - 20, "FRONT ELEVATION VIEW")
-        c.drawCentredString(PDF_SIDE_OX + 30.0 * 4.0 * draw_scale / 2, PDF_SIDE_OY - 20, "SIDE SECTION VIEW")
-        c.restoreState()
-
-    # --- Draw Cabinet Schedule Table on the Right ---
+    c.drawString(DA_L + 4, DA_T - 18, f"UNIT {unit_type} - CABINET SCHEDULE")
+    
     c.setFont(_FONT_REG, 8)
     c.setFillColor(colors.black)
     labels = [
@@ -998,124 +849,265 @@ def _draw_unit_page(c: canvas.Canvas, config: dict, unit_type: str, schedule,
         ("FINISH:", f"Standard {config.get('finish_tier', 1)}"),
         ("ADA:", "YES (Fully Accessible)" if is_ada else "NO (FHA Type B)"),
     ]
-    y = DA_T - 30
+    y = DA_T - 40
     for label, val in labels:
         c.setFont(_FONT_BOLD, 7)
-        c.drawString(490.0, y, label)
+        c.drawString(50.0, y, label)
         c.setFont(_FONT_REG, 7)
-        c.drawString(550.0, y, val)
+        c.drawString(110.0, y, val)
         y -= 10
 
     col_widths = [25, 60, 180, 70, 40, 40, 40, 30, 60, 110]
     headers    = ["#", "Code", "Description", "Type",
                   "W(in)", "H(in)", "D(in)", "Qty", "Elev.", "Location"]
-    table_x = 490.0
+    table_x = 50.0
     table_y = y - 8
 
     # Header row
     c.setFillColor(LTGRAY)
-    c.rect(table_x, table_y - 12, sum(col_widths), 12, fill=1, stroke=0)
-    c.setFillColor(NAVY)
-    c.setFont(_FONT_BOLD, 6.5)
-    x_pos = table_x
-    for w, h in zip(col_widths, headers):
-        c.drawCentredString(x_pos + w / 2, table_y - 8, h)
-        x_pos += w
+    c.rect(table_x, table_y, sum(col_widths), 12, fill=1, stroke=1)
+    
+    c.setFillColor(colors.black)
+    c.setFont(_FONT_BOLD, 6)
+    cx = table_x
+    for i, hw in enumerate(col_widths):
+        c.drawString(cx + 4, table_y + 4, headers[i])
+        cx += hw
 
-    if not schedule:
-        c.setFillColor(colors.black)
-        c.setFont(_FONT_REG, 8)
-        c.drawString(table_x + 4, table_y - 28, "No AI schedule available — PDF not processed")
-        return
-
-    all_cabs = schedule.all_cabinets
-    kitchen_cabs = [cab for cab in all_cabs
-                    if cab.cabinet_type not in ("vanity", "medicine_cabinet", "linen", "appliance_space")]
-    bath_cabs    = [cab for cab in all_cabs
-                    if cab.cabinet_type in ("vanity", "medicine_cabinet", "linen")]
-
-    row_y = table_y - 12
-
-    def draw_section(label, cabs, start_y):
-        y = start_y
-        y -= 14
-        c.setFillColor(LTGRAY)
-        c.rect(table_x, y, sum(col_widths), 11, fill=1, stroke=0)
-        c.setFillColor(NAVY)
-        c.setFont(_FONT_BOLD, 7)
-        c.drawString(table_x + 3, y + 3, label)
-
-        alt = False
-        item_count = 0
-        qty_total  = 0
-
-        for item_num, cab in enumerate(cabs, 1):
+    # Rows
+    y = table_y - 12
+    c.setFont(_FONT_REG, 6)
+    
+    idx = 1
+    for ev in schedule.elevations:
+        for cab in ev.cabinets:
+            cx = table_x
+            
+            # #
+            c.drawString(cx + 4, y + 4, str(idx))
+            cx += col_widths[0]
+            
+            # Code
+            c.drawString(cx + 4, y + 4, str(cab.cabinet_id))
+            cx += col_widths[1]
+            
+            # Description
+            notes_str = getattr(cab, 'notes', '') or ''
+            desc = notes_str[:40] + "..." if len(notes_str) > 40 else notes_str
+            c.drawString(cx + 4, y + 4, desc)
+            cx += col_widths[2]
+            
+            # Type
+            c.drawString(cx + 4, y + 4, str(cab.cabinet_type))
+            cx += col_widths[3]
+            
+            # W, H, D
+            w_in = round(cab.width_in, 1) if hasattr(cab, 'width_in') else "-"
+            h_in = round(cab.height_in, 1) if hasattr(cab, 'height_in') else "-"
+            d_in = round(cab.depth_in, 1) if hasattr(cab, 'depth_in') else "-"
+            c.drawString(cx + 4, y + 4, str(w_in))
+            cx += col_widths[4]
+            c.drawString(cx + 4, y + 4, str(h_in))
+            cx += col_widths[5]
+            c.drawString(cx + 4, y + 4, str(d_in))
+            cx += col_widths[6]
+            
+            # Qty
+            c.drawString(cx + 4, y + 4, str(cab.quantity))
+            cx += col_widths[7]
+            
+            # Elev
+            c.drawString(cx + 4, y + 4, str(getattr(ev, 'elevation_label', '')))
+            cx += col_widths[8]
+            
+            # Location
+            c.drawString(cx + 4, y + 4, str(cab.location))
+            
             y -= 12
-            if y < MARGIN + 20:
-                break
+            idx += 1
+            
+            # Pagination
+            if y < DA_B + 20:
+                c.showPage()
+                _draw_page_border(c)
+                _draw_title_block(c, config, page_num, total_pages, f"UNIT {unit_type} SCHEDULE (CONT)")
+                page_num += 1
+                y = DA_T - 30
 
-            if alt:
-                c.setFillColor(LTGRAY)
-                c.rect(table_x, y, sum(col_widths), 12, fill=1, stroke=0)
-            alt = not alt
+    c.showPage()
+    page_num += 1
 
-            w_in = round(cab.width_mm / 25.4, 1)
-            h_in = round(cab.height_mm / 25.4, 1)
-            d_in = round(cab.depth_mm  / 25.4, 1)
-            vals = [
-                str(item_num),
-                cab.code,
-                f"{cab.cabinet_type.replace('_', ' ').title()} {w_in}\"W",
-                cab.cabinet_type.replace("_", " ").title()[:12],
-                f"{w_in}\"",
-                f"{h_in}\"",
-                f"{d_in}\"",
-                str(cab.quantity),
-                (cab.elevation_ref or "")[:8],
-                (cab.location or "")[:18],
-            ]
+    return page_num
+def add_sections_to_pdf(c, config, sections_list, page_num, total_pages):
+    try:
+        from core.engines.section_generator import SectionGenerator
+        from reportlab.lib import colors
+    except ImportError:
+        return page_num
+        
+    for section_spec in sections_list:
+        try:
+            section_geom = SectionGenerator.generate_section(
+                section_spec['type'],
+                width=section_spec.get('width', 84.0),
+                height=section_spec.get('height', 228.0)
+            )
+        except ValueError:
+            continue
+            
+        c.showPage()
+        page_num += 1
+        _draw_title_block(c, config, page_num, total_pages, section_geom['title'])
+        _draw_page_border(c)
+        
+        c.setFont("Helvetica", 8)
+        c.setFillColor(colors.black)
+        for i, callout in enumerate(section_geom.get('callouts', [])):
+            y_pos = PAGE_H - 100 - (i * 15)
+            c.drawString(100, y_pos, f"• {callout}")
+            
+        geom = section_geom['geometry']
+        draw_scale = 1.5
+        PDF_OX, PDF_OY = 300, 200
+        
+        for line in geom.get("lines", []):
+            x0 = line["start"][0] * draw_scale + PDF_OX
+            y0 = line["start"][1] * draw_scale + PDF_OY
+            x1 = line["end"][0] * draw_scale + PDF_OX
+            y1 = line["end"][1] * draw_scale + PDF_OY
+            c.setStrokeColor(colors.black)
+            c.setLineWidth(1.0 if line.get("layer") == "SECTION" else 0.5)
+            c.line(x0, y0, x1, y1)
+            
+        for block in geom.get("blocks", []):
+            x, y, w, h = block["coords"]
+            x_new = x * draw_scale + PDF_OX
+            y_new = y * draw_scale + PDF_OY
+            w_new = w * draw_scale
+            h_new = h * draw_scale
+            c.setStrokeColor(colors.black)
+            c.setFillColor(colors.white)
+            c.rect(x_new, y_new, w_new, h_new, fill=1, stroke=1)
+            
+        for txt in geom.get("texts", []):
+            pos_x = txt["pos"][0] * draw_scale + PDF_OX
+            pos_y = txt["pos"][1] * draw_scale + PDF_OY
+            c.setFont("Helvetica-Bold" if txt.get("bold") else "Helvetica", txt.get("size", 5.0) * draw_scale)
             c.setFillColor(colors.black)
-            x_pos = table_x
-            for i, (w, v) in enumerate(zip(col_widths, vals)):
-                c.setFont(_FONT_BOLD if i == 1 else _FONT_REG, 6)
-                if i in (4, 5, 6, 7):
-                    c.drawCentredString(x_pos + w / 2, y + 3, v)
+            if txt.get("align") == "center":
+                c.drawCentredString(pos_x, pos_y, txt["text"])
+            else:
+                c.drawString(pos_x, pos_y, txt["text"])
+                
+        for dim in geom.get("dimensions", []):
+            x0 = dim["start"][0] * draw_scale + PDF_OX
+            y0 = dim["start"][1] * draw_scale + PDF_OY
+            x1 = dim["end"][0] * draw_scale + PDF_OX
+            y1 = dim["end"][1] * draw_scale + PDF_OY
+            draw_dimension_line(c, x0, y0, x1, y1, dim.get("text", str(dim.get("value", ""))))
+            
+    return page_num
+
+def add_parts_lists_to_pdf(c, config, page_num, total_pages):
+    try:
+        from core.engines.parts_list_generator import PartsListGenerator
+        from reportlab.lib import colors
+    except ImportError:
+        return page_num
+        
+    parts_sheets = PartsListGenerator.generate_all_parts_sheets(config)
+    
+    MARGIN = 50
+    RECT_W = 120
+    RECT_H = 120
+    SPACING = 30
+    COLS = 5
+    
+    for sheet in parts_sheets:
+        c.showPage()
+        page_num += 1
+        _draw_title_block(c, config, page_num, total_pages, sheet['title'])
+        _draw_page_border(c)
+        
+        c.setFont("Helvetica-Bold", 14)
+        c.setFillColor(colors.black)
+        c.drawString(MARGIN, PAGE_H - 80, f"PARTS BY {sheet['title']}")
+        c.setFont("Helvetica", 8)
+        c.drawString(MARGIN, PAGE_H - 95, 'SCALE 1/2" = 1\'-0"')
+        
+        y_offset = PAGE_H - 140
+        for layout in sheet.get('page_layout', []):
+            if y_offset < 200:  # Need new page
+                c.showPage()
+                page_num += 1
+                _draw_title_block(c, config, page_num, total_pages, sheet['title'])
+                _draw_page_border(c)
+                y_offset = PAGE_H - 100
+                
+            c.setFont("Helvetica-Bold", 11)
+            c.drawString(MARGIN, y_offset, f"SECTION: {layout['section']}")
+            y_offset -= 30
+            
+            x_pos = MARGIN
+            y_pos = y_offset
+            col_count = 0
+            
+            for part in layout.get('parts', []):
+                _draw_part_rectangle(c, x_pos, y_pos - RECT_H, RECT_W, RECT_H, part)
+                
+                col_count += 1
+                if col_count >= COLS:
+                    x_pos = MARGIN
+                    y_pos -= (RECT_H + SPACING + 20)
+                    col_count = 0
                 else:
-                    c.drawString(x_pos + 2, y + 3, v)
-                x_pos += w
+                    x_pos += (RECT_W + SPACING)
+                    
+            if col_count != 0:
+                y_pos -= (RECT_H + SPACING + 20)
+            y_offset = y_pos - 10
+            
+    return page_num
 
-            # Row divider
-            c.setStrokeColor(colors.lightgrey)
-            c.setLineWidth(0.2)
-            c.line(table_x, y, table_x + sum(col_widths), y)
-
-            item_count += 1
-            qty_total  += cab.quantity
-
-        # Subtotal row
-        y -= 12
-        c.setFillColor(LTGRAY)
-        c.rect(table_x, y, sum(col_widths), 12, fill=1, stroke=0)
-        c.setFillColor(NAVY)
-        c.setFont(_FONT_BOLD, 7)
-        c.drawString(table_x + 3, y + 3, f"{label} SUBTOTAL")
-        c.drawRightString(table_x + sum(col_widths[:8]), y + 3, str(qty_total))
-        return y
-
-    row_y = draw_section("SECTION 1 — KITCHEN CABINETS", kitchen_cabs, row_y)
-    if row_y and row_y > MARGIN + 60:
-        row_y = draw_section("SECTION 2 — BATHROOM CABINETS", bath_cabs, row_y - 4)
-
-    # Table border
-    c.setStrokeColor(NAVY)
-    c.setLineWidth(0.75)
-    c.rect(table_x, row_y if row_y else MARGIN + 20, sum(col_widths),
-           table_y - (row_y if row_y else MARGIN + 20), fill=0, stroke=1)
-
-
-# ══════════════════════════════════════════════════════════════════════════
-# MAIN ENTRY POINT
-# ══════════════════════════════════════════════════════════════════════════
+def _draw_part_rectangle(c, x, y, width, height, part):
+    from reportlab.lib import colors
+    c.setStrokeColor(colors.black)
+    c.rect(x, y, width, height, stroke=1, fill=0)
+    
+    c.setLineWidth(0.5)
+    # Top dimension line
+    c.line(x + 5, y + height + 5, x + width - 5, y + height + 5)
+    c.line(x + 5, y + height + 2, x + 5, y + height + 8)
+    c.line(x + width - 5, y + height + 2, x + width - 5, y + height + 8)
+    
+    c.setFont("Helvetica", 7)
+    c.drawCentredString(x + width / 2, y + height + 10, f'{part.width_in}" W ({part.width_mm:.0f} mm)')
+    
+    # Left dimension line
+    c.line(x - 5, y + 5, x - 5, y + height - 5)
+    c.line(x - 8, y + 5, x - 2, y + 5)
+    c.line(x - 8, y + height - 5, x - 2, y + height - 5)
+    
+    c.saveState()
+    c.translate(x - 12, y + height / 2)
+    c.rotate(90)
+    c.drawCentredString(0, 0, f'{part.height_in}" H ({part.height_mm:.0f} mm)')
+    c.restoreState()
+    
+    # Details
+    c.setFont("Helvetica-Bold", 14)
+    c.drawCentredString(x + width / 2, y + height / 2 + 20, str(part.part_id))
+    
+    c.setFont("Helvetica", 8)
+    c.drawCentredString(x + width / 2, y + height / 2 + 5, f"({part.quantity}x)")
+    
+    c.setFont("Helvetica", 7)
+    c.drawCentredString(x + width / 2, y + height / 2 - 10, str(part.material))
+    c.drawCentredString(x + width / 2, y + height / 2 - 20, str(part.finish))
+    
+    if hasattr(part, 'edge_banding') and part.edge_banding:
+        c.setFont("Helvetica-Oblique", 6)
+        c.drawCentredString(x + width / 2, y + 5, f"Edge: {part.edge_banding}")
 
 def generate_shop_drawings(
     config:         dict,
@@ -1124,21 +1116,25 @@ def generate_shop_drawings(
     output_path:    str | Path,
 ) -> Path:
     """
-    Generate the complete shop drawing PDF.
-
-    Args:
-        config:         project_config.json dict
-        unit_schedules: {unit_type: UnitSchedule} from pipeline
-        unit_totals:    {unit_type: count} unit quantities
-        output_path:    where to save the PDF
+    Generate the complete shop drawing PDF by stamping DXF PDFs onto title block pages.
     """
+    import tempfile
+    import os
+    from pathlib import Path
+    from reportlab.pdfgen import canvas
+    from pypdf import PdfWriter, PdfReader, Transformation
+    
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # Calculate total pages: cover + matrix + one per unit type
-    total_pages = 2 + len(unit_totals)
+    # Estimate total pages (can be imprecise, it's just for PAGE X OF Y)
+    total_pages = 2 + len(unit_totals) * 2
 
-    c = canvas.Canvas(str(output_path), pagesize=(PAGE_W, PAGE_H))
+    # 1. Create temporary reportlab PDF with title blocks and schedules
+    fd, temp_path = tempfile.mkstemp(suffix=".pdf")
+    os.close(fd)
+    
+    c = canvas.Canvas(temp_path, pagesize=(PAGE_W, PAGE_H))
     c.setTitle(f"Cabinet Shop Drawings — {config.get('project_name', 'Project')}")
     c.setAuthor("Italian Kitchen and Bath — AI Estimation System")
 
@@ -1151,15 +1147,78 @@ def generate_shop_drawings(
     c.showPage()
 
     # Pages 3+: Unit schedules
-    for page_num, unit_type in enumerate(unit_totals.keys(), 3):
+    page_num = 3
+    
+    # Keep track of which reportlab page index corresponds to a unit's CAD drawing
+    # page_num is 1-indexed. The Cover is page 1 (index 0). Matrix is page 2 (index 1).
+    # The first unit's CAD page will be page 3 (index 2).
+    cad_page_mapping = {}
+    
+    for unit_type in unit_totals.keys():
         schedule = unit_schedules.get(unit_type)
-        _draw_unit_page(c, config, unit_type, schedule, page_num, total_pages)
-        c.showPage()
+        cad_page_mapping[page_num - 1] = unit_type
+        page_num = _draw_unit_pages(c, config, unit_type, schedule, page_num, total_pages)
+        
+    sections_list = [
+        {'type': 'kitchen_base'},
+        {'type': 'kitchen_upper'},
+        {'type': 'kitchen_pantry'},
+        {'type': 'vanity_standard'},
+        {'type': 'vanity_ada'}
+    ]
+    
+    page_num = add_sections_to_pdf(c, config, sections_list, page_num, total_pages)
+    page_num = add_parts_lists_to_pdf(c, config, page_num, total_pages)
 
     c.save()
-    print(f"  [SUCCESS] Shop drawing PDF saved: {output_path}  ({total_pages} pages)")
-    return output_path
+    
+    # 2. Merge DXF PDFs onto the Title Block pages using PyPDF2
+    writer = PdfWriter()
+    reader_base = PdfReader(temp_path)
+    
+    dxf_dir = output_path.parent / "dxf"
+    
+    for page_idx, base_page in enumerate(reader_base.pages):
+        if page_idx in cad_page_mapping:
+            unit_type = cad_page_mapping[page_idx]
+            dxf_pdf_path = dxf_dir / f"{unit_type.replace(' ', '_')}.pdf"
+            
+            if dxf_pdf_path.exists():
+                reader_dxf = PdfReader(dxf_pdf_path)
+                if len(reader_dxf.pages) > 0:
+                    dxf_page = reader_dxf.pages[0]
+                    # Calculate translation to center the DXF perfectly inside the drawing area
+                    # Drawing area limits: DA_L=50, DA_R=1134, DA_B=50, DA_T=742
+                    da_w = 1134 - 50
+                    da_h = 742 - 50
+                    tx = 50 + (da_w - float(dxf_page.mediabox.width)) / 2
+                    ty = 50 + (da_h - float(dxf_page.mediabox.height)) / 2
+                    
+                    op = Transformation().translate(tx, ty)
+                    dxf_page.add_transformation(op)
+                    
+                    # Fix PyPDF clipping issue by expanding the mediabox before merging
+                    dxf_page.mediabox = base_page.mediabox
+                    dxf_page.cropbox = base_page.cropbox
+                    
+                    base_page.merge_page(dxf_page)
+                else:
+                    print(f"  [WARN] DXF PDF for {unit_type} has no pages.")
+            else:
+                print(f"  [WARN] DXF PDF not found for {unit_type}: {dxf_pdf_path}")
+                
+        writer.add_page(base_page)
 
+    with open(output_path, "wb") as f:
+        writer.write(f)
+        
+    try:
+        os.remove(temp_path)
+    except:
+        pass
+
+    print(f"  [SUCCESS] Shop drawing PDF saved: {output_path}  ({len(reader_base.pages)} pages)")
+    return output_path
 
 # ══════════════════════════════════════════════════════════════════════════
 # CLI TEST

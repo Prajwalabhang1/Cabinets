@@ -53,10 +53,10 @@ class CabinetGraphBuilder:
             upper_items = []
             
             for cab in ev.cabinets:
-                # convert width_mm to inches
-                w_in = round(cab.width_mm / 25.4)
-                h_in = round(cab.height_mm / 25.4)
-                d_in = round(cab.depth_mm / 25.4)
+                # convert width_in to inches
+                w_in = round(cab.width_in)
+                h_in = round(cab.height_in)
+                d_in = round(cab.depth_in)
                 cid = cab.cabinet_id or cab.code
 
                 cab_dict = {
@@ -202,7 +202,7 @@ class CabinetGraphBuilder:
         for ev in elevations:
             # Aggregate cabinets count
             for cab in ev.cabinets:
-                w_in = round(cab.width_mm / 25.4)
+                w_in = round(cab.width_in)
                 cid = cab.cabinet_id or cab.code
                 
                 # Check for special properties

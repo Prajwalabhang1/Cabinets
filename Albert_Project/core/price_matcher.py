@@ -28,7 +28,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
-from core.config import EUR_USD_RATE, CABINET_WIDTH_TOLERANCE_MM
+from core.config import EUR_USD_RATE, CABINET_WIDTH_TOLERANCE_IN
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -197,20 +197,21 @@ class PriceMatcher:
     def match(
         self,
         cabinet_type: str,
-        width_mm:     float,
+        width_in:     float,
         quantity:     int   = 1,
         tier:         int   = None,
-        tolerance_mm: float = CABINET_WIDTH_TOLERANCE_MM,
+        tolerance_in: float = CABINET_WIDTH_TOLERANCE_IN,
     ) -> MatchResult:
         """
         Find the best price list match for a cabinet.
 
         Args:
             cabinet_type: from VALID_CABINET_TYPES (e.g., "base", "upper_wall")
-            width_mm:     cabinet width in mm
+            width_in:     cabinet width in inches
+            tolerance_in: max width deviation for fuzzy match in inches
             quantity:     number of units
             tier:         price tier (1, 2, or 3). Defaults to self.tier.
-            tolerance_mm: max width deviation for fuzzy match
+
 
         Returns:
             MatchResult with price and match quality
@@ -218,6 +219,9 @@ class PriceMatcher:
         self._ensure_loaded()
         tier = tier or self.tier
         kw_list = _map_type_to_price_category(cabinet_type)
+
+        width_mm = width_in * 25.4
+        tolerance_mm = tolerance_in * 25.4
 
         best_entry:   Optional[PriceListEntry] = None
         best_delta:   float = math.inf

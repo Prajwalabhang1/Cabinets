@@ -595,18 +595,18 @@ function buildElevHTML(ev, unit, projectId) {
   const cropUrl  = `/api/projects/${projectId}/crops/${cropName}`;
 
   const rows = ev.cabinets.map(cab => {
-    const wCm = (cab.width_mm/10).toFixed(1);
-    const hCm = (cab.height_mm/10).toFixed(1);
-    const dCm = (cab.depth_mm/10).toFixed(1);
-    const wIn = mmToIn(cab.width_mm);
+    const wCm = (cab.width_in).toFixed(1);
+    const hCm = (cab.height_in).toFixed(1);
+    const dCm = (cab.depth_in).toFixed(1);
+    const wIn = (cab.width_in).toFixed(1);
     const c   = Math.round(cab.confidence * 100);
     const col = c >= 90 ? 'var(--success)' : c >= 70 ? 'var(--warn)' : 'var(--danger)';
     return `<tr>
       <td class="mono">${cab.item_num}</td>
       <td>${cab.cabinet_type}${cab.is_ada?' <span class="badge badge-ada" style="font-size:8px">ADA</span>':''}</td>
       <td class="mono">${cab.code || '—'}</td>
-      <td class="mono num">${wCm}</td><td class="mono num">${hCm}</td><td class="mono num">${dCm}</td>
-      <td class="mono num">${wIn}</td>
+      <td class="mono num">${wCm}"</td><td class="mono num">${hCm}"</td><td class="mono num">${dCm}"</td>
+      <td class="mono num">${wIn}"</td>
       <td class="mono num">${cab.quantity}</td>
       <td><div class="conf-bar"><span class="conf-pct" style="color:${col}">${c}%</span><span class="conf-pip"><span class="conf-fill" style="width:${c}%;background:${col}"></span></span></div></td>
       <td style="font-size:10.5px;color:var(--text-3)">${cab.notes || ''}</td>

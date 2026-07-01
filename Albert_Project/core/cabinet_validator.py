@@ -6,9 +6,9 @@
   grade sanity checks to validate the output before auto-approving.
 
   Validation rules:
-    1. All widths must be within ±25mm of a standard catalog size
-    2. Total cabinet run width must ≤ room width + 50mm tolerance
-    3. Base cabinet height: 720mm (or 864mm for ADA)
+    1. All widths must be within ±25in of a standard catalog size
+    2. Total cabinet run width must ≤ room width + 50in tolerance
+    3. Base cabinet height: 720in (or 864in for ADA)
     4. Every kitchen elevation must have ≥ 1 base + ≥ 1 upper
     5. No two corner cabinets side-by-side
     6. Confidence score per item must be ≥ 0.70 to auto-approve
@@ -26,9 +26,9 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 from core.config import (
-    STANDARD_WIDTHS_MM, CABINET_WIDTH_TOLERANCE_MM,
-    ROOM_WIDTH_TOLERANCE_MM, AUTO_APPROVE_CONFIDENCE,
-    BASE_CABINET_HEIGHT_STD_MM, BASE_CABINET_HEIGHT_ADA_MM,
+    STANDARD_WIDTHS_IN, CABINET_WIDTH_TOLERANCE_IN,
+    ROOM_WIDTH_TOLERANCE_IN, AUTO_APPROVE_CONFIDENCE,
+    BASE_CABINET_HEIGHT_STD_IN, BASE_CABINET_HEIGHT_ADA_IN,
 )
 from core.ai_vision_classifier import CabinetItem
 
@@ -67,13 +67,13 @@ class CabinetValidator:
 
     Usage:
         validator = CabinetValidator()
-        result = validator.validate(cabinets, room_width_mm=4267.2, is_ada=False)
+        result = validator.validate(cabinets, room_width_in=168.0, is_ada=False)
     """
 
     def validate(
         self,
         cabinets:      list[CabinetItem],
-        room_width_mm: Optional[float] = None,
+        room_width_in: Optional[float] = None,
         is_ada:        bool = False,
         location:      str = "unknown",  # for logging
     ) -> list[CabinetItem]:
@@ -82,7 +82,7 @@ class CabinetValidator:
         Returns corrected cabinets (in-place modifications).
         Also prints validation report.
         """
-        result = self.get_validation_result(cabinets, room_width_mm, is_ada, location)
+        result = self.get_validation_result(cabinets, room_width_in, is_ada, location)
 
         print(f"\n  Validation [{location}]: {result.summary}")
         for flag in result.flags:
@@ -97,7 +97,7 @@ class CabinetValidator:
     def get_validation_result(
         self,
         cabinets:      list[CabinetItem],
-        room_width_mm: Optional[float] = None,
+        room_width_in: Optional[float] = None,
         is_ada:        bool = False,
         location:      str = "unknown",
     ) -> ValidationResult:
@@ -132,49 +132,49 @@ class CabinetValidator:
             if cab.cabinet_type == "appliance_space":
                 continue  # appliances are fine with non-standard widths
 
-            # Auto-fix: width=0 means Gemini couldn't read it → snap to 762mm default
-            if cab.width_mm <= 0:
-                old_w = cab.width_mm
-                cab.width_mm = 762.0   # 30" — most common standard cabinet width
+            # Auto-fix: width=0 means Gemini couldn't read it → snap to 762in default
+            if cab.width_in <= 0:
+                old_w = cab.width_in
+                cab.width_in = 30.0   # 30" — most common standard cabinet width
                 corrections.append(
-                    f"Item {cab.item_num} ({cab.cabinet_type}) had width={old_w:.0f}mm "
-                    f"→ defaulted to 762mm (30\"). Verify against drawing."
+                    f"Item {cab.item_num} ({cab.cabinet_type}) had width={old_w:.0f}in "
+                    f"→ defaulted to 762in (30\"). Verify against drawing."
                 )
                 warnings.append(
-                    f"Item {cab.item_num} width was 0/null — used 762mm default"
+                    f"Item {cab.item_num} width was 0/null — used 30in default"
                 )
 
-            nearest, delta = _nearest_standard_width(cab.width_mm)
-            if delta > CABINET_WIDTH_TOLERANCE_MM:
+            nearest, delta = _nearest_standard_width(cab.width_in)
+            if delta > CABINET_WIDTH_TOLERANCE_IN:
                 flags.append(
                     f"Item {cab.item_num} ({cab.cabinet_type}) width "
-                    f"{cab.width_mm:.0f}mm is {delta:.0f}mm from nearest "
-                    f"standard ({nearest:.0f}mm)"
+                    f"{cab.width_in:.0f}in is {delta:.0f}in from nearest "
+                    f"standard ({nearest:.0f}in)"
                 )
             elif delta > 5:
                 # Auto-correct small deviations
-                old_w = cab.width_mm
-                cab.width_mm = nearest
+                old_w = cab.width_in
+                cab.width_in = nearest
                 corrections.append(
                     f"Item {cab.item_num} width snapped "
-                    f"{old_w:.0f}→{nearest:.0f}mm"
+                    f"{old_w:.0f}→{nearest:.0f}in"
                 )
 
         # ── Check 3: Height correctness ───────────────────────────────────
-        expected_base_h = BASE_CABINET_HEIGHT_ADA_MM if is_ada else BASE_CABINET_HEIGHT_STD_MM
+        expected_base_h = BASE_CABINET_HEIGHT_ADA_IN if is_ada else BASE_CABINET_HEIGHT_STD_IN
         BASE_TYPES = {"base", "sink_base", "dw_adjacent", "corner_base"}
 
         for cab in cabinets:
-            if cab.cabinet_type in BASE_TYPES and cab.height_mm > 0:
-                if is_ada and cab.height_mm > BASE_CABINET_HEIGHT_ADA_MM + 50:
+            if cab.cabinet_type in BASE_TYPES and cab.height_in > 0:
+                if is_ada and cab.height_in > BASE_CABINET_HEIGHT_ADA_IN + 50:
                     flags.append(
-                        f"Item {cab.item_num} ADA base height {cab.height_mm:.0f}mm "
-                        f"exceeds ADA max {BASE_CABINET_HEIGHT_ADA_MM:.0f}mm"
+                        f"Item {cab.item_num} ADA base height {cab.height_in:.0f}in "
+                        f"exceeds ADA max {BASE_CABINET_HEIGHT_ADA_IN:.0f}in"
                     )
-                elif not is_ada and abs(cab.height_mm - BASE_CABINET_HEIGHT_STD_MM) > 80:
+                elif not is_ada and abs(cab.height_in - BASE_CABINET_HEIGHT_STD_IN) > 80:
                     warnings.append(
-                        f"Item {cab.item_num} base height {cab.height_mm:.0f}mm "
-                        f"differs from standard {BASE_CABINET_HEIGHT_STD_MM:.0f}mm"
+                        f"Item {cab.item_num} base height {cab.height_in:.0f}in "
+                        f"differs from standard {BASE_CABINET_HEIGHT_STD_IN:.0f}in"
                     )
 
         # ── Check 4: At least 1 base + 1 upper in kitchen elevation ───────
@@ -193,18 +193,18 @@ class CabinetValidator:
                 warnings.append("No base cabinets detected — verify elevation is kitchen")
 
         # ── Check 5: Total width vs. room width ───────────────────────────
-        if room_width_mm and room_width_mm > 0:
-            total_run = sum(c.width_mm for c in cabinets)
-            delta = total_run - room_width_mm
-            if delta > ROOM_WIDTH_TOLERANCE_MM:
+        if room_width_in and room_width_in > 0:
+            total_run = sum(c.width_in for c in cabinets)
+            delta = total_run - room_width_in
+            if delta > ROOM_WIDTH_TOLERANCE_IN:
                 flags.append(
-                    f"Total cabinet run {total_run:.0f}mm exceeds "
-                    f"room width {room_width_mm:.0f}mm by {delta:.0f}mm"
+                    f"Total cabinet run {total_run:.0f}in exceeds "
+                    f"room width {room_width_in:.0f}in by {delta:.0f}in"
                 )
-            elif delta < -(ROOM_WIDTH_TOLERANCE_MM * 3):
+            elif delta < -(ROOM_WIDTH_TOLERANCE_IN * 3):
                 warnings.append(
-                    f"Total cabinet run {total_run:.0f}mm is significantly less "
-                    f"than room width {room_width_mm:.0f}mm — may be missing items"
+                    f"Total cabinet run {total_run:.0f}in is significantly less "
+                    f"than room width {room_width_in:.0f}in — may be missing items"
                 )
 
         # ── Check 6: No consecutive corner cabinets ───────────────────────
@@ -241,24 +241,24 @@ class CabinetValidator:
 # HELPERS
 # ══════════════════════════════════════════════════════════════════════════
 
-def _nearest_standard_width(width_mm: float) -> tuple[float, float]:
-    """Return (nearest_standard_mm, delta_mm)."""
-    if not STANDARD_WIDTHS_MM:
-        return width_mm, 0.0
-    nearest = min(STANDARD_WIDTHS_MM, key=lambda s: abs(s - width_mm))
-    return nearest, abs(nearest - width_mm)
+def _nearest_standard_width(width_in: float) -> tuple[float, float]:
+    """Return (nearest_standard_in, delta_in)."""
+    if not STANDARD_WIDTHS_IN:
+        return width_in, 0.0
+    nearest = min(STANDARD_WIDTHS_IN, key=lambda s: abs(s - width_in))
+    return nearest, abs(nearest - width_in)
 
 
 def validate_schedule(
     cabinets:      list[CabinetItem],
-    room_width_mm: Optional[float] = None,
+    room_width_in: Optional[float] = None,
     is_ada:        bool = False,
     location:      str = "unknown",
 ) -> tuple[list[CabinetItem], ValidationResult]:
     """Convenience wrapper. Returns (corrected_cabinets, validation_result)."""
     validator = CabinetValidator()
-    result    = validator.get_validation_result(cabinets, room_width_mm, is_ada, location)
-    corrected = validator.validate(cabinets, room_width_mm, is_ada, location)
+    result    = validator.get_validation_result(cabinets, room_width_in, is_ada, location)
+    corrected = validator.validate(cabinets, room_width_in, is_ada, location)
     return corrected, result
 
 
@@ -270,18 +270,18 @@ if __name__ == "__main__":
 
     # Sample cabinet schedule for Unit A1 - Elevation A
     test_cabinets = [
-        CabinetItem(1, "upper_wall",      762.0, 300.0, 330.0, "Left of range", "ELEVATION A", 0.92),
-        CabinetItem(2, "upper_wall",      900.0, 300.0, 330.0, "Right of range","ELEVATION A", 0.88),
-        CabinetItem(3, "microwave_shelf", 300.0, 460.0, 330.0, "Over range",    "ELEVATION A", 0.85),
-        CabinetItem(4, "base",            762.0, 720.0, 600.0, "Left base",     "ELEVATION A", 0.95),
-        CabinetItem(5, "appliance_space", 610.0, 720.0, 600.0, "DW space",      "ELEVATION A", 0.98),
-        CabinetItem(6, "base",            900.0, 720.0, 600.0, "Right base",    "ELEVATION A", 0.91),
+        CabinetItem(1, "upper_wall",      30.0, 12.0, 13.0, "Left of range", "ELEVATION A", 0.92),
+        CabinetItem(2, "upper_wall",      36.0, 12.0, 13.0, "Right of range","ELEVATION A", 0.88),
+        CabinetItem(3, "microwave_shelf", 12.0, 18.0, 13.0, "Over range",    "ELEVATION A", 0.85),
+        CabinetItem(4, "base",            30.0, 34.5, 24.0, "Left base",     "ELEVATION A", 0.95),
+        CabinetItem(5, "appliance_space", 24.0, 34.5, 24.0, "DW space",      "ELEVATION A", 0.98),
+        CabinetItem(6, "base",            36.0, 34.5, 24.0, "Right base",    "ELEVATION A", 0.91),
     ]
 
     validator = CabinetValidator()
     result = validator.get_validation_result(
         test_cabinets,
-        room_width_mm=4267.2,  # 14'
+        room_width_in=168.0,  # 14'
         is_ada=False,
         location="Unit A1 Elevation A",
     )

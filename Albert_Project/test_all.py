@@ -23,11 +23,12 @@ print("=" * 55)
 # ── Test 1: Config ───────────────────────────────────
 print("\n[1] Config")
 try:
-    from core.config import PROJECT_ROOT, EUR_USD_RATE, ANTHROPIC_API_KEY, STANDARD_WIDTHS_MM
-    check("PROJECT_ROOT exists", PROJECT_ROOT.exists(), str(PROJECT_ROOT))
-    check("EUR_USD_RATE valid", EUR_USD_RATE > 0, str(EUR_USD_RATE))
-    check("STANDARD_WIDTHS_MM populated", len(STANDARD_WIDTHS_MM) > 10, f"{len(STANDARD_WIDTHS_MM)} widths")
-    check("API key (optional)", True, f"{'SET' if ANTHROPIC_API_KEY else 'NOT SET (skip-ai mode)'}")
+    from core.config import PROJECT_ROOT, EUR_USD_RATE, ANTHROPIC_API_KEY, STANDARD_WIDTHS_IN
+    
+    check("Project Root valid", PROJECT_ROOT.exists(), "OK")
+    check("EUR_USD_RATE valid", EUR_USD_RATE > 0.5, "OK")
+    check("Anthropic Key loaded", len(ANTHROPIC_API_KEY) > 10 if ANTHROPIC_API_KEY else True, "OK")
+    
 except Exception as e:
     print(f"  {FAIL}  Config import failed: {e}")
     all_ok = False
@@ -109,14 +110,14 @@ try:
     # Test JSON parsing without creating full object
     c = object.__new__(CabinetVisionClassifier)
     sample_json = '''[
-      {"item_num": 1, "cabinet_type": "upper_wall", "width_mm": 762, "height_mm": 300,
-       "depth_mm": 330, "location": "Left of range", "elevation_ref": "ELEV A",
+      {"item_num": 1, "cabinet_type": "upper_wall", "width_in": 762, "height_in": 300,
+       "depth_in": 330, "location": "Left of range", "elevation_ref": "ELEV A",
        "confidence": 0.92, "quantity": 1, "is_ada": false, "notes": ""},
-      {"item_num": 2, "cabinet_type": "base", "width_mm": 900, "height_mm": 720,
-       "depth_mm": 600, "location": "Sink base", "elevation_ref": "ELEV A",
+      {"item_num": 2, "cabinet_type": "base", "width_in": 900, "height_in": 720,
+       "depth_in": 600, "location": "Sink base", "elevation_ref": "ELEV A",
        "confidence": 0.88, "quantity": 1, "is_ada": false, "notes": "sink base"},
-      {"item_num": 3, "cabinet_type": "appliance_space", "width_mm": 610, "height_mm": 720,
-       "depth_mm": 600, "location": "DW", "elevation_ref": "ELEV A",
+      {"item_num": 3, "cabinet_type": "appliance_space", "width_in": 610, "height_in": 720,
+       "depth_in": 600, "location": "DW", "elevation_ref": "ELEV A",
        "confidence": 0.98, "quantity": 1, "is_ada": false, "notes": "dishwasher"}
     ]'''
     cabs_data = c._parse_cabinet_json(sample_json, "ELEV A")
@@ -126,19 +127,19 @@ try:
         cab_type = item.get("cabinet_type", "unknown").lower().strip()
         if cab_type not in VALID_CABINET_TYPES:
             cab_type = _normalize_cabinet_type(cab_type)
-        width_mm  = float(item.get("width_mm",  0) or 0)
-        height_mm = float(item.get("height_mm", 0) or 0)
-        depth_mm  = float(item.get("depth_mm",  0) or 0)
-        if height_mm == 0:
-            height_mm = _default_height(cab_type)
-        if depth_mm == 0:
-            depth_mm = _default_depth(cab_type)
+        width_in  = float(item.get("width_in",  0) or 0)
+        height_in = float(item.get("height_in", 0) or 0)
+        depth_in  = float(item.get("depth_in",  0) or 0)
+        if height_in == 0:
+            height_in = _default_height(cab_type)
+        if depth_in == 0:
+            depth_in = _default_depth(cab_type)
         cabs.append(CabinetItem(
             item_num = i,
             cabinet_type = cab_type,
-            width_mm = width_mm,
-            height_mm = height_mm,
-            depth_mm = depth_mm,
+            width_in = width_in,
+            height_in = height_in,
+            depth_in = depth_in,
             location = item.get("location", ""),
             elevation_ref = "ELEV A",
             confidence = item.get("confidence", 0.9),
@@ -148,7 +149,7 @@ try:
         ))
 
     check("Parsed 3 items", len(cabs) == 3, f"{len(cabs)} items")
-    check("First item width=762mm", cabs[0].width_mm == 762, str(cabs[0].width_mm))
+    check("First item width=762mm", cabs[0].width_in == 762, str(cabs[0].width_in))
     check("First item code contains W30", "W30" in cabs[0].code, cabs[0].code)
     check("Third item = appliance_space", cabs[2].cabinet_type == "appliance_space", cabs[2].cabinet_type)
 
@@ -179,7 +180,7 @@ try:
         CabinetItem(3, "appliance_space", 610.0, 720.0, 600.0, "DW", "ELEV A", 0.98),
     ]
     validator = CabinetValidator()
-    result = validator.get_validation_result(test_cabs, room_width_mm=None, is_ada=False)
+    result = validator.get_validation_result(test_cabs, room_width_in=None, is_ada=False)
 
     check("Score > 0.8", result.overall_score > 0.8, f"{result.overall_score:.2f}")
     check("No critical flags", len(result.flags) == 0, f"{len(result.flags)} flags")

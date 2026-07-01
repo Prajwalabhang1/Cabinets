@@ -70,9 +70,9 @@ _IMPERIAL_RE = re.compile(
 )
 
 # Valid cabinet width range in mm (2" to 72")
-_MIN_CAB_MM = 50.0
-_MAX_CAB_MM = 2000.0
-_VALID_CM_RANGE = (5.0, 350.0)  # 5cm to 350cm = 50mm to 3500mm
+_MIN_CAB_IN = 2.0
+_MAX_CAB_IN = 2000.0
+_VALID_CM_RANGE = (5.0, 32.0)  # 5cm to 350cm = 50mm to 3500mm
 
 
 # ══════════════════════════════════════════════════════════════════════════
@@ -82,7 +82,7 @@ _VALID_CM_RANGE = (5.0, 350.0)  # 5cm to 350cm = 50mm to 3500mm
 @dataclass
 class ParsedDimension:
     """A single dimension value extracted from a text span."""
-    value_mm:    float           # canonical value in mm
+    value_in:    float           # canonical value in mm
     source_text: str             # original text e.g. "76.20" or "2' - 6\""
     dim_type:    str             # "METRIC" | "IMPERIAL" | "FRACTION"
     span_x:      float           # x-coordinate of span origin
@@ -96,11 +96,11 @@ class DimensionPair:
     A cross-validated dimension — metric + imperial values for the same measurement.
     When both are found and agree, confidence is HIGH.
     """
-    value_mm:     float
+    value_in:     float
     metric_text:  Optional[str]
     imperial_text: Optional[str]
     confidence:   str   # "HIGH" | "METRIC_ONLY" | "IMPERIAL_ONLY" | "MISMATCH"
-    mismatch_mm:  Optional[float] = None   # difference if mismatch
+    mismatch_in:  Optional[float] = None   # difference if mismatch
 
 
 @dataclass
@@ -117,7 +117,7 @@ class LabeledRect:
 # PARSING FUNCTIONS
 # ══════════════════════════════════════════════════════════════════════════
 
-def parse_metric_mm(text: str) -> Optional[float]:
+def parse_metric_in(text: str) -> Optional[float]:
     """
     Parse a metric dimension text → value in mm.
     Input is assumed to be in cm (the standard in these drawings).
@@ -145,7 +145,7 @@ def parse_metric_mm(text: str) -> Optional[float]:
     return val * 10.0  # cm → mm
 
 
-def parse_imperial_mm(text: str) -> Optional[float]:
+def parse_imperial_in(text: str) -> Optional[float]:
     """
     Parse an imperial dimension text → value in mm.
     Handles: "2' - 6\"", "3'-0\"", "7' - 6\"", "14'", "[2'-6\"]", "36\""
@@ -163,9 +163,9 @@ def parse_imperial_mm(text: str) -> Optional[float]:
         frac_den = int(bracket_m.group(4) or 1)
         frac = frac_num / frac_den if frac_den else 0
         total_inches = feet * 12 + inches + frac
-        mm = total_inches * 25.4
-        if _MIN_CAB_MM <= mm <= _MAX_CAB_MM * 3:
-            return mm
+        val_in = total_inches
+        if _MIN_CAB_IN <= val_in <= _MAX_CAB_IN * 3:
+            return val_in
         return None
 
     # Feet + inches form: "2' - 6\""
@@ -179,71 +179,71 @@ def parse_imperial_mm(text: str) -> Optional[float]:
         frac_den = int(fi_m.group(4) or 1)
         frac = frac_num / frac_den if frac_den else 0
         total_inches = feet * 12 + inches + frac
-        mm = total_inches * 25.4
-        if _MIN_CAB_MM <= mm <= _MAX_CAB_MM * 2:
-            return mm
+        val_in = total_inches
+        if _MIN_CAB_IN <= val_in <= _MAX_CAB_IN * 2:
+            return val_in
 
     # Feet only: "14'"
     feet_only = re.search(r'^(\d+)\s*[\'′]$', text)
     if feet_only:
         total_inches = int(feet_only.group(1)) * 12
-        mm = total_inches * 25.4
-        if _MIN_CAB_MM <= mm <= _MAX_CAB_MM * 2:
-            return mm
+        val_in = total_inches
+        if _MIN_CAB_IN <= val_in <= _MAX_CAB_IN * 2:
+            return val_in
 
     # Inches only: "36\""
     inches_only = re.search(r'^(\d+(?:\.\d+)?)\s*["″]$', text)
     if inches_only:
         mm = float(inches_only.group(1)) * 25.4
-        if _MIN_CAB_MM <= mm <= _MAX_CAB_MM * 2:
-            return mm
+        if _MIN_CAB_IN <= val_in <= _MAX_CAB_IN * 2:
+            return val_in
 
     return None
 
 
 def cross_validate(
-    metric_mm:   Optional[float],
-    imperial_mm: Optional[float],
-    tolerance_mm: float = 10.0,
+    metric_in:   Optional[float],
+    imperial_in: Optional[float],
+    tolerance_in: float = 0.5,
 ) -> DimensionPair:
     """
     Cross-validate metric and imperial values for the same dimension.
     Tolerance: ±10mm (accounts for rounding in cm vs imperial notation).
     """
-    if metric_mm is not None and imperial_mm is not None:
-        diff = abs(metric_mm - imperial_mm)
-        if diff <= tolerance_mm:
+    if metric_in is not None and imperial_in is not None:
+        diff = abs(metric_in - imperial_in)
+        if diff <= tolerance_in:
             return DimensionPair(
-                value_mm      = metric_mm,  # prefer metric (exact)
-                metric_text   = f"{metric_mm/10:.2f}cm",
-                imperial_text = f"{imperial_mm/25.4:.2f}\"",
+                value_in      = metric_in,  # prefer metric (exact)
+                metric_text   = f"{metric_in/10:.2f}cm",
+                imperial_text = f"{imperial_in/25.4:.2f}\"",
                 confidence    = "HIGH",
             )
         else:
             return DimensionPair(
-                value_mm      = metric_mm,
-                metric_text   = f"{metric_mm/10:.2f}cm",
-                imperial_text = f"{imperial_mm/25.4:.2f}\"",
+                value_in      = metric_in,
+                metric_text   = f"{metric_in/10:.2f}cm",
+                imperial_text = f"{imperial_in/25.4:.2f}\"",
                 confidence    = "MISMATCH",
-                mismatch_mm   = diff,
+                mismatch_in   = diff,
             )
-    elif metric_mm is not None:
+    elif metric_in is not None:
         return DimensionPair(
-            value_mm      = metric_mm,
-            metric_text   = f"{metric_mm/10:.2f}cm",
+            value_in      = metric_in,
+            metric_text   = f"{metric_in/10:.2f}cm",
             imperial_text = None,
             confidence    = "METRIC_ONLY",
         )
-    elif imperial_mm is not None:
+    elif imperial_in is not None:
         return DimensionPair(
-            value_mm      = imperial_mm,
+            value_in      = imperial_in,
             metric_text   = None,
-            imperial_text = f"{imperial_mm/25.4:.2f}\"",
+            imperial_text = f"{imperial_in/25.4:.2f}\"",
             confidence    = "IMPERIAL_ONLY",
         )
     else:
         return DimensionPair(
-            value_mm=0, metric_text=None, imperial_text=None,
+            value_in=0, metric_text=None, imperial_text=None,
             confidence="NONE",
         )
 
@@ -286,13 +286,13 @@ def classify_spans(spans: list[TextSpan]) -> dict[str, list[TextSpan]]:
         # Metric dimension: has decimal point and is in valid range
         is_metric = False
         if "." in t and len(t) < 12:
-            mv = parse_metric_mm(t)
+            mv = parse_metric_in(t)
             is_metric = mv is not None
 
         # Imperial dimension: contains foot or inch marks
         is_imperial = False
         if ("'" in t or '"' in t or "'" in t or "″" in t or "[" in t) and len(t) < 20:
-            iv = parse_imperial_mm(t)
+            iv = parse_imperial_in(t)
             is_imperial = iv is not None
 
         if is_label:
@@ -351,12 +351,12 @@ def associate_dims_to_rects(
         # Sort by distance, try to assign widths and heights
         nearby_dims.sort(key=lambda x: x[0])
         for _, ds in nearby_dims[:4]:
-            mm = parse_metric_mm(ds.text) or parse_imperial_mm(ds.text)
+            mm = parse_metric_in(ds.text) or parse_imperial_in(ds.text)
             if mm is None:
                 continue
             if ds.is_horizontal and width_mm is None:
                 width_mm = mm
-                dim_conf = "METRIC_ONLY" if parse_metric_mm(ds.text) else "IMPERIAL_ONLY"
+                dim_conf = "METRIC_ONLY" if parse_metric_in(ds.text) else "IMPERIAL_ONLY"
             elif not ds.is_horizontal and height_mm is None:
                 height_mm = mm
 
@@ -404,19 +404,19 @@ if __name__ == "__main__":
 
     print("=== Metric Parsing ===")
     for txt, expected in tests_metric:
-        result = parse_metric_mm(txt)
+        result = parse_metric_in(txt)
         status = "✅" if (result == expected or (result is None and expected is None)) else "❌"
         print(f"  {status}  '{txt}'  →  {result}  (expected {expected})")
 
     print("\n=== Imperial Parsing ===")
     for txt, expected in tests_imperial:
-        result = parse_imperial_mm(txt)
+        result = parse_imperial_in(txt)
         delta = abs((result or 0) - (expected or 0))
         status = "✅" if (result is not None and expected is not None and delta < 1) else "❌"
         print(f"  {status}  '{txt}'  →  {result:.1f if result else None}  (expected {expected})")
 
     print("\n=== Cross-Validation ===")
     pair = cross_validate(762.0, 762.0)
-    print(f"  76.20cm + [2'-6\"] → {pair.confidence} ({pair.value_mm}mm)")
+    print(f"  76.20cm + [2'-6\"] → {pair.confidence} ({pair.value_in}mm)")
     pair = cross_validate(762.0, 914.4)
-    print(f"  76.20cm + 36\"     → {pair.confidence} (diff={pair.mismatch_mm:.1f}mm)")
+    print(f"  76.20cm + 36\"     → {pair.confidence} (diff={pair.mismatch_in:.1f}mm)")

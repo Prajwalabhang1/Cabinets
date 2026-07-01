@@ -85,9 +85,9 @@ class CabinetItem:
     """One cabinet identified in an elevation drawing."""
     item_num:      int
     cabinet_type:  str            # from VALID_CABINET_TYPES
-    width_mm:      float
-    height_mm:     float
-    depth_mm:      float
+    width_in:      float
+    height_in:     float
+    depth_in:      float
     location:      str            # human-readable position note
     elevation_ref: str            # "ELEVATION A", "ELEVATION B", etc.
     confidence:    float          # 0.0–1.0
@@ -100,8 +100,8 @@ class CabinetItem:
     @property
     def code(self) -> str:
         """Generate a standard cabinet code from type and dimensions."""
-        w_in = round(self.width_mm / 25.4)
-        h_in = round(self.height_mm / 25.4)
+        w_in = round(self.width_in)
+        h_in = round(self.height_in)
         type_prefix = {
             # Width-only codes
             "base":             f"B{w_in}",
@@ -135,7 +135,7 @@ class ElevationResult:
     unit_type:        str                # "A1", "B1-ADA"
     project_name:     str
     cabinets:         list[CabinetItem] = field(default_factory=list)
-    total_width_mm:   Optional[float]   = None
+    total_width_in:   Optional[float]   = None
     is_ada:           bool              = False
     auto_approved:    bool              = False
     review_flags:     list[str]         = field(default_factory=list)

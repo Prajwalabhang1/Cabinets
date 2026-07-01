@@ -693,23 +693,23 @@ async def get_results(project_id: str):
                 unit_price_eur = 0.0
                 match_quality  = "NOT_FOUND"
                 matched_desc   = cab.cabinet_type
-                h_mm = cab.height_mm
-                d_mm = cab.depth_mm
+                h_mm = cab.height_in
+                d_mm = cab.depth_in
                 cab_code = cab.code
 
                 if matcher:
                     res = matcher.match(
-                        cab.cabinet_type, cab.width_mm, quantity=cab.quantity
+                        cab.cabinet_type, cab.width_in, quantity=cab.quantity
                     )
                     unit_price     = res.price_usd
                     unit_price_eur = res.price_eur
                     match_quality  = res.match_quality
                     if res.matched_entry:
                         matched_desc = res.matched_entry.description
-                        h_mm         = res.matched_entry.height_mm
-                        d_mm         = res.matched_entry.depth_mm
+                        h_mm         = res.matched_entry.height_in
+                        d_mm         = res.matched_entry.depth_in
                 else:
-                    code           = _generate_code(cab.cabinet_type, cab.width_mm)
+                    code           = _generate_code(cab.cabinet_type, cab.width_in)
                     unit_price     = get_fallback_price_usd(code)
                     unit_price_eur = unit_price / config.get("eur_usd_rate", 1.09)
                     match_quality  = "FALLBACK"
@@ -724,9 +724,9 @@ async def get_results(project_id: str):
                     "item_num":        cab.item_num,
                     "type":            cab.cabinet_type,
                     "code":            cab_code,
-                    "width_mm":        cab.width_mm,
-                    "height_mm":       h_mm,
-                    "depth_mm":        d_mm,
+                    "width_in":        cab.width_in,
+                    "height_in":       h_mm,
+                    "depth_in":        d_mm,
                     "confidence":      cab.confidence,
                     "quantity":        cab.quantity,
                     "unit_qty":        qty,
@@ -770,15 +770,15 @@ async def get_results(project_id: str):
                         "type": cab.get("cabinet_type"),
                         "confidence": conf,
                     })
-                if any(float(cab.get(k) or 0) <= 0 for k in ("width_mm", "height_mm", "depth_mm")):
+                if any(float(cab.get(k) or 0) <= 0 for k in ("width_in", "height_in", "depth_in")):
                     invalid_dimension_items.append({
                         "unit_type": unit_type,
                         "elevation": elev_label,
                         "item_num": cab.get("item_num"),
                         "type": cab.get("cabinet_type"),
-                        "width_mm": cab.get("width_mm"),
-                        "height_mm": cab.get("height_mm"),
-                        "depth_mm": cab.get("depth_mm"),
+                        "width_in": cab.get("width_in"),
+                        "height_in": cab.get("height_in"),
+                        "depth_in": cab.get("depth_in"),
                     })
 
     for item in line_items:

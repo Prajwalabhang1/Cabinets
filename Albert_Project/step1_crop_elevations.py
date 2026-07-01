@@ -366,7 +366,7 @@ def build_structured_json(all_spans, rects, crop_zones, cab_hits, saved_crops):
                 "The pre-extracted text dimensions are provided. "
                 "Identify every cabinet in this elevation: "
                 "type (upper_wall/base/sink_base/dw_adjacent/pantry/vanity), "
-                "width_mm, height_mm, depth_mm, location note, confidence score. "
+                "width_in, height_in, depth_in, location note, confidence score. "
                 "Return a JSON array of cabinets."
             ),
             "images_to_send": [s["filename"] for s in saved_crops
@@ -415,18 +415,18 @@ def print_ai_ready_summary(output, out_dir):
        {
          "item": 1,
          "type": "upper_wall",
-         "width_mm": 762,
-         "height_mm": 720,
-         "depth_mm": 330,
+         "width_in": 762,
+         "height_in": 720,
+         "depth_in": 330,
          "location": "Left of range, Elevation A",
          "confidence": 0.92
        },
        {
          "item": 2,
          "type": "base",
-         "width_mm": 900,
-         "height_mm": 720,
-         "depth_mm": 610,
+         "width_in": 900,
+         "height_in": 720,
+         "depth_in": 610,
          "location": "Sink base, Elevation A",
          "confidence": 0.88
        },

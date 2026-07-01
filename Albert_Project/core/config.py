@@ -26,12 +26,15 @@ GEMINI_API_KEY:    str = os.getenv("GEMINI_API_KEY", "")
 GROQ_API_KEY:      str = os.getenv("GROQ_API_KEY", "")
 OPENROUTER_API_KEY: str = os.getenv("OPENROUTER_API_KEY", "")
 
-# Legacy provider constants retained for older experiments; production vision
-# extraction uses OpenRouter Gemini from core.ai_vision_classifier.
-CLAUDE_MODEL        = "claude-3-5-sonnet-20241022"
-CLAUDE_MAX_TOKENS   = 4096
-CLAUDE_TEMPERATURE  = 0.1
-GPT4O_MODEL         = "gpt-4o"
+# Legacy provider constants retained for older experiments; production
+# extraction uses OpenRouter Gemini from core.ai_vision_classifier
+CLAUDE_MODEL       = "claude-3-5-sonnet-20241022"
+CLAUDE_MAX_TOKENS  = 4096
+CLAUDE_TEMPERATURE = 0.1
+GPT4O_MODEL        = "gpt-4o"
+
+# Production vision extraction model
+VISION_MODEL = "google/gemini-pro-vision"
 
 # ── Currency & Unit Conversion ──────────────────────────────────────────────
 EUR_USD_RATE: float = float(os.getenv("EUR_USD_RATE", "1.09"))
@@ -55,21 +58,20 @@ DEFAULT_MISC_ALLOWANCE:            float = float(os.getenv("MISC_ALLOWANCE",    
 DEFAULT_CABINETS_PER_CONTAINER:    int   = int(os.getenv("CABINETS_PER_CONTAINER",      "220"))
 
 # ── Validation Thresholds ───────────────────────────────────────────────────
-# Cabinet width must be within ±25mm of a standard catalog size to auto-approve
-CABINET_WIDTH_TOLERANCE_MM  = 25.0
-# Total cabinet run must be within ±50mm of room width to auto-approve
-ROOM_WIDTH_TOLERANCE_MM     = 50.0
+# Cabinet width must be within ±1 inch of a standard catalog size to auto-approve
+CABINET_WIDTH_TOLERANCE_IN  = 1.0
+# Total cabinet run must be within ±2 inches of room width to auto-approve
+ROOM_WIDTH_TOLERANCE_IN     = 2.0
 # AI confidence threshold for auto-approval (no human review needed)
 AUTO_APPROVE_CONFIDENCE     = 0.90
 # Standard base cabinet height (non-ADA)
-BASE_CABINET_HEIGHT_STD_MM  = 720.0
+BASE_CABINET_HEIGHT_STD_IN  = 34.5
 # ADA base cabinet height (max 34" countertop)
-BASE_CABINET_HEIGHT_ADA_MM  = 864.0
+BASE_CABINET_HEIGHT_ADA_IN  = 32.5
 
-# ── Standard Cabinet Widths (industry standard, in mm) ─────────────────────
-STANDARD_WIDTHS_MM = [
-    150, 200, 250, 300, 350, 400, 450, 500, 550, 600,
-    610, 762, 900, 1050, 1200, 1500,  # 24", 30", 35.4", 41.3", 47.2", 59"
+# ── Standard Cabinet Widths (industry standard, in inches) ─────────────────────
+STANDARD_WIDTHS_IN = [
+    6.0, 9.0, 12.0, 15.0, 18.0, 21.0, 24.0, 27.0, 30.0, 33.0, 36.0, 39.0, 42.0, 45.0, 48.0
 ]
 
 # ── Region Detection Labels ─────────────────────────────────────────────────
@@ -146,7 +148,7 @@ if __name__ == "__main__":
         for w in warnings:
             print(f"   • {w}")
     else:
-        print("✅ Configuration OK")
+        print(" Configuration OK")
     print(f"\n   EUR/USD rate: {EUR_USD_RATE}")
     print(f"   OpenRouter key: {'SET' if OPENROUTER_API_KEY else 'NOT SET'}")
     print(f"   Auto-approve threshold: {AUTO_APPROVE_CONFIDENCE}")

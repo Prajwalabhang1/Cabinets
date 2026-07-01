@@ -10,7 +10,7 @@ for ev in data['elevations']:
     cabs = [c for c in ev['cabinets'] if c['cabinet_type'] != 'appliance_space']
     print(f"  ELEVATION: {ev['elevation_label']}  (avg confidence: {ev['avg_confidence']:.0%})")
     for c in ev['cabinets']:
-        w_mm = c['width_mm']
+        w_mm = c['width_in']
         w_in = round(w_mm / 25.4)
         marker = "[APPL]" if c['cabinet_type'] == 'appliance_space' else "      "
         note = c['notes'][:35] if c['notes'] else ""
