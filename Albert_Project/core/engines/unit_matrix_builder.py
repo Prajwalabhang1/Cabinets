@@ -2,36 +2,9 @@ import json
 import os
 from typing import Dict, List, Any
 from collections import defaultdict
-import hashlib
+from core.engines.layout_fingerprint_engine import LayoutFingerprintEngine
 
 class UnitMatrixBuilder:
-    @staticmethod
-    def _generate_signature(unit: Dict[str, Any], type_key: str) -> str:
-        """Generates a unique deterministic signature based on physical layout properties."""
-        components = unit.get(type_key, [])
-        if not components:
-            return "NONE"
-            
-        try:
-            sorted_comps = sorted(components, key=lambda c: c.get('x', 0))
-        except KeyError:
-            sorted_comps = components
-            
-        sequence = []
-        for c in sorted_comps:
-            nom = c.get('nomenclature', c.get('id', ''))
-            sequence.append(nom)
-            
-        is_ada = unit.get('is_ada', False)
-        
-        signature_dict = {
-            "sequence": sequence,
-            "ada": is_ada
-        }
-        
-        sig_str = json.dumps(signature_dict, sort_keys=True)
-        return hashlib.md5(sig_str.encode()).hexdigest()
-
     @staticmethod
     def save_signatures(signatures_map: Dict[str, str], filepath: str = "data/layout_signatures.json"):
         os.makedirs(os.path.dirname(filepath), exist_ok=True)
@@ -61,8 +34,13 @@ class UnitMatrixBuilder:
             unit_qty = unit.get('quantity', 1)
             is_ada = unit.get('is_ada', False)
             
-            k_sig = UnitMatrixBuilder._generate_signature(unit, 'kitchen')
-            v_sig = UnitMatrixBuilder._generate_signature(unit, 'vanity')
+            k_sig = "NONE"
+            if 'kitchen' in unit:
+                k_sig = LayoutFingerprintEngine.generate_fingerprint({'cabinets': unit['kitchen'], 'is_ada': is_ada})
+                
+            v_sig = "NONE"
+            if 'vanity' in unit:
+                v_sig = LayoutFingerprintEngine.generate_fingerprint({'cabinets': unit['vanity'], 'is_ada': is_ada})
             
             k_type = "NONE"
             if k_sig != "NONE":

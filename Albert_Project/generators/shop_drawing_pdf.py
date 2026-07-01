@@ -202,34 +202,126 @@ def _draw_cover(c: canvas.Canvas, config: dict, unit_totals: dict, total_pages: 
     # Project Info Block
     c.setFillColor(NAVY)
     c.setFont(_FONT_BOLD, 22)
-    c.drawCentredString((DA_L + DA_R) / 2, PAGE_H * 0.44,
+    c.drawCentredString((DA_L + DA_R) / 2, PAGE_H * 0.65,
                          "CABINET SHOP DRAWINGS")
 
     c.setFont(_FONT_BOLD, 18)
-    c.drawCentredString((DA_L + DA_R) / 2, PAGE_H * 0.37,
+    c.drawCentredString((DA_L + DA_R) / 2, PAGE_H * 0.60,
                          config.get("project_name", "PROJECT"))
 
     c.setFont(_FONT_REG, 11)
-    c.drawCentredString((DA_L + DA_R) / 2, PAGE_H * 0.31,
+    c.drawCentredString((DA_L + DA_R) / 2, PAGE_H * 0.56,
                          config.get("address", ""))
 
-    # Info table
-    info_items = [
-        ("Project No:", config.get("project_id", "")),
-        ("Date:",       config.get("date", "")),
-        ("Finish:",     config.get("finish", "Standard 1")),
-        ("Door Style:", config.get("door_style", "Shaker")),
-        ("Total Units:", str(sum(unit_totals.values()))),
-        ("Revision:",   config.get("revision", "1.0")),
-    ]
-    start_y = PAGE_H * 0.25
-    col_x = (DA_L + DA_R) / 2 - 120
-    for i, (label, val) in enumerate(info_items):
-        y = start_y - i * 16
-        c.setFont(_FONT_BOLD, 9)
-        c.drawRightString(col_x + 80, y, label)
-        c.setFont(_FONT_REG, 9)
-        c.drawString(col_x + 85, y, val)
+    # Finish Box
+    finish_x = DA_L + 60
+    finish_y = PAGE_H * 0.45
+    c.setStrokeColor(NAVY)
+    c.setLineWidth(1.0)
+    c.rect(finish_x, finish_y - 60, 240, 60, stroke=1, fill=0)
+    
+    # Title "FINISH" with dark background in the box header
+    c.setFillColor(NAVY)
+    c.rect(finish_x, finish_y - 18, 240, 18, stroke=1, fill=1)
+    c.setFillColor(WHITE)
+    c.setFont(_FONT_BOLD, 10)
+    c.drawCentredString(finish_x + 120, finish_y - 12, "FINISH")
+    
+    c.setFillColor(NAVY)
+    c.setFont(_FONT_BOLD, 12)
+    c.drawCentredString(finish_x + 120, finish_y - 42, config.get("finish", "Standard 1"))
+    
+    # Door style underneath
+    c.setFont(_FONT_REG, 10)
+    c.drawCentredString(finish_x + 120, finish_y - 55, f"Door Style: {config.get('door_style', 'Shaker')}")
+
+    # General Notes Section
+    notes_x = DA_L + 60
+    notes_y = PAGE_H * 0.30
+    c.setFillColor(NAVY)
+    c.setFont(_FONT_BOLD, 12)
+    c.drawString(notes_x, notes_y, "GENERAL NOTES:")
+    
+    c.setFont(_FONT_REG, 9)
+    y_offset = notes_y - 15
+    notes = config.get("general_notes", [])
+    if not notes:
+        notes = [
+            "1. ALL CABINETS ARE 90CM DEPTH",
+            "2. FINISH: K019 SILVER LIBERTY ELM",
+            "3. ALL HARDWARE CONCEALED",
+            "4. SOFT CLOSE DOORS AND DRAWERS STANDARD",
+            "5. ADA UNITS: BASE CABINET HEIGHT 864MM MAX / COUNTERTOP HEIGHT 34\" MAX",
+            "6. ALL DIMENSIONS MUST BE VERIFIED IN FIELD PRIOR TO FABRICATION.",
+            "7. ALL SHOP DRAWINGS ARE SUBJECT TO ARCHITECTURAL APPROVAL.",
+            "8. INSTALLATION AS PER MANUFACTURER'S SPECIFICATIONS.",
+            "9. REFER TO ARCHITECTURAL PLANS FOR FINISHED WALL / FINISHED FLOOR REFERENCES.",
+            "10. ELECTRICAL, PLUMBING & HVAC EXCLUDED FROM MILLWORK SCOPE.",
+            "11. COMPLIANCE WITH ADA GUIDELINES IS THE RESPONSIBILITY OF THE GC/ARCHITECT."
+        ]
+    
+    for note in notes:
+        c.drawString(notes_x + 10, y_offset, note)
+        y_offset -= 12
+
+    # Appliance Schedule
+    app_x = DA_L + 400
+    app_y = PAGE_H * 0.45
+    c.setFillColor(NAVY)
+    c.setFont(_FONT_BOLD, 12)
+    c.drawString(app_x, app_y, "APPLIANCE SCHEDULE:")
+    
+    c.setFont(_FONT_BOLD, 9)
+    c.drawString(app_x + 10, app_y - 15, "REGULAR UNITS:")
+    c.setFont(_FONT_REG, 8)
+    ay = app_y - 25
+    for app in config.get("appliances_regular", []):
+        c.drawString(app_x + 20, ay, app)
+        ay -= 10
+        
+    ay -= 10
+    c.setFont(_FONT_BOLD, 9)
+    c.drawString(app_x + 10, ay, "ADA UNITS:")
+    c.setFont(_FONT_REG, 8)
+    ay -= 10
+    for app in config.get("appliances_ada", []):
+        c.drawString(app_x + 20, ay, app)
+        ay -= 10
+
+    # Revision Log
+    rev_x = DA_R - 350
+    rev_y = PAGE_H * 0.45
+    c.setFillColor(NAVY)
+    c.setFont(_FONT_BOLD, 12)
+    c.drawString(rev_x, rev_y, "REVISIONS:")
+    
+    # Table header
+    c.setStrokeColor(NAVY)
+    c.setLineWidth(1.0)
+    c.rect(rev_x, rev_y - 150, 300, 140, stroke=1, fill=0)
+    
+    # Draw cols
+    c.line(rev_x + 30, rev_y - 10, rev_x + 30, rev_y - 150)
+    c.line(rev_x + 80, rev_y - 10, rev_x + 80, rev_y - 150)
+    c.line(rev_x + 140, rev_y - 10, rev_x + 140, rev_y - 150)
+    
+    # Draw rows
+    for i in range(11):
+        ry = (rev_y - 10) - (14 * i)
+        c.line(rev_x, ry, rev_x + 300, ry)
+        
+    c.setFont(_FONT_BOLD, 8)
+    c.drawString(rev_x + 5, rev_y - 20, "NO.")
+    c.drawString(rev_x + 35, rev_y - 20, "INITIALS")
+    c.drawString(rev_x + 90, rev_y - 20, "DATE")
+    c.drawString(rev_x + 150, rev_y - 20, "DESCRIPTION")
+    
+    # Insert current revision
+    c.setFont(_FONT_REG, 8)
+    c.drawString(rev_x + 5, rev_y - 34, config.get("revision", "1.0"))
+    c.drawString(rev_x + 35, rev_y - 34, config.get("drawn_by", "A.C"))
+    c.drawString(rev_x + 90, rev_y - 34, config.get("date", ""))
+    c.drawString(rev_x + 150, rev_y - 34, "INITIAL ISSUE / FOR APPROVAL")
 
     # Footer
     c.setFont(_FONT_REG, 8)
@@ -262,12 +354,12 @@ def _draw_casa_familia_matrix(c: canvas.Canvas, config: dict, unit_totals: dict,
     _draw_title_block(c, config, 2, total_pages, "PROJECT MATRIX")
 
     c.setFillColor(NAVY)
-    c.setFont(_FONT_BOLD, 14)
+    c.setFont(_FONT_BOLD, 18)
     c.drawString(DA_L + 10, DA_T - 20, "PROJECT CABINET MATRIX")
 
-    c.setFont(_FONT_REG, 8)
+    c.setFont(_FONT_BOLD, 11)
     c.setFillColor(colors.black)
-    c.drawString(DA_L + 10, DA_T - 32, config.get("project_name", "CASA FAMILIA"))
+    c.drawString(DA_L + 10, DA_T - 36, config.get("project_name", "CASA FAMILIA"))
 
     # Table dimensions
     cols = [120, 48, 38, 38, 38, 38, 95, 62.5, 62.5]
@@ -287,13 +379,15 @@ def _draw_casa_familia_matrix(c: canvas.Canvas, config: dict, unit_totals: dict,
     c.setStrokeColor(NAVY)
     c.setLineWidth(0.5)
 
-    # Draw vertical lines in header
+    # Draw vertical lines in header (Outer group border)
+    c.setLineWidth(1.0)
     c.line(col_x[1], ty - 48, col_x[1], ty)
     c.line(col_x[2], ty - 48, col_x[2], ty)
     c.line(col_x[6], ty - 48, col_x[6], ty)
     c.line(col_x[7], ty - 48, col_x[7], ty)
 
-    # Sub-columns V1-V4 vertical lines
+    # Sub-columns V1-V4 vertical lines (Inner cell border)
+    c.setLineWidth(0.5)
     c.line(col_x[3], ty - 32, col_x[3], ty - 16)
     c.line(col_x[4], ty - 32, col_x[4], ty - 16)
     c.line(col_x[5], ty - 32, col_x[5], ty - 16)
@@ -310,23 +404,24 @@ def _draw_casa_familia_matrix(c: canvas.Canvas, config: dict, unit_totals: dict,
 
     # Header texts
     c.setFillColor(NAVY)
-    c.setFont(_FONT_BOLD, 8)
-
+    
+    # Main headers
+    c.setFont(_FONT_BOLD, 9)
     c.drawCentredString(tx + 60, ty - 28, "UNIT NAME")
     c.drawCentredString(col_x[1] + 24, ty - 10, "QTY")
     c.drawCentredString(col_x[1] + 24, ty - 35, "TOTAL")
     c.drawCentredString(col_x[2] + 76, ty - 12, "VANITY TYPE")
+    c.drawCentredString(col_x[6] + 47.5, ty - 28, "KITCHEN TYPE")
+    c.drawCentredString(col_x[7] + 62.5, ty - 12, "KITCHEN TYPE")
 
+    # Sub-headers
+    c.setFont(_FONT_BOLD, 8)
     c.drawCentredString(col_x[2] + 19, ty - 26, "V1")
     c.drawCentredString(col_x[3] + 19, ty - 26, "V2")
     c.drawCentredString(col_x[4] + 19, ty - 26, "V3")
     c.drawCentredString(col_x[5] + 19, ty - 26, "V4")
-
     c.drawCentredString(col_x[2] + 76, ty - 42, "VANITIES")
-
-    c.drawCentredString(col_x[6] + 47.5, ty - 28, "KITCHEN TYPE")
     
-    c.drawCentredString(col_x[7] + 62.5, ty - 12, "KITCHEN TYPE")
     c.drawCentredString(col_x[7] + 31.25, ty - 26, "TYPE")
     c.drawCentredString(col_x[8] + 31.25, ty - 26, "QTY")
     c.drawCentredString(col_x[7] + 62.5, ty - 42, "KITCHENS")
@@ -472,7 +567,7 @@ def _draw_casa_familia_matrix(c: canvas.Canvas, config: dict, unit_totals: dict,
 
     # 6. Summary Totals below table (just like in the image)
     sum_y = ry - 20
-    c.setFont(_FONT_BOLD, 8)
+    c.setFont(_FONT_BOLD, 10)
     c.setFillColor(colors.black)
 
     # Totals numbers centered under respective columns
@@ -486,6 +581,7 @@ def _draw_casa_familia_matrix(c: canvas.Canvas, config: dict, unit_totals: dict,
 
     # Vanity labels below totals numbers
     lbl_y = sum_y - 12
+    c.setFont(_FONT_BOLD, 9)
     c.drawCentredString(tx + sum(cols[:2]) + cols[2] / 2, lbl_y, "V1")
     c.drawCentredString(tx + sum(cols[:3]) + cols[3] / 2, lbl_y, "V2")
     c.drawCentredString(tx + sum(cols[:4]) + cols[4] / 2, lbl_y, "V3")

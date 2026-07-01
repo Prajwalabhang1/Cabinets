@@ -640,17 +640,69 @@ def run_pipeline(
             for ut, cnt in unit_totals.items():
                 matrix_counts[(first_bldg, 1, ut)] = cnt
 
+    # Build unit data for UnitMatrixBuilder
+    unit_data = []
     for (bldg, fl, ut), cnt in matrix_counts.items():
         if cnt > 0:
+            schedule = unit_schedules.get(ut)
+            if schedule:
+                # Convert Cabinet objects to dicts for the fingerprint engine
+                k_cabs = [vars(c) if hasattr(c, '__dict__') else c for c in schedule.kitchen_cabinets]
+                v_cabs = [vars(c) if hasattr(c, '__dict__') else c for c in schedule.bath_cabinets]
+                
+                unit_data.append({
+                    "name": ut,
+                    "quantity": cnt,
+                    "is_ada": ut in ada_units,
+                    "building": bldg,
+                    "floor": fl,
+                    "kitchen": k_cabs,
+                    "vanity": v_cabs
+                })
+                
+    # Re-import UnitMatrixBuilder dynamically since it might not be at the top
+    from core.engines.unit_matrix_builder import UnitMatrixBuilder
+    
+    # Process the units to get dynamic K and V types
+    built_matrix = UnitMatrixBuilder.build_unit_matrix(unit_data)
+    
+    # Map back to unit_matrix_list
+    for row in built_matrix:
+        # built_matrix returns flat list but we originally tracked building/floor in unit_data
+        # Actually UnitMatrixBuilder drops building/floor. We should enrich it.
+        # Wait, build_unit_matrix preserves unit_name, unit_qty, kitchen_type, vanity_type.
+        pass
+    
+    # Let's fix UnitMatrixBuilder integration.
+    # The original loop just appended to unit_matrix_list.
+    # We can run UnitMatrixBuilder to get the mapping of unit_type -> types
+    type_map = {}
+    for res in built_matrix:
+        type_map[res['unit_name']] = {
+            'kitchen_type': res['kitchen_type'],
+            'vanity_type': res['vanity_type']
+        }
+        
+    for (bldg, fl, ut), cnt in matrix_counts.items():
+        if cnt > 0:
+            k_type = type_map.get(ut, {}).get('kitchen_type', 'K1')
+            v_type = type_map.get(ut, {}).get('vanity_type', 'V1')
+            
             unit_matrix_list.append({
                 "building": bldg,
                 "floor": fl,
                 "unit_type": ut,
                 "count": cnt,
-                "kitchen_type": "K1",
-                "bathroom_type": "V1",
+                "kitchen_type": k_type,
+                "bathroom_type": v_type,
                 "is_ada": ut in ada_units
             })
+
+    # Save to JSON like it was expected
+    json_dir = output_dir / "json"
+    json_dir.mkdir(exist_ok=True)
+    with open(json_dir / "unit_matrix_final.json", "w") as f:
+        json.dump(unit_matrix_list, f, indent=2)
 
     # ── Step 3–4: Pricing + Job Costing ───────────────────────────────────
     print(f"\n  STEP 3: Price Matching (Euro list -> USD)")
@@ -846,69 +898,20 @@ def run_pipeline(
     from core.vanity_layout_classifier import VanityLayoutClassifier
     from core.cabinet_graph_builder import CabinetGraphBuilder
 
-    kitchen_classifier = KitchenLayoutClassifier()
-    vanity_classifier = VanityLayoutClassifier()
+    # We can remove kitchen_classifier and vanity_classifier entirely since we rely on LayoutFingerprintEngine now.
     graph_builder = CabinetGraphBuilder()
 
     for ut, schedule in unit_schedules.items():
-        vanity_cabs_list = []
-        for ev in schedule.elevations:
-            for cab in ev.cabinets:
-                if cab.cabinet_type in ("vanity", "medicine_cabinet", "linen"):
-                    vanity_cabs_list.append({
-                        "type": cab.cabinet_type,
-                        "width_in": cab.width_in,
-                        "is_ada": cab.is_ada,
-                        "notes": cab.notes,
-                        "location": cab.location
-                    })
-        bathroom_type = vanity_classifier.get_vanity_type(vanity_cabs_list)
-
-        walls_info = []
-        kitchen_appliances = []
-        for ev in schedule.elevations:
-            if ev.elevation_label.upper() in ("BATH", "VANITY", "MASTER_BATH"):
-                continue
-            wall_name = ev.elevation_label.replace("ELEVATION ", "").strip()
-            if wall_name.upper() in ("KITCHEN", "BATH", "VANITY", "MASTER_BATH"):
-                wall_name = "A"
-            cabs_on_wall = []
-            for cab in ev.cabinets:
-                w_in = round(cab.width_in)
-                cabs_on_wall.append({
-                    "id": cab.cabinet_id or cab.code,
-                    "type": cab.cabinet_type,
-                    "x": 0,
-                    "notes": cab.notes
-                })
-            wall_len = sum(round(c.width_in) for c in ev.cabinets)
-            walls_info.append({
-                "name": wall_name,
-                "length": wall_len or 90.0,
-                "cabinets": cabs_on_wall
-            })
-            for app in ev.appliances:
-                kitchen_appliances.append({
-                    "type": app.get("type", "REF"),
-                    "wall": wall_name,
-                    "x": app.get("x_in", 0)
-                })
-
-        if not walls_info:
-            walls_info.append({
-                "name": "A",
-                "length": 90.0,
-                "cabinets": []
-            })
-
-        kitchen_type = kitchen_classifier.get_kitchen_type(walls_info, kitchen_appliances, layout_shape="straight")
+        # Get types from the dynamically generated type_map built earlier
+        k_type = type_map.get(ut, {}).get('kitchen_type', 'K1')
+        v_type = type_map.get(ut, {}).get('vanity_type', 'V1')
 
         # Build final schemas
         shop_drawing = graph_builder.build_shop_drawing_schema(
             unit_type = ut,
             elevations = schedule.elevations,
-            kitchen_type = kitchen_type,
-            bathroom_type = bathroom_type,
+            kitchen_type = k_type,
+            bathroom_type = v_type,
             layout_shape = "straight"
         )
         cost_drawing = graph_builder.build_cost_schema(
@@ -917,8 +920,8 @@ def run_pipeline(
             is_ada = schedule.is_ada
         )
 
-        schedule.kitchen_type = kitchen_type
-        schedule.bathroom_type = bathroom_type
+        schedule.kitchen_type = k_type
+        schedule.bathroom_type = v_type
         schedule.shop_drawing_schema = shop_drawing
         schedule.cost_schema = cost_drawing
 
